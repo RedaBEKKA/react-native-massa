@@ -7,14 +7,43 @@ const windowHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   ChatCard: {
     position: "relative",
-    height: '100%',
+    height: "100%",
     borderRadius: 20,
-    // backgroundColor: colors.green1,
     marginVertical: 8,
-    overflow:'hidden'
-  
+    overflow: "hidden",
+  },
+  MobCotching: {
+    position: "relative",
+    borderRadius: 20,
+    marginVertical: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    overflow: "hidden",
+    alignItems: "center",
+  },
+  DeskLeftBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: "100%",
+    width: "60%",
   },
 
+  LeftBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: "100%",
+    width: "60%",
+  },
+
+  DesktopBoxImage: {
+    backgroundColor: "#FBF6F360",
+    borderBottomRightRadius: 80,
+    borderTopRightRadius: 80,
+    height: "100%",
+    width: "40%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   BoxImage: {
     backgroundColor: "#FBF6F360",
     borderBottomRightRadius: 40,
@@ -25,52 +54,11 @@ const styles = StyleSheet.create({
     width: "30%",
     marginRight: 15,
   },
-  DesktopBoxImage: {
-    backgroundColor: "#FBF6F360",
-    borderBottomRightRadius: 80,
-    borderTopRightRadius: 80,
-    height: "100%",
-    width: "40%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  MobCotching: {
-    position: "relative",
-    // height: '100%',
-    borderRadius: 20,
-    // backgroundColor: colors.green1,
-    marginVertical: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    overflow: "hidden",
-    alignItems: "center",
-  },
-  LeftBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: "100%",
-    width: "60%",
-  },
-  DeskLeftBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: "100%",
-    width: "60%",
-  },
+
   image: {
     width: 40,
     height: 35,
     zIndex: 2,
-  },
-  txt: {
-    width: 60,
-    height: 60,
-    padding: 10,
-    borderRadius: 90,
-    backgroundColor: colors.green2,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 5,
   },
   DestTxt: {
     width: 60,
@@ -82,7 +70,17 @@ const styles = StyleSheet.create({
     marginRight: 5,
     position: "absolute",
     bottom: 20,
-    right:5
+    right: 5,
+  },
+  txt: {
+    width: 60,
+    height: 60,
+    padding: 10,
+    borderRadius: 90,
+    backgroundColor: colors.green2,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 5,
   },
 });
 export default styles;

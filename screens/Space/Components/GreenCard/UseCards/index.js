@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   useWindowDimensions,
@@ -14,16 +13,38 @@ import {
   SmallBoldTxt,
 } from "../../../../../components/TextsComponents";
 import { colors } from "../../../../../styles/GlobalStyle";
-const UseCard = ({ navigation, img, title, isCoaching, CustomHeight,ToCoaching }) => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
+const UseCard = ({
+  navigation,
+  img,
+  title,
+  isCoaching,
+  CustomHeight,
+  ToCoaching,
+}) => {
+  const { isDesktop } = DimensionsHook();
   const ToNav = () => {
     navigation.navigate({ title });
   };
+  const [isHovered, setHovered] = React.useState(false);
 
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "100%" : "100%";
   const BacCust = isCoaching ? colors.yellow : colors.green1;
-  const BacCustBtn = isCoaching ? colors.white : colors.green2;
+  const BacCustBtn = isCoaching
+    ? isHovered
+      ? colors.beige
+      : colors.white
+    : isHovered
+    ? colors.beige
+    : colors.green2;
+  const CustColor = isCoaching
+    ? isHovered
+      ? colors.black
+      : colors.yellow
+    : !isHovered
+    ? colors.beige
+    : colors.green2;
+
   return (
     <View
       style={
@@ -63,8 +84,10 @@ const UseCard = ({ navigation, img, title, isCoaching, CustomHeight,ToCoaching }
             : [styles.txt, { backgroundColor: BacCustBtn }]
         }
         onPress={ToCoaching}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        <SmallBoldTxt>Go !</SmallBoldTxt>
+        <SmallBoldTxt style={{ color: CustColor }}>Go !</SmallBoldTxt>
       </TouchableOpacity>
     </View>
   );

@@ -1,27 +1,19 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./styles";
-import DimensionsHook from "../../../../../hooks/DimensionsHook";
-import {
-  H6,
-  H7,
-  SmallBoldTxt,
-} from "../../../../../components/TextsComponents";
+import { H7, SmallBoldTxt } from "../../../../../components/TextsComponents";
 import { colors } from "../../../../../styles/GlobalStyle";
-const UseBigCards = ({ navigation, img, title, isCoaching, ToCoaching }) => {
+const UseBigCards = ({ img, ToCoaching }) => {
   const ChatCard = {
     backgroundColor: colors.yellow,
     borderRadius: 20,
     position: "relative",
-    height:238,
-    overflow:'hidden'
+    height: 238,
+    overflow: "hidden",
   };
+  const [isHovered, setHovered] = React.useState(false);
+  const BacCustBtn = isHovered ? colors.beige : colors.white;
+  const CustColor = isHovered ? colors.black : colors.yellow;
 
   return (
     <View style={ChatCard}>
@@ -31,8 +23,13 @@ const UseBigCards = ({ navigation, img, title, isCoaching, ToCoaching }) => {
       <H7 style={{ position: "absolute", top: "50%", alignSelf: "center" }}>
         Coaching
       </H7>
-      <TouchableOpacity style={styles.DestTxt} onPress={ToCoaching}>
-        <SmallBoldTxt>Go !</SmallBoldTxt>
+      <TouchableOpacity
+        style={[styles.DestTxt, { backgroundColor: BacCustBtn }]}
+        onPress={ToCoaching}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <SmallBoldTxt style={{ color: CustColor }}>Go !</SmallBoldTxt>
       </TouchableOpacity>
     </View>
   );

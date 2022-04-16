@@ -1,31 +1,25 @@
-import { View, Text, Image, useWindowDimensions } from "react-native";
+import { View, Image, useWindowDimensions } from "react-native";
 import React from "react";
-import DimensionsHook from "../../../../hooks/DimensionsHook";
 import styles from "./styles";
-import {
-  BoldTxt,
-  H6,
-  SmallBoldTxt,
-} from "../../../../components/TextsComponents";
+import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
 import ViewImage from "../../../../assets/Espace/Group41.png";
 const Score = () => {
   const { width } = useWindowDimensions();
-  const SMWidth = width <= 790  ?  '100%' :  width <= 1300 ? '49%' : '49%' 
-const MDMargin  = width <= 790  ?  0 :  width <= 1300 ? 5 : 0
+  const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
+  const Mr = width <= 790 ? 10 : 0;
+
   return (
-    <View style={[styles.score,{width:SMWidth,}]}>
-      <H6 style={{ color: colors.beige, alignSelf: "center" }}>
-        Score
-      </H6>
+    <View style={[styles.score, { width: SMWidth , marginBottom:Mr }]}>
+      <H6 style={{ color: colors.beige, alignSelf: "center",marginTop:30 }}>Score</H6>
       <View style={styles.Line}>
         <View style={styles.Line2}>
           <View style={styles.Points}></View>
-          <View style={[styles.Points, { left: 95 }]}></View>
+          <View style={[styles.Points, { left: 120 }]}></View>
           <SmallBoldTxt style={{ position: "absolute", top: 30, left: 5 }}>
             1 000pts
           </SmallBoldTxt>
-          <View style={[styles.Points, { left: 100 * 2 }]}></View>
+          <View style={[styles.Points, { left: 120 * 2 }]}></View>
           <SmallBoldTxt style={{ position: "absolute", top: 30, left: 90 }}>
             2000pts
           </SmallBoldTxt>
@@ -53,7 +47,7 @@ const MDMargin  = width <= 790  ?  0 :  width <= 1300 ? 5 : 0
             </SmallBoldTxt>
           </View>
 
-          <View style={[styles.Points, { left: 95 * 3 }]}></View>
+          <View style={[styles.Points, { left: 120 * 3 }]}></View>
           <SmallBoldTxt style={{ position: "absolute", top: 30, left: 190 }}>
             3000pts
           </SmallBoldTxt>

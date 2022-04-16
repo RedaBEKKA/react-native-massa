@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   Line:{
     backgroundColor:colors.beige,
     height:20,
-    width:309,
+    width:'90%',
     alignItems:'center',
     justifyContent:'space-between',
     flexDirection:'row',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   Line2:{
     backgroundColor:colors.blue3,
     height:20,
-    width:115*1,
+    width:'40%',
     alignItems:'center',
     justifyContent:'space-between',
     flexDirection:'row',

@@ -1,33 +1,15 @@
 import {
-  StyleSheet,
   View,
-  Image,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
-  Platform,
-  FlatList,
   useWindowDimensions,
 } from "react-native";
-import axios from "axios";
-import SwiperItem from "../../components/swiper/SwiperItem";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import HeaderComponent from "../../components/HeaderComponent";
-import { ENDPOINT_WORKSHOPS, ENDPOINT_TRAILS } from "@env";
-import {
-  BoldTxt,
-  H2,
-  H5,
-  H6,
-  H7,
-  SmallBoldTxt,
-  SmallLightTxt,
-  Txt,
-} from "../../components/TextsComponents";
-import { PrimaryButton } from "../../components/Buttons";
+import { ENDPOINT_TRAILS } from "@env";
+import { BoldTxt, H5, H6 } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import styles from "./Hooks/Styles";
-import bacImg from "../../assets/Espace/Rectangle429.png";
 import Coaching from "./Components/coaching";
 import Status from "./Components/Status";
 import Score from "./Components/Score";
@@ -36,8 +18,10 @@ import GrenCards from "./Components/GreenCard";
 import Swiper from "../../components/swiper/Swiper";
 import { colors } from "../../styles/GlobalStyle";
 const Espace = ({ navigation }) => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
+  const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
+
+
   const swiperContainerStye = {
     backgroundColor: colors.white,
     width: "95%",
@@ -49,7 +33,7 @@ const Espace = ({ navigation }) => {
     paddingLeft: isMobile ? 10 : 20,
   };
   const ContainerC1 = {
-    backgroundColor: colors.white,
+    backgroundColor: colors.beige,
     width: "95%",
     alignSelf: "center",
     paddingTop: 15,
@@ -60,30 +44,25 @@ const Espace = ({ navigation }) => {
     alignItems: "center",
     justifyContent: "space-evenly",
     padding: width <= 790 ? 5 : 0,
-    paddingBottom:width <= 790 ? 15 : 0,
-
-
+    paddingBottom: width <= 790 ? 15 : 0,
   };
-
 
   const PaddingVertical = !isDesktop ? 15 : 10;
   const Left = isDesktop ? 90 : 10;
- 
 
   const BoxA = {
     flexDirection: width >= 790 ? "row" : "column",
-    width: width <= 1300 ? "100%" : '50%',
+    width: width <= 1300 ? "100%" : "50%",
     alignItems: "center",
     justifyContent: "space-evenly",
-    // backgroundColor:'#ccc'
   };
   const BoxB = {
     flexDirection: width >= 1300 ? "row" : "column",
-    width: width <= 790 ? "100%" : width <= 1300 ? '100%' : "50%",
+    width: width <= 790 ? "100%" : width <= 1300 ? "100%" : "50%",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    // backgroundColor:'#ccc',
-    overflow:'hidden'
+    justifyContent: "space-between",
+    overflow: "hidden",
+
   };
   return (
     <View style={styles.container}>
