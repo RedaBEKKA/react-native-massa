@@ -9,9 +9,10 @@ const styles = StyleSheet.create({
     position: "relative",
     height: 236,
     width: 343,
-    marginBottom: 10,
+    marginBottom: 0,
     borderRadius: 20,
     backgroundColor: colors.blue1,
+    overflow:'hidden'
   },
   Line:{
     backgroundColor:colors.beige,

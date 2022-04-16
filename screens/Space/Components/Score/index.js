@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, useWindowDimensions } from "react-native";
 import React from "react";
 import DimensionsHook from "../../../../hooks/DimensionsHook";
 import styles from "./styles";
@@ -10,17 +10,12 @@ import {
 import { colors } from "../../../../styles/GlobalStyle";
 import ViewImage from "../../../../assets/Espace/Group41.png";
 const Score = () => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
-  let Randonneur = [
-    { isRand: true, id: 1 },
-    { isRand: false, id: 2 },
-  ];
-  const TextSise = isDesktop ? 12 : 15;
-  const MarginTop = !isDesktop ? 15 : 0;
-
+  const { width } = useWindowDimensions();
+  const SMWidth = width <= 790  ?  '100%' :  width <= 1300 ? '49%' : '49%' 
+const MDMargin  = width <= 790  ?  0 :  width <= 1300 ? 5 : 0
   return (
-    <View style={styles.score}>
-      <H6 style={{ color: colors.beige, paddingTop: 35, alignSelf: "center" }}>
+    <View style={[styles.score,{width:SMWidth,}]}>
+      <H6 style={{ color: colors.beige, alignSelf: "center" }}>
         Score
       </H6>
       <View style={styles.Line}>

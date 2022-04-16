@@ -7,8 +7,7 @@ const windowHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   coaching: {
     position: "relative",
-    height: 234,
-    width: 183,
+    height: 238,
     borderRadius: 20,
     backgroundColor: colors.yellow,
     marginVertical: 5,
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 150,
-    width: 183,
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
     position: "absolute",
@@ -38,7 +36,6 @@ const styles = StyleSheet.create({
   MobCotching: {
     position: "relative",
     height: 78,
-    width: 343,
     borderRadius: 20,
     backgroundColor: colors.yellow,
     marginVertical: 5,

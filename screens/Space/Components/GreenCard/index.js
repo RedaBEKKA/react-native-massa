@@ -1,29 +1,40 @@
-import { View, Text } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import React from "react";
-import styles from "./styles";
-import ChatCard from "./UseCards";
-import DimensionsHook from "../../../../hooks/DimensionsHook";
 import UseCard from "./UseCards";
 import chats from "../../../../assets/Espace/Vector4.png";
 import play from "../../../../assets/Espace/Vector3.png";
 import relaxer from "../../../../assets/Espace/Vector2.png";
 import Dormir from "../../../../assets/Espace/Vector1.png";
+import { colors } from "react-native-elements";
 
 const GrenCards = () => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
+  const { width } = useWindowDimensions();
 
+  const BoxB1A = {
+    flexDirection: width <= 790 ? "column" : "row",
+    width: width <= 790 ?  "100%" : width <= 1300 ? '100%' : '79%',
+    justifyContent: "space-evenly",
+    // backgroundColor: '#eee',
+    alignSelf:'center',
+    alignItems:'center'
+
+  };
+  const CustomHeight = width <= 790 ? 74 : width <= 1300 ? 108 : 108;
+
+  const SMWidth = width <= 790  ?  '100%' :  width <= 1300 ? '49%' : '49%' 
+  const Mr = width >= 1300 ? 10 : 0
   return (
-    <>
-      <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
-      <UseCard title="Parler" img={chats} />
-      <UseCard title="Jouer" img={play} />
+    <View style={BoxB1A}>
+      <View style={{ flexDirection: "column",width:SMWidth ,marginRight:Mr }}>
+        <UseCard title="Parler" img={chats} isCoaching={false} CustomHeight={CustomHeight} />
+        <UseCard title="Jouer" img={play} isCoaching={false} CustomHeight={CustomHeight} />
       </View>
-      <View style={isDesktop && styles.secondCard}>
-      <UseCard title="Se relaxer" img={relaxer} />
-      <UseCard title="Dormir" img={Dormir} />
 
+      <View style={{ flexDirection: "column" ,width:SMWidth , }}>
+        <UseCard title="Se relaxer" img={relaxer} isCoaching={false}  CustomHeight={CustomHeight} />
+        <UseCard title="Dormir" img={Dormir}  isCoaching={false}  CustomHeight={CustomHeight}/>
       </View>
-    </>
+    </View>
   );
 };
 

@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     greenCard: {
         position: "relative",
         height: windowWidth > 500 ? 112 : 78,
-        width: windowWidth > 500 ? 258 : 343,
         borderRadius: 20,
         backgroundColor: colors.green1,
         marginBottom: 10,

@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     justifyContent: "space-evenly",
+    backgroundColor:'#ccc',
+    marginBottom:10
   },
   MobileContent: {
     justifyContent: "center",
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     overflow: "hidden",
     alignItems: "center",
+    
   },
   LeftBox: {
     flexDirection: "row",

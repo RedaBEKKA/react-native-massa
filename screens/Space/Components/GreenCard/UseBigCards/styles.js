@@ -11,10 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // backgroundColor: colors.green1,
     marginVertical: 8,
-    overflow:'hidden'
-  
   },
-
   BoxImage: {
     backgroundColor: "#FBF6F360",
     borderBottomRightRadius: 40,
@@ -28,9 +25,9 @@ const styles = StyleSheet.create({
   DesktopBoxImage: {
     backgroundColor: "#FBF6F360",
     borderBottomRightRadius: 80,
-    borderTopRightRadius: 80,
-    height: "100%",
-    width: "40%",
+    borderBottomLeftRadius:80,
+    height: "40%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -82,7 +79,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
     position: "absolute",
     bottom: 20,
-    right:5
+    alignSelf:'center',
+    backgroundColor:colors.white
   },
 });
 export default styles;
