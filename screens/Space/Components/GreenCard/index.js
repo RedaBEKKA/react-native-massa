@@ -1,10 +1,12 @@
 import { View, useWindowDimensions } from "react-native";
 import React from "react";
 import UseCard from "./UseCards";
-import chats from "../../../../assets/Espace/Vector4.png";
-import play from "../../../../assets/Espace/Vector3.png";
-import relaxer from "../../../../assets/Espace/Vector2.png";
-import Dormir from "../../../../assets/Espace/Vector1.png";
+
+import { ImgDormir } from "../../../../assets/svg/space";
+import { ImgJouer } from "../../../../assets/svg/space";
+import { ImgParler } from "../../../../assets/svg/space";
+import { ImgSeRelaxer } from "../../../../assets/svg/space";
+
 
 const GrenCards = () => {
   const { width } = useWindowDimensions();
@@ -27,15 +29,16 @@ const GrenCards = () => {
       <View
         style={{ flexDirection: "column", width: SMWidth, marginRight: Mr }}
       >
+
         <UseCard
           title="Parler"
-          img={chats}
+          Img={ImgParler}
           isCoaching={false}
           CustomHeight={CustomHeight}
         />
         <UseCard
           title="Jouer"
-          img={play}
+          Img={ImgJouer}
           isCoaching={false}
           CustomHeight={CustomHeight}
         />
@@ -44,13 +47,13 @@ const GrenCards = () => {
       <View style={{ flexDirection: "column", width: SMWidth }}>
         <UseCard
           title="Se relaxer"
-          img={relaxer}
+          Img={ImgSeRelaxer}
           isCoaching={false}
           CustomHeight={CustomHeight}
         />
         <UseCard
           title="Dormir"
-          img={Dormir}
+          Img={ImgDormir}
           isCoaching={false}
           CustomHeight={CustomHeight}
         />

@@ -1,6 +1,5 @@
 import {
   View,
-  Image,
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
@@ -15,7 +14,7 @@ import {
 import { colors } from "../../../../../styles/GlobalStyle";
 const UseCard = ({
   navigation,
-  img,
+  Img,
   title,
   isCoaching,
   CustomHeight,
@@ -65,7 +64,9 @@ const UseCard = ({
     >
       <View style={isDesktop ? styles.DeskLeftBox : styles.LeftBox}>
         <View style={isDesktop ? styles.DesktopBoxImage : styles.BoxImage}>
-          <Image source={img} style={styles.image} />
+          <View style={styles.image}>
+            <Img />
+          </View>
         </View>
 
         <View>

@@ -1,8 +1,8 @@
 import { View, useWindowDimensions } from "react-native";
 import React from "react";
-import CoachingImg from "../../../../assets/Coaching.png";
 import UseCard from "../GreenCard/UseCards";
 import UseBigCards from "../GreenCard/UseBigCards";
+import { ImgCoaching } from "../../../../assets/svg/space";
 
 const Coaching = ({ navigation }) => {
   const { width } = useWindowDimensions();
@@ -30,7 +30,7 @@ const Coaching = ({ navigation }) => {
         {!LgScreen && (
           <UseCard
             title="Coaching"
-            img={CoachingImg}
+            Img={ImgCoaching}
             isCoaching={true}
             CustomHeight={CustomHeight}
             ToCoaching={ToCoaching}
@@ -39,7 +39,7 @@ const Coaching = ({ navigation }) => {
         {LgScreen && (
           <UseBigCards
             title="Coaching"
-            img={CoachingImg}
+            Img={ImgCoaching}
             isCoaching={true}
             CustomHeight={CustomHeight}
             ToCoaching={ToCoaching}

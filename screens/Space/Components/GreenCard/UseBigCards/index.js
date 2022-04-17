@@ -1,9 +1,9 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import { View,  TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { H7, SmallBoldTxt } from "../../../../../components/TextsComponents";
 import { colors } from "../../../../../styles/GlobalStyle";
-const UseBigCards = ({ img, ToCoaching }) => {
+const UseBigCards = ({ Img, ToCoaching }) => {
   const ChatCard = {
     backgroundColor: colors.yellow,
     borderRadius: 20,
@@ -18,7 +18,9 @@ const UseBigCards = ({ img, ToCoaching }) => {
   return (
     <View style={ChatCard}>
       <View style={styles.DesktopBoxImage}>
-        <Image source={img} style={styles.image} />
+        <View style={styles.image}>
+          <Img />
+        </View>
       </View>
       <H7 style={{ position: "absolute", top: "50%", alignSelf: "center" }}>
         Coaching

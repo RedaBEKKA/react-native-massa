@@ -1,10 +1,9 @@
-import { View, Image, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { H6 } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
-import RandImage from "../../../../assets/Espace/Emoji.png";
-import RandImage2 from "../../../../assets/Espace/Union.png";
+import { ImgStatusBadge, ImgUnion } from "../../../../assets/svg/space";
 
 const Status = () => {
   let Randonneur = [
@@ -22,7 +21,12 @@ const Status = () => {
     <View
       style={[
         styles.status,
-        { marginBottom: MarginBottom, width: SMWidth, marginRight: Mr ,height:CustHeight},
+        {
+          marginBottom: MarginBottom,
+          width: SMWidth,
+          marginRight: Mr,
+          height: CustHeight,
+        },
       ]}
     >
       <H6 style={{ color: colors.beige }}>Mon Status</H6>
@@ -32,9 +36,13 @@ const Status = () => {
           return (
             <View key={item.id} style={styles.item}>
               {item.isRand ? (
-                <Image source={RandImage} style={styles.itemImage} />
+                <View style={styles.itemImage}>
+                  <ImgUnion />
+                </View>
               ) : (
-                <Image source={RandImage2} style={styles.Image} />
+                <View style={styles.Image}>
+                  <ImgStatusBadge />
+                </View>
               )}
             </View>
           );
@@ -47,3 +55,8 @@ const Status = () => {
 };
 
 export default Status;
+
+{
+  /* <Image source={RandImage} /> */
+}
+// <Image source={RandImage2} style={styles.Image} />

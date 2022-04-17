@@ -4,19 +4,20 @@ import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
 import ViewImage from "../../../../assets/Espace/Group41.svg";
-// import SvgUri from "react-native-svg-uri";
 
 const Score = () => {
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
-  const Mr = width <= 790 ? 20 : 0;
-  const CustHeight = width <= 790 ? 165 : 236;
 
   return (
     <View
       style={[
         styles.score,
-        { width: SMWidth, marginBottom: Mr, height: CustHeight },
+        {
+          width: SMWidth,
+          marginBottom: width <= 790 ? 20 : 0,
+          height: width <= 790 ? 165 : 236,
+        },
       ]}
     >
       <H6 style={{ color: colors.beige, alignSelf: "center", marginTop: 30 }}>
@@ -36,13 +37,12 @@ const Score = () => {
           <View style={{ position: "relative" }}>
             <Image
               source={ViewImage}
-              
               style={{
                 position: "absolute",
                 top: width <= 790 ? 32 : 45,
                 left: 20,
-                width:190,
-              height:36
+                width: 190,
+                height: 36,
               }}
             />
 
