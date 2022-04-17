@@ -4,7 +4,7 @@ import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
 import ViewImage from "../../../../assets/Espace/Group41.svg";
-import SvgUri from "react-native-svg-uri";
+// import SvgUri from "react-native-svg-uri";
 
 const Score = () => {
   const { width } = useWindowDimensions();
