@@ -34,15 +34,15 @@ const Score = () => {
             2000pts
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
-            <SvgUri
+            <Image
               source={ViewImage}
-              width={190}
-              height={36}
+              
               style={{
                 position: "absolute",
                 top: width <= 790 ? 32 : 45,
                 left: 20,
-             
+                width:190,
+              height:36
               }}
             />
 
