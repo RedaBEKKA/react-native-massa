@@ -3,11 +3,12 @@ import {
   ScrollView,
   TouchableOpacity,
   useWindowDimensions,
+  Text,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
 import { ENDPOINT_TRAILS } from "@env";
-import { BoldTxt, H5, H6 } from "../../components/TextsComponents";
+import { BoldTxt, H5, H6, H7 } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import styles from "./Hooks/Styles";
 import Coaching from "./Components/coaching";
@@ -17,21 +18,22 @@ import GrenCards from "./Components/GreenCard";
 
 import Swiper from "../../components/swiper/Swiper";
 import { colors } from "../../styles/GlobalStyle";
+import TrailsSwiper from "../../components/swiper/TrailsSwiper";
 const Espace = ({ navigation }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
-
-
-  const swiperContainerStye = {
-    backgroundColor: colors.white,
+  // section-Title
+  const Title = {
+    backgroundColor: colors.beige,
     width: "95%",
     alignSelf: "center",
     paddingTop: 15,
     paddingBottom: 5,
     borderRadius: 20,
     marginTop: 20,
-    paddingLeft: isMobile ? 10 : 20,
+    paddingLeft: 10,
   };
+  // section Status & score & cards
   const ContainerC1 = {
     backgroundColor: colors.beige,
     width: "95%",
@@ -46,10 +48,6 @@ const Espace = ({ navigation }) => {
     padding: width <= 790 ? 5 : 0,
     paddingBottom: width <= 790 ? 15 : 0,
   };
-
-  const PaddingVertical = !isDesktop ? 15 : 10;
-  const Left = isDesktop ? 90 : 10;
-
   const BoxA = {
     flexDirection: width >= 790 ? "row" : "column",
     width: width <= 1300 ? "100%" : "50%",
@@ -62,16 +60,73 @@ const Espace = ({ navigation }) => {
     alignItems: "center",
     justifyContent: "space-between",
     overflow: "hidden",
+  };
 
+  // section-Trails & favoris
+  const Trails = {
+    backgroundColor: colors.beige,
+    width: `${95}%`,
+    alignSelf: "center",
+    borderRadius: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+    flexDirection: width <= 1300 ? "column" : "row",
+  };
+  const TrailsContainer = {
+    backgroundColor: colors.white,
+    width: width <= 1300 ? `100%` : `49.5%`,
+    alignSelf: "center",
+    borderRadius: 20,
+    marginLeft: 5,
+    marginVertical: 5,
+    paddingLeft: 10,
+    paddingTop: 10,
+  };
+
+  // display Data trails
+  const [Ready, setReady] = useState(false);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setTimeout(() => {
+        setReady(false);
+      }, 5000);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+  // section-Recommandation
+  const swiperContainerStye = {
+    backgroundColor: Ready ? colors.white : "",
+    width: "95%",
+    alignSelf: "center",
+    paddingTop: 15,
+    paddingBottom: 5,
+    borderRadius: 20,
+    overflow: "hidden",
+    marginBottom: 15,
+    paddingLeft: Ready ? 10 : 0,
+    marginTop: Ready ? 10 : 0,
+  };
+
+  const ContainerRecommandation = {
+    backgroundColor: colors.white,
+    width: width <= 1300 ? "100%" : Ready ? '100%' :`${50}%`,
+    alignSelf: Ready ? "center" : "flex-start",
+    borderRadius: 20,
   };
   return (
     <View style={styles.container}>
       <HeaderComponent navigation={navigation} />
       <ScrollView>
         <>
-          <H5 style={{ paddingLeft: Left, paddingVertical: PaddingVertical }}>
-            Mon Espace
-          </H5>
+          <View style={Title}>
+            <H5>Mon Espace</H5>
+          </View>
+
           <View style={ContainerC1}>
             <View style={BoxA}>
               <Status />
@@ -84,23 +139,150 @@ const Espace = ({ navigation }) => {
             </View>
           </View>
 
-          <View style={swiperContainerStye}>
-            <View style={styles.row}>
-              <H6>Recommandation</H6>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("SeeAllTrails")}
-              >
-                <BoldTxt style={{ paddingRight: isMobile ? 10 : 20 }}>
-                  Tout Voir
-                </BoldTxt>
-              </TouchableOpacity>
+          <View style={Trails}>
+            {/* Trails */}
+
+            <View style={TrailsContainer}>
+              <View style={styles.row}>
+                {Ready ? (
+                  <H6>Trails et ateliers en cours</H6>
+                ) : (
+                  <H6>Trails en cours</H6>
+                )}
+                {Ready ? (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("SeeAllTrails")}
+                  >
+                    <BoldTxt
+                      style={{
+                        paddingRight: isMobile ? 10 : 20,
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Tout Voir
+                    </BoldTxt>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              {Ready ? (
+                <TrailsSwiper
+                  navigation={navigation}
+                  type="Trail"
+                  endpoint={ENDPOINT_TRAILS}
+                  showStateBar={true}
+                />
+              ) : (
+                <View
+                  style={{
+                    height: width <= 790 ? 130 : 260,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <H7>Aucun trail en cours</H7>
+                  <TouchableOpacity
+                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  >
+                    <Text>Sélectionnez un trail </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
 
-            <Swiper
-              navigation={navigation}
-              type="Trail"
-              endpoint={ENDPOINT_TRAILS}
-            />
+            {/* Favoris */}
+
+            <View style={TrailsContainer}>
+              <View style={styles.row}>
+                <H6>Favoris</H6>
+
+                {Ready ? (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("SeeAllTrails")}
+                  >
+                    <BoldTxt
+                      style={{
+                        paddingRight: isMobile ? 10 : 20,
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Tout Voir
+                    </BoldTxt>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              {Ready ? (
+                <TrailsSwiper
+                  navigation={navigation}
+                  type="Trail"
+                  endpoint={ENDPOINT_TRAILS}
+                />
+              ) : (
+                <View
+                  style={{
+                    height: width <= 790 ? 130 : 260,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <H7>Vous n’avez pas encore ajouté de favoris</H7>
+                  <TouchableOpacity
+                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  >
+                    <Text>Consulter notre catalogue </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </View>
+
+          <View style={swiperContainerStye}>
+            <View style={ContainerRecommandation}>
+              <View style={styles.row}>
+                <H6>Recommandations</H6>
+
+                {Ready ? (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("SeeAllTrails")}
+                  >
+                    <BoldTxt
+                      style={{
+                        paddingRight: isMobile ? 10 : 20,
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Tout Voir
+                    </BoldTxt>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              {Ready ? (
+                <Swiper
+                  navigation={navigation}
+                  type="Trail"
+                  endpoint={ENDPOINT_TRAILS}
+                />
+              ) : (
+                <View
+                  style={{
+                    height: width <= 790 ? 130 : 260,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <H7 style={{textAlign:'center'}}>
+                    Pour avoir des recommandations adaptée à votre profil, merci
+                    de cliquer sur "Coaching" pour répondre au questionnaire.
+                  </H7>
+                  <TouchableOpacity
+                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  >
+                    <Text>Consulter notre catalogue</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
           </View>
         </>
       </ScrollView>

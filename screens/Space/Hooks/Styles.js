@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingVertical:10,
+    paddingLeft:5
   },
   greenCard: {
     position: "relative",
@@ -132,6 +134,15 @@ const styles = StyleSheet.create({
     marginRight: 5,
     position: "absolute",
     bottom: 20,
+  },
+
+  Button: {
+    backgroundColor: colors.green2,
+    width: 247,
+    borderRadius: 35,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
   },
 });
 export default styles;

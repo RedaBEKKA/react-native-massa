@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import React from "react";
 import Spinner from "../Spinner";
 import { colors } from "../../styles/GlobalStyle";
 import DimensionsHook from "../../hooks/DimensionsHook";
 
-const LoaderItem = () => {
+const LoaderItem = ({SwiperItem}) => {
   const { isDesktop } = DimensionsHook();
+  // fix Width
+  const { width } = useWindowDimensions();
   return (
-    <View style={[styles.container, { width: isDesktop ? 370 : 270 }]}>
+    <View style={[styles.container, { width: width >= 1300 ?  SwiperItem ? "48%" : 369 : 270 }]}>
       <Spinner size="large" />
     </View>
   );

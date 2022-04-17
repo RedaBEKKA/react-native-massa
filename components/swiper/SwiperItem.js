@@ -5,6 +5,7 @@ import {
   Pressable,
   Animated,
   Easing,
+  useWindowDimensions,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { BoldTxt, H6, Txt } from "../TextsComponents";
@@ -15,7 +16,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDisclose } from "native-base";
 import RolloverSmall from "../rollover/RolloverSmall";
 
-const SwiperItem = ({ item, type, navigation, showStateBar }) => {
+const SwiperItem = ({ item, type, navigation, showStateBar, SwiperItem }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { isOpen, onOpen, onClose } = useDisclose();
   // generate a random progress
@@ -46,67 +47,103 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
     }).start();
   }, []);
 
+  // fix Width
+  const { width } = useWindowDimensions();
   return (
-    <Pressable
-      onPress={navigationHandler}
-      style={[styles.container, { width: isDesktop ? 370 : 270 }]}
+    <View
+      style={{
+        width: width >= 1300 ? (SwiperItem ? "49%" : 369) : 270,
+        alignItems: "center",
+        marginHorizontal: 5,
+      }}
     >
-      <Image source={{ uri: item.poster_link }} style={styles.image} />
-      <LinearGradient
-        colors={["#1B496500", "#1B496566"]}
-        style={styles.image}
-      />
-
-      <View style={styles.row}>
-        <View style={styles.logoContainer}>
-          <MTLogoWhite />
-        </View>
-        {item.new ? (
-          <View style={styles.newButton}>
-            <Txt fontSize={13}>Nouveau</Txt>
-          </View>
-        ) : (
-          <></>
-        )}
-      </View>
-      <View style={styles.textsContainer}>
-        <BoldTxt color={colors.white}>{type}</BoldTxt>
-        <H6 color={colors.white}>{item.ressourceTitle}</H6>
-        {/** progress bar */}
-        {showStateBar && (
-          <View
-            style={{
-              width: 240,
-              alignSelf: "center",
-              height: 3,
-              borderRadius: 20,
-              overflow: "hidden",
-              justifyContent: "center",
-              backgroundColor: colors.grayBorder,
-            }}
-          >
-            <Animated.View
-              style={{
-                height: 3,
-                backgroundColor: colors.green2,
-
-                width: barWidth,
-              }}
-            ></Animated.View>
-          </View>
-        )}
-      </View>
-
-      {isMobile && isOpen && (
-        <RolloverSmall
-          type={type}
-          item={item}
-          navigation={navigation}
-          isOpen={isOpen}
-          onClose={onClose}
+      <Pressable
+        onPress={navigationHandler}
+        style={[styles.container, { width: "99%" }]}
+      >
+        <Image source={{ uri: item.poster_link }} style={styles.image} />
+        <LinearGradient
+          colors={["#1B496500", "#1B496566"]}
+          style={styles.image}
         />
+
+        <View style={styles.row}>
+          <View style={styles.logoContainer}>
+            <MTLogoWhite />
+          </View>
+          {item.new ? (
+            <View style={styles.newButton}>
+              <Txt fontSize={13}>Nouveau</Txt>
+            </View>
+          ) : (
+            <></>
+          )}
+        </View>
+        <View style={styles.textsContainer}>
+          <BoldTxt color={colors.white}>{type}</BoldTxt>
+          <H6 color={colors.white}>{item.ressourceTitle}</H6>
+          {/** progress bar */}
+          {showStateBar && !SwiperItem && (
+            <View
+              style={{
+                width: 240,
+                alignSelf: "center",
+                height: 3,
+                borderRadius: 20,
+                overflow: "hidden",
+                justifyContent: "center",
+                backgroundColor: colors.grayBorder,
+              }}
+            >
+              <Animated.View
+                style={{
+                  height: 3,
+                  backgroundColor: colors.green2,
+
+                  width: barWidth,
+                }}
+              ></Animated.View>
+            </View>
+          )}
+        </View>
+
+        {isMobile && isOpen && (
+          <RolloverSmall
+            type={type}
+            item={item}
+            navigation={navigation}
+            isOpen={isOpen}
+            onClose={onClose}
+          />
+        )}
+      </Pressable>
+      {/** progress bar for trails */}
+
+      {showStateBar && SwiperItem && (
+        <View
+          style={{
+            width: 240,
+            alignSelf: "center",
+            height: 3,
+            borderRadius: 20,
+            overflow: "hidden",
+            justifyContent: "center",
+            backgroundColor: colors.grayBorder,
+            position: "absolute",
+            bottom: 10,
+          }}
+        >
+          <Animated.View
+            style={{
+              height: 3,
+              backgroundColor: colors.green2,
+
+              width: barWidth,
+            }}
+          ></Animated.View>
+        </View>
       )}
-    </Pressable>
+    </View>
   );
 };
 
