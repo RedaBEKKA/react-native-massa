@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   MobCotching: {
     position: "relative",
     borderRadius: 20,
-    marginVertical: 5,
+    marginBottom: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     overflow: "hidden",

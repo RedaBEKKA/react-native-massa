@@ -7,11 +7,10 @@ const windowHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   score: {
     position: "relative",
-    height: 236,
     width: 343,
     marginBottom: 0,
     borderRadius: 20,
-    backgroundColor: colors.blue1,
+    backgroundColor: colors.blue2,
     overflow:'hidden'
   },
   Line:{

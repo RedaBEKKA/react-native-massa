@@ -12,8 +12,9 @@ const Status = () => {
     { isRand: false, id: 2 },
   ];
   const { width } = useWindowDimensions();
+  const CustHeight = width <= 790 ? 165 : 236;
 
-  const MarginBottom = width <= 790 ? 10 : 0;
+  const MarginBottom = width <= 790 ? 20 : 0;
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
   const Mr = width >= 1300 ? 5 : 0;
 
@@ -21,7 +22,7 @@ const Status = () => {
     <View
       style={[
         styles.status,
-        { marginBottom: MarginBottom, width: SMWidth, marginRight: Mr },
+        { marginBottom: MarginBottom, width: SMWidth, marginRight: Mr ,height:CustHeight},
       ]}
     >
       <H6 style={{ color: colors.beige }}>Mon Status</H6>

@@ -7,20 +7,28 @@ import ViewImage from "../../../../assets/Espace/Group41.png";
 const Score = () => {
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
-  const Mr = width <= 790 ? 10 : 0;
+  const Mr = width <= 790 ? 20 : 0;
+  const CustHeight = width <= 790 ? 165 : 236;
 
   return (
-    <View style={[styles.score, { width: SMWidth , marginBottom:Mr }]}>
-      <H6 style={{ color: colors.beige, alignSelf: "center",marginTop:30 }}>Score</H6>
+    <View
+      style={[
+        styles.score,
+        { width: SMWidth, marginBottom: Mr, height: CustHeight },
+      ]}
+    >
+      <H6 style={{ color: colors.beige, alignSelf: "center", marginTop: 30 }}>
+        Score
+      </H6>
       <View style={styles.Line}>
         <View style={styles.Line2}>
           <View style={styles.Points}></View>
           <View style={[styles.Points, { left: 120 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 30, left: 5 }}>
+          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 5 }}>
             1 000pts
           </SmallBoldTxt>
           <View style={[styles.Points, { left: 120 * 2 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 30, left: 90 }}>
+          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 90 }}>
             2000pts
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
@@ -28,7 +36,7 @@ const Score = () => {
               source={ViewImage}
               style={{
                 position: "absolute",
-                top: 50,
+                top: width <= 790 ? 32: 45,
                 left: 20,
                 width: 190,
                 height: 36,
@@ -38,7 +46,7 @@ const Score = () => {
             <SmallBoldTxt
               style={{
                 position: "absolute",
-                top: 65,
+                top: width <= 790 ? 45: 55,
                 left: 30,
                 width: 170,
               }}
@@ -48,10 +56,10 @@ const Score = () => {
           </View>
 
           <View style={[styles.Points, { left: 120 * 3 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 30, left: 190 }}>
+          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 190 }}>
             3000pts
           </SmallBoldTxt>
-          <SmallBoldTxt style={{ position: "absolute", top: 30, left: 280 }}>
+          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 280 }}>
             4000pts
           </SmallBoldTxt>
         </View>

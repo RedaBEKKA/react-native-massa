@@ -71,8 +71,8 @@ const Espace = ({ navigation }) => {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10,
     flexDirection: width <= 1300 ? "column" : "row",
+    marginTop : width <= 1300 ? 0 : 20,
   };
   const TrailsContainer = {
     backgroundColor: colors.white,
@@ -80,9 +80,9 @@ const Espace = ({ navigation }) => {
     alignSelf: "center",
     borderRadius: 20,
     marginLeft: 5,
-    marginVertical: 5,
     paddingLeft: 10,
-    paddingTop: 10,
+    paddingTop: 8,
+    marginBottom:20
   };
 
   // display Data trails
@@ -91,7 +91,7 @@ const Espace = ({ navigation }) => {
     let isMounted = true;
     if (isMounted) {
       setTimeout(() => {
-        setReady(false);
+        setReady(true);
       }, 5000);
     }
     return () => {

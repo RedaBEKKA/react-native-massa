@@ -29,7 +29,7 @@ const UseCard = ({
 
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "100%" : "100%";
-  const BacCust = isCoaching ? colors.yellow : colors.green1;
+  const BacCust = isCoaching ? colors.yellow : colors.green0;
   const BacCustBtn = isCoaching
     ? isHovered
       ? colors.beige
