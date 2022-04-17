@@ -3,7 +3,9 @@ import React from "react";
 import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
-import ViewImage from "../../../../assets/Espace/Group41.png";
+import ViewImage from "../../../../assets/Espace/Group41.svg";
+import SvgUri from "react-native-svg-uri";
+
 const Score = () => {
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
@@ -32,21 +34,22 @@ const Score = () => {
             2000pts
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
-            <Image
+            <SvgUri
               source={ViewImage}
+              width={190}
+              height={36}
               style={{
                 position: "absolute",
-                top: width <= 790 ? 32: 45,
+                top: width <= 790 ? 32 : 45,
                 left: 20,
-                width: 190,
-                height: 36,
+             
               }}
             />
 
             <SmallBoldTxt
               style={{
                 position: "absolute",
-                top: width <= 790 ? 45: 55,
+                top: width <= 790 ? 45 : 55,
                 left: 30,
                 width: 170,
               }}
