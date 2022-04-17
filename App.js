@@ -16,6 +16,7 @@ import Coaching from "./screens/Coaching";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { IS_PROD } from "@env";
 import { NativeBaseProvider } from "native-base";
+import Quiz from "./screens/Quiz";
 
 const theme = {
   ...DefaultTheme,
@@ -66,6 +67,7 @@ export default function App() {
                     component={TabNavigation}
                   />
                   <Stack.Screen name="Coaching" component={Coaching} />
+                  <Stack.Screen name="Quiz" component={Quiz}/>
                   <Stack.Screen name="Trail" component={Trail} />
                   <Stack.Screen name="Workshop" component={Workshop} />
                   <Stack.Screen name="Loader" component={Loader} />

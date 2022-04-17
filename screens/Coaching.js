@@ -138,7 +138,7 @@ const Coaching = ({ navigation }) => {
                         width: 249,
                         height: 42,
                       }}
-                      onPress={() => {}}
+                      onPress={() => {navigation.navigate("Quiz");}}
                     >
                       <SmallLightTxt>Répondez à nos questions</SmallLightTxt>
                     </PrimaryButton>
@@ -153,7 +153,7 @@ const Coaching = ({ navigation }) => {
                         height: 42,
                         alignSelf:'center'
                       }}
-                      onPress={() => {}}
+                      onPress={() => {navigation.navigate("Quiz");}}
                     >
                       <SmallLightTxt>Répondez à nos questions</SmallLightTxt>
                     </PrimaryButton>
