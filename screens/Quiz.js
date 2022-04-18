@@ -34,6 +34,17 @@ const Quiz = ({ navigation }) => {
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
   const [checked4, setChecked4] = useState(false);
+
+  const [isHovered, setHovered] = React.useState(false);
+  const [isHovered2, setHovered2] = React.useState(false);
+
+  const Next = isHovered2? colors.green2 : colors.grayBorder;
+  const TextNext = isHovered2 ? colors.green2 : colors.black;
+
+  const Quit = isHovered ? colors.red1 : colors.grayBorder;
+  const TextQuit = isHovered ? colors.red1 : colors.black;
+
+
   const QuizContainer = {
     width: "100%",
     alignSelf: "center",
@@ -55,12 +66,19 @@ const Quiz = ({ navigation }) => {
     flexDirection: "row",
     justifyContent: "space-between",
     width: width <= 800 ? "95%" : width <= 1500 ? "55%" : "22%",
-    marginBottom : 20
+    marginBottom: 20,
   };
   const ContainerMd = {
-    justifyContent: width <= 800 ? "space-between" : width <= 1300 ? "space-between" : '',
-    height:width <= 800 ? height-70 : width <= 1300 ? height - 70*2 : height - (70*2),
+    justifyContent:
+      width <= 800 ? "space-between" : width <= 1300 ? "space-between" : "",
+    height:
+      width <= 800
+        ? height - 70
+        : width <= 1300
+        ? height - 70 * 2
+        : height - 70 * 2,
   };
+
   return (
     <View style={styles.container}>
       <BackHeader navigation={navigation} />
@@ -129,24 +147,30 @@ const Quiz = ({ navigation }) => {
             </View>
           </View>
           <View style={ButtonsBox}>
-            <TouchableOpacity style={styles.Buttons}>
-              <Txt>Quitter</Txt>
+            <TouchableOpacity
+              style={[styles.ButtonsQuit,{borderColor:Quit}]}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            >
+              <Txt style={{color:TextQuit}}>Quitter</Txt>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Buttons}>
-              <Txt>Mettre en pause</Txt>
+            <TouchableOpacity
+              style={[styles.ButtonsNext,{borderColor:Next}]}
+              onMouseEnter={() => setHovered2(true)}
+              onMouseLeave={() => setHovered2(false)}
+            >
+              <Txt style={{color:TextNext}}>Mettre en pause</Txt>
             </TouchableOpacity>
           </View>
         </View>
-     
       </ScrollView>
 
       {width >= 1300 && (
-          <View style={styles.Image}>
-            <SpaceCoachingMascotte />
-          </View>
-        )}
+        <View style={styles.Image}>
+          <SpaceCoachingMascotte />
+        </View>
+      )}
       {width >= 800 && <Footer />}
-
     </View>
   );
 };
@@ -202,7 +226,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  Buttons: {
+  ButtonsNext: {
+    borderRadius: 20,
+    borderWidth: 1,
+    width: "48%",
+    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: colors.grayBorder,
+  },
+  ButtonsQuit: {
     borderRadius: 20,
     borderWidth: 1,
     width: "48%",
