@@ -58,10 +58,8 @@ const Quiz = ({ navigation }) => {
     marginBottom : 20
   };
   const ContainerMd = {
-    justifyContent: width <= 800 ? "space-between" : "space-between",
-    flex:1,
-    height:width <= 800 ? height-70 : height,
-    backgroundColor:"#ccc"
+    justifyContent: width <= 800 ? "space-between" : width <= 1300 ? "space-between" : '',
+    height:width <= 800 ? height-70 : width <= 1300 ? height - 70*2 : height - (70*2),
   };
   return (
     <View style={styles.container}>
@@ -139,13 +137,16 @@ const Quiz = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        {width >= 1300 && (
+     
+      </ScrollView>
+
+      {width >= 1300 && (
           <View style={styles.Image}>
             <SpaceCoachingMascotte />
           </View>
         )}
-        {width >= 1300 && <Footer />}
-      </ScrollView>
+      {width >= 800 && <Footer />}
+
     </View>
   );
 };
