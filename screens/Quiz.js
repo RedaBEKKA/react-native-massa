@@ -43,8 +43,8 @@ const Quiz = ({ navigation }) => {
     flexDirection: "column",
     position: "relative",
   };
-  const CustW = width <= 800 ? "90%" : "45%";
-  const CustW2 = width <= 1000 ? "90%" : width <= 1300 ?'80%':"20%";
+  const CustW = width <= 800 ? "90%" :  width <= 1500 ?'60%':"45%";
+  const CustW2 = width <= 800 ? "90%" : width <= 1500 ?'50%':"20%";
 
   const progressc = width <= 800 ? 0.5 : 0.25;
 
@@ -53,7 +53,7 @@ const Quiz = ({ navigation }) => {
     alignSelf: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: width <= 1300 ? "95%" : "22%",
+    width: width <= 800 ? "95%" :width <= 1500 ?'55%': "22%",
     marginBottom: width <= 1300 ? 20 : 0
   };
   const ContainerMd ={
