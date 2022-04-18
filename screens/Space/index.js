@@ -156,7 +156,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecoration: "underline",
+                        textDecorationLine : "underline",
                       }}
                     >
                       Tout Voir
@@ -202,7 +202,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecoration: "underline",
+                        textDecorationLine : "underline",
                       }}
                     >
                       Tout Voir
@@ -235,11 +235,12 @@ const Espace = ({ navigation }) => {
               )}
             </View>
           </View>
+            {/* Recommandation */}
 
           <View style={swiperContainerStye}>
             <View style={ContainerRecommandation}>
               <View style={styles.row}>
-                <H6>Recommandations</H6>
+                <H6 style={{paddingLeft:Ready ?0 :10,paddingTop:isDesktop?5:0}} >Recommandations</H6>
 
                 {Ready ? (
                   <TouchableOpacity
@@ -248,7 +249,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecoration: "underline",
+                        textDecorationLine : "underline",
                       }}
                     >
                       Tout Voir
@@ -266,12 +267,12 @@ const Espace = ({ navigation }) => {
               ) : (
                 <View
                   style={{
-                    height: width <= 790 ? 130 : 260,
+                    height: width <= 790 ? 190 : 260,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <H7 style={{textAlign:'center'}}>
+                  <H7 style={{textAlign:'center', padding:width <= 790 ? 5 :0}}>
                     Pour avoir des recommandations adaptée à votre profil, merci
                     de cliquer sur "Coaching" pour répondre au questionnaire.
                   </H7>

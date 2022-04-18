@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
-import ViewImage from "../../../../assets/Espace/Group41.svg";
+import ViewImage from "../../../../assets/Espace/Group41.png";
 
 const Score = () => {
   const { width } = useWindowDimensions();

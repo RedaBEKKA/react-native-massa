@@ -82,7 +82,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
       showsHorizontalScrollIndicator={Platform.OS === "web"}
       horizontal={true}
       numColumns={1}
-      style={{ height: "100%", width: "100%" }}
+      style={{  width: "100%" }}
       data={Data}
       keyExtractor={(item) => "#" + item.ressourceTitle}
       key={"#"}
