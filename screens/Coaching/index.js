@@ -2,47 +2,26 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  Dimensions,
-  Image,
   useWindowDimensions,
 } from "react-native";
 import React from "react";
-import {
-  H5,
-  LightTxt,
-  H7,
-  SmallLightTxt,
-} from "../../components/TextsComponents";
+
 import BackHeader from "../../components/BackHeader";
 import { colors } from "../../styles/GlobalStyle";
-import DimensionsHook from "../../hooks/DimensionsHook";
 
-import Question from "../../assets/question.png";
-import Rendez from "../../assets/rendez.png";
-import Mascotte from "../../assets/mascotte_1.png";
-
-import { PrimaryButton } from "../../components/Buttons";
 import {
   CoachingCalender,
   CoachingMascotte2,
   CoachingQuestion,
-  SpaceCoachingMascotte,
 } from "../../assets/svg/space";
 import CoachingTitle from "./Components/CoachingTitle";
 import UseCoachingCards from "./Components/UseCardCoaching";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-
 const Coaching = ({ navigation }) => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
-  const { height, width } = useWindowDimensions();
-
-  const mascotteWidth = useWindowDimensions().width;
+  const { width } = useWindowDimensions();
 
   const Container = {
     width: "100%",
-    backgroundColor: "#ccc",
     alignItems: "center",
   };
 
@@ -62,8 +41,23 @@ const Coaching = ({ navigation }) => {
 
           {/* Body Cards */}
           <View style={desktopContent}>
-            <UseCoachingCards Imge={CoachingCalender} />
-            <UseCoachingCards Imge={CoachingQuestion} />
+            <UseCoachingCards
+              TitleCard={"Rendez-vous avec un expert"}
+              Imge={CoachingCalender}
+              BodyText={
+                "Vous avez suivi un ou plusieurs Trails, et vous souhaitez échanger avec un de nos experts pour poursuivre votre chemin. Vous aimeriez avoir des précisions sur un de vos trails pour vous orienter. Vous souhaitez aller plus loin en rencontrant un de nos experts « Trails » ou « Atelier »."
+              }
+              ButtonText={'Prenez rdv avec un de nos experts'}
+            />
+            <UseCoachingCards
+              Imge={CoachingQuestion}
+              TitleCard={"Questionnaire"}
+              BodyText={
+                "Ces questionnaires nous permettent dans un premier temps de vous recommander des contenus en lien avec votre situation. Ils nous permettent aussi de vous orienter vers un service extérieur si nous détectons une situation à risque. A terme, ils nous permettront de construire des trails uniques et personnalisés, pour vous uniquement."
+              }
+              ButtonText={'Répondez à nos questions'}
+
+            />
           </View>
         </View>
       </ScrollView>
@@ -108,10 +102,6 @@ const styles = StyleSheet.create({
     bottom: 1,
   },
 });
-
-
-
-
 
 {
   /* <View style={styles.card}>
