@@ -24,6 +24,7 @@ import { colors } from "../styles/GlobalStyle";
 import Footer from "../components/Footer";
 import DimensionsHook from "../hooks/DimensionsHook";
 import { PrimaryButton } from "../components/Buttons";
+import { SpaceCoachingMascotte } from "../assets/svg/space";
 
 const Quiz = ({ navigation }) => {
   const { isDesktop, isMobile, isTablet } = DimensionsHook();
@@ -56,7 +57,7 @@ const Quiz = ({ navigation }) => {
     marginBottom: width <= 1300 ? 20 : 0
   };
   const ContainerMd ={
-    height:height-80,
+    height:height-70*2,
     justifyContent: width <= 800 ? 'space-between' : ''
   }
   return (
@@ -142,6 +143,11 @@ const Quiz = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+      {width >= 1300 &&  <View style={styles.Image}>
+            <SpaceCoachingMascotte />
+        </View>}
+        {isDesktop && <Footer />}
+
       </ScrollView>
     </View>
   );
@@ -206,5 +212,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: colors.grayBorder,
   },
+  Image:{
+      height:'',
+      width:'',
+      position:'absolute',
+      right:10,
+      bottom:61
+  }
 
 });

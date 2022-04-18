@@ -19,6 +19,7 @@ import GrenCards from "./Components/GreenCard";
 import Swiper from "../../components/swiper/Swiper";
 import { colors } from "../../styles/GlobalStyle";
 import TrailsSwiper from "../../components/swiper/TrailsSwiper";
+import Footer from "../../components/Footer";
 const Espace = ({ navigation }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
@@ -286,6 +287,8 @@ const Espace = ({ navigation }) => {
             </View>
           </View>
         </>
+        {isDesktop && <Footer />}
+
       </ScrollView>
     </View>
   );
