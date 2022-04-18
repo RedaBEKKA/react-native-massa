@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   useWindowDimensions,
@@ -8,27 +7,14 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { ProgressBar } from "react-native-paper";
-import {
-  H2,
-  SmallBoldTxt,
-  H5,
-  LightTxt,
-  Txt,
-  H6,
-  H7,
-  SmallLightTxt,
-  SmallTxt,
-} from "../components/TextsComponents";
+import { Txt, H6, SmallTxt } from "../components/TextsComponents";
 import BackHeader from "../components/BackHeader";
 import { colors } from "../styles/GlobalStyle";
 import Footer from "../components/Footer";
-import DimensionsHook from "../hooks/DimensionsHook";
-import { PrimaryButton } from "../components/Buttons";
 import { SpaceCoachingMascotte } from "../assets/svg/space";
 import CheckBox from "../components/CheckBox/useCheckBox";
 
 const Quiz = ({ navigation }) => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
   const { height, width } = useWindowDimensions();
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -38,12 +24,11 @@ const Quiz = ({ navigation }) => {
   const [isHovered, setHovered] = React.useState(false);
   const [isHovered2, setHovered2] = React.useState(false);
 
-  const Next = isHovered2? colors.green2 : colors.grayBorder;
+  const Next = isHovered2 ? colors.green2 : colors.grayBorder;
   const TextNext = isHovered2 ? colors.green2 : colors.black;
 
   const Quit = isHovered ? colors.red1 : colors.grayBorder;
   const TextQuit = isHovered ? colors.red1 : colors.black;
-
 
   const QuizContainer = {
     width: "100%",
@@ -115,7 +100,6 @@ const Quiz = ({ navigation }) => {
                   title="Réponse 1"
                   isChecked={checked}
                 />
-                {/* <Txt>Réponse 1</Txt> */}
               </View>
               <View style={styles.BoxResponse}>
                 <CheckBox
@@ -148,18 +132,18 @@ const Quiz = ({ navigation }) => {
           </View>
           <View style={ButtonsBox}>
             <TouchableOpacity
-              style={[styles.ButtonsQuit,{borderColor:Quit}]}
+              style={[styles.ButtonsQuit, { borderColor: Quit }]}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
             >
-              <Txt style={{color:TextQuit}}>Quitter</Txt>
+              <Txt style={{ color: TextQuit }}>Quitter</Txt>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.ButtonsNext,{borderColor:Next}]}
+              style={[styles.ButtonsNext, { borderColor: Next }]}
               onMouseEnter={() => setHovered2(true)}
               onMouseLeave={() => setHovered2(false)}
             >
-              <Txt style={{color:TextNext}}>Mettre en pause</Txt>
+              <Txt style={{ color: TextNext }}>Mettre en pause</Txt>
             </TouchableOpacity>
           </View>
         </View>
