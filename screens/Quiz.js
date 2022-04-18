@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Checkbox, ProgressBar } from "react-native-paper";
+import { ProgressBar } from "react-native-paper";
 import {
   H2,
   SmallBoldTxt,
@@ -25,10 +25,11 @@ import Footer from "../components/Footer";
 import DimensionsHook from "../hooks/DimensionsHook";
 import { PrimaryButton } from "../components/Buttons";
 import { SpaceCoachingMascotte } from "../assets/svg/space";
+import CheckBox from "../components/CheckBox/useCheckBox";
 
 const Quiz = ({ navigation }) => {
   const { isDesktop, isMobile, isTablet } = DimensionsHook();
-  const {height, width } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
@@ -43,8 +44,8 @@ const Quiz = ({ navigation }) => {
     flexDirection: "column",
     position: "relative",
   };
-  const CustW = width <= 800 ? "90%" :  width <= 1500 ?'60%':"45%";
-  const CustW2 = width <= 800 ? "90%" : width <= 1500 ?'50%':"20%";
+  const CustW = width <= 800 ? "90%" : width <= 1500 ? "60%" : "45%";
+  const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "20%";
 
   const progressc = width <= 800 ? 0.5 : 0.25;
 
@@ -53,13 +54,15 @@ const Quiz = ({ navigation }) => {
     alignSelf: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: width <= 800 ? "95%" :width <= 1500 ?'55%': "22%",
-    marginBottom: width <= 1300 ? 20 : 0
+    width: width <= 800 ? "95%" : width <= 1500 ? "55%" : "22%",
+    marginBottom : 20
   };
-  const ContainerMd ={
-    height:height-70*2,
-    justifyContent: width <= 800 ? 'space-between' : ''
-  }
+  const ContainerMd = {
+    justifyContent: width <= 800 ? "space-between" : "space-between",
+    flex:1,
+    height:width <= 800 ? height-70 : height,
+    backgroundColor:"#ccc"
+  };
   return (
     <View style={styles.container}>
       <BackHeader navigation={navigation} />
@@ -89,48 +92,41 @@ const Quiz = ({ navigation }) => {
             {/* reponse */}
             <View style={[styles.Reponses, { width: CustW2 }]}>
               <View style={styles.BoxResponse}>
-                <Checkbox
-                  status={checked ? "checked" : "unchecked"}
+                <CheckBox
                   onPress={() => {
                     setChecked(!checked);
                   }}
-                  uncheckedColor={colors.grayBackground}
-                  color={colors.green2}
+                  title="Réponse 1"
+                  isChecked={checked}
                 />
-                <Txt>Réponse 1</Txt>
+                {/* <Txt>Réponse 1</Txt> */}
               </View>
               <View style={styles.BoxResponse}>
-                <Checkbox
-                  status={checked2 ? "checked" : "unchecked"}
+                <CheckBox
                   onPress={() => {
                     setChecked2(!checked2);
                   }}
-                  uncheckedColor={colors.grayBackground}
-                  color={colors.green2}
+                  title="Réponse 2"
+                  isChecked={checked2}
                 />
-                <Txt>Réponse 2</Txt>
               </View>
               <View style={styles.BoxResponse}>
-                <Checkbox
-                  status={checked3 ? "checked" : "unchecked"}
+                <CheckBox
                   onPress={() => {
                     setChecked3(!checked3);
                   }}
-                  uncheckedColor={colors.grayBackground}
-                  color={colors.green2}
+                  title="Réponse 3"
+                  isChecked={checked3}
                 />
-                <Txt>Réponse 3</Txt>
               </View>
               <View style={styles.BoxResponse}>
-                <Checkbox
-                  status={checked4 ? "checked" : "unchecked"}
+                <CheckBox
                   onPress={() => {
                     setChecked4(!checked4);
                   }}
-                  uncheckedColor={colors.grayBackground}
-                  color={colors.green2}
+                  title="Réponse 4"
+                  isChecked={checked4}
                 />
-                <Txt>Réponse 4</Txt>
               </View>
             </View>
           </View>
@@ -143,11 +139,12 @@ const Quiz = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      {width >= 1300 &&  <View style={styles.Image}>
+        {width >= 1300 && (
+          <View style={styles.Image}>
             <SpaceCoachingMascotte />
-        </View>}
-        {isDesktop && <Footer />}
-
+          </View>
+        )}
+        {width >= 1300 && <Footer />}
       </ScrollView>
     </View>
   );
@@ -191,11 +188,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 10,
     marginBottom: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
   },
   Checkbox: {
     borderRadius: 20,
     backgroundColor: colors.green1,
+    borderWidth: 2,
   },
   ButtonsBox: {
     marginTop: 20,
@@ -212,12 +210,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: colors.grayBorder,
   },
-  Image:{
-      height:'',
-      width:'',
-      position:'absolute',
-      right:10,
-      bottom:61
-  }
-
+  Image: {
+    height: "",
+    width: "",
+    position: "absolute",
+    right: 10,
+    bottom: 61,
+  },
 });
