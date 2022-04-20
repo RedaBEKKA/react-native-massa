@@ -9,7 +9,7 @@ import {
 import { PrimaryButton } from "../../../../components/Buttons";
 import { DemiCircl, DemiCirclMob } from "../../../../assets/svg/space";
 
-const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText }) => {
+const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText ,navigation,To}) => {
   const { width } = useWindowDimensions();
 
   const card = {
@@ -62,7 +62,9 @@ const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText }) => {
         </View>
 
         <View style={BoxButton}>
-          <PrimaryButton style={ButtonPrimary} onPress={() => {}}>
+          <PrimaryButton style={ButtonPrimary}     onPress={() => {
+                    navigation.navigate(To);
+                  }}>
             <SmallLightTxt>{ButtonText}</SmallLightTxt>
           </PrimaryButton>
         </View>

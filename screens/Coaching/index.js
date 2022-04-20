@@ -47,7 +47,7 @@ const Coaching = ({ navigation }) => {
               BodyText={
                 "Vous avez suivi un ou plusieurs Trails, et vous souhaitez échanger avec un de nos experts pour poursuivre votre chemin. Vous aimeriez avoir des précisions sur un de vos trails pour vous orienter. Vous souhaitez aller plus loin en rencontrant un de nos experts « Trails » ou « Atelier »."
               }
-              ButtonText={'Prenez rdv avec un de nos experts'}
+              ButtonText={"Prenez rdv avec un de nos experts"}
             />
             <UseCoachingCards
               Imge={CoachingQuestion}
@@ -55,8 +55,9 @@ const Coaching = ({ navigation }) => {
               BodyText={
                 "Ces questionnaires nous permettent dans un premier temps de vous recommander des contenus en lien avec votre situation. Ils nous permettent aussi de vous orienter vers un service extérieur si nous détectons une situation à risque. A terme, ils nous permettront de construire des trails uniques et personnalisés, pour vous uniquement."
               }
-              ButtonText={'Répondez à nos questions'}
-
+              ButtonText={"Répondez à nos questions"}
+              navigation={navigation}
+              To="Quiz"
             />
           </View>
         </View>
