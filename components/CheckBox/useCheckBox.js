@@ -1,11 +1,6 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import React from "react";
-
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { colors } from "../../styles/GlobalStyle";
 import { Txt } from "../TextsComponents";
-import CheckImg from "../../assets/Check_Ronde.png";
 import { Check, UnCheck } from "../../assets/svg/Coaching";
 const CheckBox = (props) => {
   return (
@@ -40,11 +35,3 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-{
-  /* <FontAwesome name="check-circle" size={24} color={colors.green2} /> */
-}
-//   <MaterialIcons
-//   name={"radio-button-unchecked"}
-//   size={24}
-//   color={colors.grayBackground}
-// />
