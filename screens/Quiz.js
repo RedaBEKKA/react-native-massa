@@ -13,6 +13,7 @@ import { colors } from "../styles/GlobalStyle";
 import Footer from "../components/Footer";
 import { SpaceCoachingMascotte } from "../assets/svg/space";
 import CheckBox from "../components/CheckBox/useCheckBox";
+import { SecondaryButton } from "../components/Buttons";
 
 const Quiz = ({ navigation }) => {
   const { height, width } = useWindowDimensions();
@@ -131,20 +132,8 @@ const Quiz = ({ navigation }) => {
             </View>
           </View>
           <View style={ButtonsBox}>
-            <TouchableOpacity
-              style={[styles.ButtonsQuit, { borderColor: Quit }]}
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            >
-              <Txt style={{ color: TextQuit }}>Quitter</Txt>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.ButtonsNext, { borderColor: Next }]}
-              onMouseEnter={() => setHovered2(true)}
-              onMouseLeave={() => setHovered2(false)}
-            >
-              <Txt style={{ color: TextNext }}>Mettre en pause</Txt>
-            </TouchableOpacity>
+            <SecondaryButton style={{width: "48%"}}>Quitter</SecondaryButton>
+            <SecondaryButton style={{width: "48%"}}>Mettre en pause</SecondaryButton>
           </View>
         </View>
       </ScrollView>
