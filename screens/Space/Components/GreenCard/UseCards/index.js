@@ -64,10 +64,11 @@ const UseCard = ({
     >
       <View style={isDesktop ? styles.DeskLeftBox : styles.LeftBox}>
         <View style={isDesktop ? styles.DesktopBoxImage : styles.BoxImage}>
-          <View style={styles.image}>
+          
+        </View>
+        <View style={styles.image}>
             <Img />
           </View>
-        </View>
 
         <View>
           {isDesktop ? (

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, Text, View,useWindowDimensions } from "react-native";
 import React from "react";
 import Spinner from "../Spinner";
 import { colors } from "../../styles/GlobalStyle";

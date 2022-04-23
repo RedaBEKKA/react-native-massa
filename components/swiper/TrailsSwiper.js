@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, FlatList, Platform, Text, useWindowDimensions } from "react-native";
-import SwiperItem from "./SwiperItem";
+import SwiperItemMySpace from "./SwiperItemMySpace";
 import axios from "axios";
 import LoaderItem from "./LoaderItem";
 import { TOKEN } from "@env";
@@ -74,7 +74,8 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
       key={"_"}
       renderItem={(props) => (
          
-        <SwiperItem {...props} type={type} navigation={navigation} SwiperItem={true}  showStateBar={showStateBar === true ? true : false}  />
+        <SwiperItemMySpace {...props} type={type} navigation={navigation} SwiperItem={true}  
+        showStateBar={showStateBar === true ? true : false}  />
       )}
     />
   ) : (
@@ -82,12 +83,12 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
       showsHorizontalScrollIndicator={Platform.OS === "web"}
       horizontal={true}
       numColumns={1}
-      style={{  width: "100%" }}
+      style={{width: "100%" }}
       data={Data}
       keyExtractor={(item) => "#" + item.ressourceTitle}
       key={"#"}
       renderItem={(props) => (
-        <SwiperItem {...props} type={type} navigation={navigation} />
+        <SwiperItemMySpace {...props} type={type} navigation={navigation} />
       )}
     />
   );
@@ -95,4 +96,3 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
 
 export default TrailsSwiper;
 
-const styles = StyleSheet.create({});

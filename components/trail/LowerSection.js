@@ -1,14 +1,23 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  TouchableWithoutFeedback,
+  Pressable,
+} from "react-native";
+import React, { useState, useRef } from "react";
 import { BoldTxt, Txt, H1, H5 } from "../TextsComponents";
 import { colors } from "../../styles/GlobalStyle";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import Swiper from "../swiper/Swiper";
 import { ENDPOINT_WORKSHOPS } from "@env";
 import { FavoriteIcon, LikeIcon } from "../../assets/svg/Icons";
+import { DropDown } from "../Inputs";
+import { useHover } from "react-native-web-hooks";
 
 const LowerSection = ({
-  saisons,
+  seasons,
   data,
   selectedSeason,
   setSelectedSeason,
@@ -16,58 +25,101 @@ const LowerSection = ({
 }) => {
   const { width, isMobile, isBigScreen, isTablet, isDesktop } =
     DimensionsHook();
+  const likeRef = useRef(null);
+  const favoriteRef = useRef(null);
+  const [showSeason, setShowSeason] = useState(false);
+
+  const likeHover = useHover(likeRef);
+  const favoriteHover = useHover(favoriteRef);
 
   const container = {
     flex: 1,
     width: isBigScreen ? "70%" : isDesktop ? "80%" : isTablet ? "90%" : "95%",
-
     alignSelf: "center",
     paddingBottom: 10,
     marginBottom: 30,
   };
 
   return (
-    <View style={container}>
-      <BoldTxt style={{ marginTop: 25, marginBottom: 10 }}>Trail</BoldTxt>
-      <View
-        style={{
-          flexDirection: isMobile || isTablet ? "column" : "row",
-          alignItems: isMobile || isTablet ? "flex-start" : "center",
-          justifyContent: isMobile || isTablet ? "flex-start" : "space-between",
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <H1>{data.ressourceTitle}</H1>
-          {/** like favorite button */}
-          <TouchableOpacity style={styles.likeButton}>
-            <LikeIcon />
-          </TouchableOpacity>
-          {/** favorite button */}
-          <TouchableOpacity style={styles.favoriteButton}>
-            <FavoriteIcon />
-          </TouchableOpacity>
-        </View>
+    <TouchableWithoutFeedback onPress={() => setShowSeason(false)}>
+      <View style={container}>
+        <BoldTxt style={{ marginTop: 25, marginBottom: 10 }}>Trail</BoldTxt>
         <View
-          style={[
-            styles.dropdownContainer,
-            {
-              width: isBigScreen ? 300 : isDesktop ? 200 : "90%",
-              marginTop: isMobile || isTablet ? 10 : 0,
-            },
-          ]}
+          style={{
+            flexDirection: isMobile || isTablet ? "column" : "row",
+            alignItems: isMobile || isTablet ? "flex-start" : "center",
+            justifyContent:
+              isMobile || isTablet ? "flex-start" : "space-between",
+          }}
         >
-          <Txt>Saison 1 </Txt>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: isDesktop ? 0 : 20,
+            }}
+          >
+            <H1>{data.ressourceTitle}</H1>
+            {/** like button */}
+            <Pressable
+              ref={likeRef}
+              style={[
+                styles.likeButton,
+                {
+                  borderWidth: likeHover ? 0 : 1,
+                  backgroundColor: likeHover ? colors.blue0 : "transparent",
+                },
+              ]}
+            >
+              <LikeIcon color={likeHover ? colors.white : colors.grayBorder} />
+            </Pressable>
+            {/** favorite button */}
+            <Pressable
+              ref={favoriteRef}
+              style={[
+                styles.favoriteButton,
+                {
+                  borderWidth: favoriteHover ? 0 : 1,
+                  backgroundColor: favoriteHover ? colors.red0 : "transparent",
+                },
+              ]}
+            >
+              <FavoriteIcon
+                color={favoriteHover ? colors.white : colors.grayBorder}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <Txt style={{ marginVertical: 30 }}>{data.metadata.description}</Txt>
+        <View style={styles.divider} />
+        <H5 style={{ marginVertical: 10 }}>Ateliers suggérés</H5>
+        <Swiper
+          navigation={navigation}
+          type="Atelier"
+          endpoint={ENDPOINT_WORKSHOPS}
+        />
+        <View
+          onPress={() => setShowSeason(!setShowSeason)}
+          style={{
+            width: isDesktop ? 250 : isTablet ? 200 : 160,
+
+            position: "absolute",
+            top: isDesktop ? 60 : isTablet ? 15 : 10,
+            right: 0,
+          }}
+        >
+          <DropDown
+            height={50}
+            placeholder=""
+            show={showSeason}
+            setShow={() => setShowSeason(!showSeason)}
+            value={selectedSeason}
+            setValue={setSelectedSeason}
+            options={seasons}
+          />
         </View>
       </View>
-      <Txt style={{ marginVertical: 30 }}>{data.metadata.description}</Txt>
-      <View style={styles.divider} />
-      <H5 style={{ marginVertical: 10 }}>Ateliers suggérés</H5>
-      <Swiper
-        navigation={navigation}
-        type="Atelier"
-        endpoint={ENDPOINT_WORKSHOPS}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -103,14 +155,5 @@ const styles = StyleSheet.create({
     padding: 12,
     marginLeft: 12,
   },
-  dropdownContainer: {
-    height: 50,
-    borderRadius: 5,
-    alignItems: "center",
-    alignSelf: "center",
-
-    justifyContent: "center",
-
-    backgroundColor: colors.grayBackground,
-  },
+  dropdownContainer: {},
 });

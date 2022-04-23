@@ -8,28 +8,16 @@ import { TOKEN } from "@env";
 
 const Swiper = ({ type, endpoint, navigation, showStateBar }) => {
   const [Data, setData] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const getData = async () => {
     setLoader(true);
-    const Response = await axios.post(
-      endpoint,
-      {
-        access_token: TOKEN,
-      },
-
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
+    const Response = await axios.post(endpoint, {
+      access_token: TOKEN,
+    });
     setData(Response.data);
-    setTimeout(() => {
-      setLoader(false);
-    }, 2000);
+
+    setLoader(false);
   };
 
   useEffect(() => {

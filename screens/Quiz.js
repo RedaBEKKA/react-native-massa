@@ -4,6 +4,7 @@ import {
   ScrollView,
   useWindowDimensions,
   TouchableOpacity,
+  Image
 } from "react-native";
 import React, { useState } from "react";
 import { ProgressBar } from "react-native-paper";
@@ -12,6 +13,7 @@ import BackHeader from "../components/BackHeader";
 import { colors } from "../styles/GlobalStyle";
 import Footer from "../components/Footer";
 import { SpaceCoachingMascotte } from "../assets/svg/space";
+import Mascotte from "../assets/mascotte_1.png"
 import CheckBox from "../components/CheckBox/useCheckBox";
 import { SecondaryButton } from "../components/Buttons";
 
@@ -61,8 +63,8 @@ const Quiz = ({ navigation }) => {
       width <= 800
         ? height - 70
         : width <= 1300
-        ? height - 70 * 2
-        : height - 70 * 2,
+          ? height - 70 * 2
+          : height - 70 * 2,
   };
 
   return (
@@ -132,16 +134,20 @@ const Quiz = ({ navigation }) => {
             </View>
           </View>
           <View style={ButtonsBox}>
-            <SecondaryButton style={{width: "48%"}}>Quitter</SecondaryButton>
-            <SecondaryButton style={{width: "48%"}}>Mettre en pause</SecondaryButton>
+            <SecondaryButton
+             style={{ width: "48%" }}
+             onPress={()=>navigation.navigate('Message')}
+             >Quitter</SecondaryButton>
+            <SecondaryButton style={{ width: "48%" }}>Mettre en pause</SecondaryButton>
           </View>
         </View>
       </ScrollView>
 
-      {width >= 1300 && (
-        <View style={styles.Image}>
-          <SpaceCoachingMascotte />
-        </View>
+      {width >= 1000 && (
+        // <View style={styles.Image}>
+        //   <SpaceCoachingMascotte />
+        // </View>
+        <Image source={Mascotte} style={styles.Image} />
       )}
       {width >= 800 && <Footer />}
     </View>
@@ -218,8 +224,9 @@ const styles = StyleSheet.create({
     borderColor: colors.grayBorder,
   },
   Image: {
-    height: "",
-    width: "",
+    height: 304,
+    width: 184,
+    resizeMode: 'contain',
     position: "absolute",
     right: 10,
     bottom: 61,

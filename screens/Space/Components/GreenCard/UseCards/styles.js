@@ -36,16 +36,19 @@ const styles = StyleSheet.create({
   },
 
   DesktopBoxImage: {
-    backgroundColor: "#FBF6F360",
+    backgroundColor:colors.green2,
+    opacity:0.25,
     borderBottomRightRadius: 80,
     borderTopRightRadius: 80,
     height: "100%",
     width: "40%",
     alignItems: "center",
     justifyContent: "center",
+    position:'relative'
   },
   BoxImage: {
-    backgroundColor: "#FBF6F360",
+    backgroundColor:colors.green2,
+    opacity:0.25,
     borderBottomRightRadius: 40,
     borderTopRightRadius: 40,
     alignItems: "center",
@@ -53,12 +56,15 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "30%",
     marginRight: 15,
+    position:'relative'
   },
 
   image: {
     width: 40,
     height: 35,
     zIndex: 2,
+    position:'absolute',
+    left:"10%"
   },
   DestTxt: {
     width: 60,

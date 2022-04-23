@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
-import ViewImage from "../../../../assets/Espace/Group41.png";
+//import ViewImage from "../../../../assets/Espace/Group41.png";
 
 const Score = () => {
   const { width } = useWindowDimensions();
@@ -35,7 +35,7 @@ const Score = () => {
             2000pts
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
-            <Image
+            {/* <Image
               source={ViewImage}
               style={{
                 position: "absolute",
@@ -44,7 +44,7 @@ const Score = () => {
                 width: 190,
                 height: 36,
               }}
-            />
+            /> */}
 
             <SmallBoldTxt
               style={{

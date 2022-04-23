@@ -16,11 +16,11 @@ import Footer from "../../components/Footer";
 import { TOKEN, ENDPOINT_TRAILS } from "@env";
 import Spinner from "../../components/Spinner";
 import axios from "axios";
-import ResponsiveItem from "../../components/seeall/ReponsiveItem";
+import ResponsiveItem from "../../components/seeall/ResponsiveItem";
 
 const SeeAllTrails = ({ navigation }) => {
   const [keyword, setKeyword] = useState("");
-  const { isMobile, isDesktop, isTablet, isBigScreen, width } =
+  const { isMobile, isDesktop, isTablet, isBigScreen, width, height } =
     DimensionsHook();
 
   const [Data, setData] = useState([]);
@@ -65,11 +65,11 @@ const SeeAllTrails = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <BackHeader navigation={navigation} />
       <ScrollView
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={Platform.OS === "web"}
       >
-        <BackHeader navigation={navigation} />
         {/** search bar */}
         <View
           style={[
@@ -89,7 +89,7 @@ const SeeAllTrails = ({ navigation }) => {
           </View>
         </View>
         {/** trails list */}
-        <View style={styles.trailsContainer}>
+        <View style={[styles.trailsContainer, { minHeight: height - 250 }]}>
           <H6 style={{ marginLeft: 15 }}>Trails</H6>
           {/** list of trails in rows  */}
           <View
@@ -102,7 +102,7 @@ const SeeAllTrails = ({ navigation }) => {
             }}
           >
             {loader
-              ? Array.from(Array(6)).map((_, i) => {
+              ? Array.from(Array(2)).map((_, i) => {
                   return (
                     <View key={i} style={itemContainer}>
                       <Spinner />

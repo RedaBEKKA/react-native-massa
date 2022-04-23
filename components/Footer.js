@@ -12,11 +12,11 @@ const Footer = () => {
         style={{
           width: isDesktop ? "85%" : "95%",
           borderTopWidth: 1,
-          backgroundColor: colors.beige,
+          backgroundColor: colors.white,
           borderTopColor: colors.grayBorder,
           alignItems: "center",
           justifyContent: "center",
-          paddingVertical: 20,
+          height: 70,
         }}
       >
         <Txt>Copyright © MASSA TRAILS 2021. Tous droits réservés.</Txt>
@@ -29,7 +29,7 @@ export default Footer;
 
 const styles = StyleSheet.create({
   footer: {
-    backgroundColor: colors.beige,
+    backgroundColor: colors.white,
 
     alignItems: "center",
     justifyContent: "center",

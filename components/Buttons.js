@@ -5,13 +5,31 @@ import { useHover } from "react-native-web-hooks";
 import { Txt } from "./TextsComponents";
 
 
-export const PrimaryButton = ({ children, style, onPress }) => {
+export const PrimaryButton = ({ children, style, onPress, width }) => {
+  const hoverRef = useRef(null);
+  const isHovered = useHover(hoverRef);
+
   return (
-    <Pressable onPress={onPress} style={[styles.buttonPrimary, { ...style }]}>
-      {children}
+    <Pressable
+      ref={hoverRef}
+      onPress={onPress}
+      style={[
+        styles.buttonPrimary,
+        {
+          backgroundColor: isHovered ? colors.blue3 : colors.green2,
+          width: width || "auto",
+          paddingHorizontal: width ? "none" : 30,
+        },
+
+        { ...style },
+      ]}
+    >
+      <Txt color={isHovered ? colors.white : colors.blue3}>{children}</Txt>
     </Pressable>
   );
 };
+
+
 
 export const SecondaryButton = ({ children, style, onPress }) => {
   const hoverRef = useRef(null);
@@ -33,10 +51,8 @@ export const SecondaryButton = ({ children, style, onPress }) => {
 };
 const styles = StyleSheet.create({
   buttonPrimary: {
-    height: 57,
-    width: "100%",
+    height: 42,
     borderRadius: 5000,
-    backgroundColor: colors.green2,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -50,7 +66,3 @@ const styles = StyleSheet.create({
     // borderColor: colors.grayBorder,
   },
 });
-
-
-
-

@@ -3,8 +3,9 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Text,
   Platform,
-  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../../styles/GlobalStyle";
@@ -12,14 +13,24 @@ import HeaderComponent from "../../components/HeaderComponent";
 import { H6, BoldTxt } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import Swiper from "../../components/swiper/Swiper";
-import { SearchComponent } from "../../components/Inputs";
+import { DropDown, SearchComponent } from "../../components/Inputs";
 import Footer from "../../components/Footer";
 
 import { ENDPOINT_WORKSHOPS, ENDPOINT_TRAILS } from "@env";
 
 const HomeMain = ({ navigation }) => {
   const { isMobile, isDesktop, isTablet } = DimensionsHook();
+
   const [keyword, setKeyword] = useState("");
+  const [showCategories, setShowCategories] = useState(false);
+  const [selectedCategorie, setSelectedCategorie] = useState("");
+  const categories = [
+    { label: "Atelier Conscience", value: "Atelier Conscience" },
+    { label: "Atelier Corps", value: "Atelier Corps" },
+    { label: "Atelier Rituels", value: "Atelier Rituels" },
+    { label: "Atelier Témoignages", value: "Atelier Témoignages" },
+  ];
+
   const swiperContainerStye = {
     backgroundColor: colors.white,
     width: "95%",
@@ -32,80 +43,90 @@ const HomeMain = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <ScrollView
-        style={{ flex: 1 }}
-        showsVerticalScrollIndicator={Platform.OS === "web"}
-      >
-        <HeaderComponent navigation={navigation} />
-        {/** search bar */}
-        <View
-          style={[
-            styles.searchBarContainer,
-            {
-              justifyContent: isMobile ? "center" : "flex-end",
-              marginRight: isMobile ? 0 : "2.5%",
-            },
-          ]}
+    <TouchableWithoutFeedback onPress={() => setShowCategories(false)}>
+      <View style={styles.container}>
+        <ScrollView
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={Platform.OS === "web"}
         >
-          <View style={{ width: isMobile ? "90%" : 400 }}>
-            <SearchComponent
-              placeholder="Rechercher"
-              value={keyword}
-              setValue={setKeyword}
+          <HeaderComponent navigation={navigation} />
+          {/** search bar */}
+          <View
+            style={[
+              styles.searchBarContainer,
+              {
+                justifyContent: isMobile ? "center" : "flex-end",
+                marginRight: isMobile ? 0 : "2.5%",
+              },
+            ]}
+          >
+            <View style={{ width: isMobile ? "95%" : 280 }}>
+              <SearchComponent
+                placeholder="Rechercher"
+                value={keyword}
+                setValue={setKeyword}
+              />
+            </View>
+          </View>
+          {/** History swiper */}
+          <View style={swiperContainerStye}>
+            <H6>Reprendre avec le profil de Brigitte</H6>
+            <Swiper
+              navigation={navigation}
+              type="Trail"
+              showStateBar={true}
+              endpoint={ENDPOINT_TRAILS}
             />
           </View>
-        </View>
-        {/** History swiper */}
-        <View style={swiperContainerStye}>
-          <H6>Reprendre avec le profil de Brigitte</H6>
-          <Swiper
-            navigation={navigation}
-            type="Trail"
-            showStateBar={true}
-            endpoint={ENDPOINT_TRAILS}
-          />
-        </View>
-        {/**  Trails Swiper */}
-        <View style={swiperContainerStye}>
-          <View style={styles.row}>
-            <H6>Trails</H6>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SeeAllTrails")}
+          {/**  Trails Swiper */}
+          <View style={swiperContainerStye}>
+            <View style={styles.row}>
+              <H6>Trails</H6>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SeeAllTrails")}
+              >
+                <BoldTxt style={{ paddingRight: isMobile ? 10 : 20 }}>
+                  Tout Voir
+                </BoldTxt>
+              </TouchableOpacity>
+            </View>
+
+            <Swiper
+              navigation={navigation}
+              type="Trail"
+              endpoint={ENDPOINT_TRAILS}
+            />
+          </View>
+          {/**  Workshops */}
+          <View style={[swiperContainerStye, { marginBottom: 30 }]}>
+            <View style={[styles.row, { paddingRight: 10 }]}>
+              <H6>Ateliers</H6>
+            </View>
+
+            <Swiper
+              navigation={navigation}
+              type="Atelier"
+              endpoint={ENDPOINT_WORKSHOPS}
+            />
+
+            <View
+              style={{ width: 220, position: "absolute", top: 10, right: 15 }}
             >
-              <BoldTxt style={{ paddingRight: isMobile ? 10 : 20 }}>
-                Tout Voir
-              </BoldTxt>
-            </TouchableOpacity>
+              <DropDown
+                height={40}
+                placeholder="Toutes les catégories"
+                show={showCategories}
+                setShow={() => setShowCategories(!showCategories)}
+                value={selectedCategorie}
+                setValue={setSelectedCategorie}
+                options={categories}
+              />
+            </View>
           </View>
-
-          <Swiper
-            navigation={navigation}
-            type="Trail"
-            endpoint={ENDPOINT_TRAILS}
-          />
-        </View>
-        {/**  Workshops */}
-        <View style={[swiperContainerStye, { marginBottom: 30 }]}>
-          <View style={styles.row}>
-            <H6>Ateliers</H6>
-            <BoldTxt style={{ paddingRight: isMobile ? 10 : 20 }}>
-              drop down here
-            </BoldTxt>
-          </View>
-
-          <Swiper
-            navigation={navigation}
-            type="Atelier"
-            endpoint={ENDPOINT_WORKSHOPS}
-          />
-        </View>
-        {isDesktop && <Footer />}
-      </ScrollView>
-    </KeyboardAvoidingView>
+          {isDesktop && <Footer />}
+        </ScrollView>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -132,7 +153,6 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     flexDirection: "row",
     alignItems: "center",
-
     marginTop: 10,
   },
 });

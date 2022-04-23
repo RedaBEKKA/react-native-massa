@@ -12,11 +12,13 @@ import TabNavigation from "./utils/TabNavigation";
 import Login from "./screens/Login";
 import Workshop from "./screens/Workshop";
 import Trail from "./screens/Trail";
-import Coaching from "./screens/Coaching/index";
+import Coaching from "./screens/Coaching";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { IS_PROD } from "@env";
 import { NativeBaseProvider } from "native-base";
 import Quiz from "./screens/Quiz";
+import Message from "./screens/Message";
+import MyAccount from "./screens/MyAccount";
 
 const theme = {
   ...DefaultTheme,
@@ -61,16 +63,17 @@ export default function App() {
                   ) : (
                     <></>
                   )}
-
                   <Stack.Screen
                     name="TabNavigation"
                     component={TabNavigation}
                   />
                   <Stack.Screen name="Coaching" component={Coaching} />
                   <Stack.Screen name="Quiz" component={Quiz}/>
-                  <Stack.Screen name="Trail" component={Trail} />
-                  <Stack.Screen name="Workshop" component={Workshop} />
                   <Stack.Screen name="Loader" component={Loader} />
+                  <Stack.Screen name="Trail" component={Trail} />
+                  <Stack.Screen name="MyAccount" component={MyAccount} />
+                  <Stack.Screen name="Workshop" component={Workshop} />
+                  <Stack.Screen name="Message" component={Message} />
                 </Stack.Navigator>
               </NavigationContainer>
             </SafeAreaView>

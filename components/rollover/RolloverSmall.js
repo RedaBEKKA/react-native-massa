@@ -22,7 +22,7 @@ const RolloverSmall = ({ item, isOpen, onClose, type, navigation }) => {
     if (type === "Trail") {
       navigation.navigate("Trail", { id: item.ressourceCode });
     } else {
-      navigation.navigate("Workshop");
+      navigation.navigate("Workshop", { id: item.ressourceCode });
     }
   };
 

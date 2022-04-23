@@ -274,7 +274,8 @@ const Espace = ({ navigation }) => {
                   }}
                 >
                   <H7 style={{textAlign:'center', padding:width <= 790 ? 5 :0}}>
-                    Pour avoir des recommandations adaptée à votre profil, merci
+                    Pour avoir des recommandations adaptée à votre profil,
+                    {'\n'} merci
                     de cliquer sur "Coaching" pour répondre au questionnaire.
                   </H7>
                   <TouchableOpacity
@@ -284,6 +285,38 @@ const Espace = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
               )}
+            </View>
+          </View>
+
+          {/*Activités réalisées */}
+          <View style={swiperContainerStye}>
+            <View style={ContainerRecommandation}>
+              <View style={styles.row}>
+                <H6 style={{paddingLeft:Ready ?0 :10,paddingTop:isDesktop?5:0}} >Activités réalisées</H6>
+
+                {Ready ? (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("SeeAllTrails")}
+                  >
+                    <BoldTxt
+                      style={{
+                        paddingRight: isMobile ? 10 : 20,
+                        textDecorationLine : "underline",
+                      }}
+                    >
+                      Tout Voir
+                    </BoldTxt>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
+              {Ready && (
+                <Swiper
+                  navigation={navigation}
+                  type="Trail"
+                  endpoint={ENDPOINT_TRAILS}
+                />
+              ) }
             </View>
           </View>
         </>

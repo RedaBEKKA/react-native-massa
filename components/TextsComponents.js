@@ -14,6 +14,7 @@ export const H1 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 24 : isTablet ? 28 : 36,
@@ -38,6 +39,7 @@ export const H2 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 26 : 28,
@@ -61,6 +63,7 @@ export const H3 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 24 : 26,
@@ -84,6 +87,7 @@ export const H4 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 22 : 24,
@@ -107,6 +111,7 @@ export const H5 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 20 : 22,
@@ -130,6 +135,7 @@ export const H6 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 18 : 20,
@@ -153,6 +159,7 @@ export const H7 = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 16 : 18,
@@ -176,6 +183,7 @@ export const Txt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 16 : 18,
@@ -200,6 +208,7 @@ export const SmallTxt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 12 : 14,
@@ -223,6 +232,7 @@ export const LightTxt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 14 : 17,
@@ -246,6 +256,7 @@ export const SmallLightTxt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 12 : 14,
@@ -269,6 +280,7 @@ export const SmallBoldTxt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 12 : 14,
@@ -292,6 +304,7 @@ export const BoldTxt = ({
   const { isMobile, isTablet, isDesktop } = DimensionsHook();
   return (
     <Text
+      selectable={false}
       numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize || isMobile ? 14 : 17,

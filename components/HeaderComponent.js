@@ -1,15 +1,19 @@
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import React, { useRef } from "react";
 import DimensionsHook from "../hooks/DimensionsHook";
-
-import Avatar from "../assets/avatar.png";
+import { useHover } from "react-native-web-hooks";
+import { Avatar } from "../assets/svg/Icons";
 import { colors } from "../styles/GlobalStyle";
 import { useRoute } from "@react-navigation/native";
 import { MTLogoGreen } from "../assets/svg/Logo";
 import { BoldTxt, Txt } from "./TextsComponents";
-const HeaderComponent = ({ navigation }) => {
-  const { isDesktop, isMobile, isTablet } = DimensionsHook();
+
+const HeaderComponent = ({ navigation, myaccount }) => {
+  const { isDesktop } = DimensionsHook();
+
   const route = useRoute();
+  const hoverRef = useRef(null);
+  const isHovered = useHover(hoverRef);
 
   const routing = [
     { name: "Acceuil", link: "Home" },
@@ -57,8 +61,19 @@ const HeaderComponent = ({ navigation }) => {
             </View>
           )}
         </View>
-        <TouchableOpacity>
-          <Image source={Avatar} style={styles.avatar} />
+        <TouchableOpacity
+          ref={hoverRef}
+          style={[
+            styles.avatar,
+            {
+              backgroundColor: isHovered ? colors.blue3 : colors.grayBackground,
+              borderWidth: 2,
+              borderColor: myaccount ? colors.green2 : "transparent",
+            },
+          ]}
+          onPress={() => navigation.navigate("MyAccount")}
+        >
+          <Avatar color={isHovered ? colors.white : colors.blue3} />
         </TouchableOpacity>
       </View>
     </View>
@@ -88,10 +103,10 @@ const styles = StyleSheet.create({
     height: 50,
   },
   avatar: {
-    width: 45,
-    height: 45,
-    backgroundColor: colors.grayBackground,
-    borderRadius: 20,
+    width: 48,
+    padding: 10,
+    height: 48,
+    borderRadius: 50,
   },
   activeDot: {
     width: 8,
