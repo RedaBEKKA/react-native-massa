@@ -19,6 +19,7 @@ import { NativeBaseProvider } from "native-base";
 import Quiz from "./screens/Quiz";
 import Message from "./screens/Message";
 import MyAccount from "./screens/MyAccount";
+import Appointment from "./screens/Appointment";
 
 const theme = {
   ...DefaultTheme,
@@ -74,6 +75,7 @@ export default function App() {
                   <Stack.Screen name="MyAccount" component={MyAccount} />
                   <Stack.Screen name="Workshop" component={Workshop} />
                   <Stack.Screen name="Message" component={Message} />
+                  <Stack.Screen name="Appointment" component={Appointment} />
                 </Stack.Navigator>
               </NavigationContainer>
             </SafeAreaView>
