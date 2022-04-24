@@ -74,7 +74,7 @@ const CoachingCards = ({
 
         <View style={BoxButton}>
           <PrimaryButton
-            width={custWidth}
+            // width={305}
             style={ButtonPrimary}
             onPress={() => {
               navigation.navigate(To);
