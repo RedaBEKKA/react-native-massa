@@ -3,7 +3,8 @@ import React from "react";
 import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
-//import ViewImage from "../../../../assets/Espace/Group41.png";
+import bacground from "../../../../assets/Espace/Group41.png";
+import { BackgroundSource } from "../../../../assets/svg/space";
 
 const Score = () => {
   const { width } = useWindowDimensions();
@@ -35,16 +36,18 @@ const Score = () => {
             2000pts
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
-            {/* <Image
-              source={ViewImage}
+            <View
+              source={bacground}
               style={{
                 position: "absolute",
                 top: width <= 790 ? 32 : 45,
                 left: 20,
-                width: 190,
-                height: 36,
+               width:190,
+               height:30
               }}
-            /> */}
+            >
+              <BackgroundSource/>
+            </View>
 
             <SmallBoldTxt
               style={{
