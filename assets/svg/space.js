@@ -292,3 +292,45 @@ export const CheckCircle = () => {
   )
 }
 
+export const DemiCircl = () => {
+  return (
+    <Svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 457 157"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <Rect
+        opacity="0.25"
+        y="-300"
+        width="457"
+        height="457"
+        rx="228.5"
+        fill="#88C1A3"
+      />
+    </Svg>
+  );
+};
+
+export const DemiCirclMob = () => {
+  return (
+    <Svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 343 90"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <Rect
+        opacity="0.25"
+        x="-55"
+        y="-367"
+        width="457"
+        height="457"
+        rx="228.5"
+        fill="#88C1A3"
+      />
+    </Svg>
+  );
+};

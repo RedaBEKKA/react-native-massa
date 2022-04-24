@@ -15,7 +15,7 @@ import {
   CoachingQuestion,
 } from "../../assets/svg/space";
 import CoachingTitle from "./Components/CoachingTitle";
-import UseCoachingCards from "./Components/UseCardCoaching";
+import CoachingCards from "./Components/CardCoaching";
 
 const Coaching = ({ navigation }) => {
   const { width } = useWindowDimensions();
@@ -36,20 +36,22 @@ const Coaching = ({ navigation }) => {
       <BackHeader navigation={navigation} />
       <ScrollView>
         <View style={Container}>
-          {/* Top Text  */}
+          {/* Top Rendez-vous  */}
           <CoachingTitle />
 
           {/* Body Cards */}
           <View style={desktopContent}>
-            <UseCoachingCards
+            <CoachingCards
               TitleCard={"Rendez-vous avec un expert"}
               Imge={CoachingCalender}
               BodyText={
                 "Vous avez suivi un ou plusieurs Trails, et vous souhaitez échanger avec un de nos experts pour poursuivre votre chemin. Vous aimeriez avoir des précisions sur un de vos trails pour vous orienter. Vous souhaitez aller plus loin en rencontrant un de nos experts « Trails » ou « Atelier »."
               }
               ButtonText={"Prenez rdv avec un de nos experts"}
+              navigation={navigation}
+              To="Appointment"
             />
-            <UseCoachingCards
+            <CoachingCards
               Imge={CoachingQuestion}
               TitleCard={"Questionnaire"}
               BodyText={

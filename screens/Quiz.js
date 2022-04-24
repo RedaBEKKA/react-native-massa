@@ -4,7 +4,7 @@ import {
   ScrollView,
   useWindowDimensions,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { ProgressBar } from "react-native-paper";
@@ -13,7 +13,7 @@ import BackHeader from "../components/BackHeader";
 import { colors } from "../styles/GlobalStyle";
 import Footer from "../components/Footer";
 import { SpaceCoachingMascotte } from "../assets/svg/space";
-import Mascotte from "../assets/mascotte_1.png"
+import Mascotte from "../assets/mascotte_1.png";
 import CheckBox from "../components/CheckBox/useCheckBox";
 import { SecondaryButton } from "../components/Buttons";
 
@@ -23,15 +23,6 @@ const Quiz = ({ navigation }) => {
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
   const [checked4, setChecked4] = useState(false);
-
-  const [isHovered, setHovered] = React.useState(false);
-  const [isHovered2, setHovered2] = React.useState(false);
-
-  const Next = isHovered2 ? colors.green2 : colors.grayBorder;
-  const TextNext = isHovered2 ? colors.green2 : colors.black;
-
-  const Quit = isHovered ? colors.red1 : colors.grayBorder;
-  const TextQuit = isHovered ? colors.red1 : colors.black;
 
   const QuizContainer = {
     width: "100%",
@@ -63,10 +54,26 @@ const Quiz = ({ navigation }) => {
       width <= 800
         ? height - 70
         : width <= 1300
-          ? height - 70 * 2
-          : height - 70 * 2,
+        ? height - 70 * 2
+        : height - 70 * 2,
   };
-
+  const ReponsesS2 = {
+    flexDirection: width <= 800 ? "row" : "column",
+    justifyContent: "space-between",
+    alignSelf: "center",
+    marginTop: 20,
+  };
+  const BoxResponse = {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 67,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginBottom: 5,
+    paddingLeft: 15,
+    width: width <= 800 ? "48%" : "100%",
+    justifyContent:'center'
+  };
   return (
     <View style={styles.container}>
       <BackHeader navigation={navigation} />
@@ -94,7 +101,7 @@ const Quiz = ({ navigation }) => {
               </H6>
             </View>
             {/* reponse */}
-            <View style={[styles.Reponses, { width: CustW2 }]}>
+            {/* <View style={[styles.Reponses, { width: CustW2 }]}>
               <View style={styles.BoxResponse}>
                 <CheckBox
                   onPress={() => {
@@ -131,14 +138,28 @@ const Quiz = ({ navigation }) => {
                   isChecked={checked4}
                 />
               </View>
+            </View> */}
+
+            {/* cas 2 reponse */}
+            <View style={[ReponsesS2, { width: CustW2 }]}>
+              <TouchableOpacity style={BoxResponse}>
+                <Txt>Oui</Txt>
+              </TouchableOpacity>
+              <TouchableOpacity style={BoxResponse}>
+                <Txt>Non</Txt>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={ButtonsBox}>
             <SecondaryButton
-             style={{ width: "48%" }}
-             onPress={()=>navigation.navigate('Message')}
-             >Quitter</SecondaryButton>
-            <SecondaryButton style={{ width: "48%" }}>Mettre en pause</SecondaryButton>
+              style={{ width: "48%" }}
+              onPress={() => navigation.navigate("Message")}
+            >
+              Quitter
+            </SecondaryButton>
+            <SecondaryButton style={{ width: "48%" }}>
+              Mettre en pause
+            </SecondaryButton>
           </View>
         </View>
       </ScrollView>
@@ -226,7 +247,7 @@ const styles = StyleSheet.create({
   Image: {
     height: 304,
     width: 184,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     position: "absolute",
     right: 10,
     bottom: 61,

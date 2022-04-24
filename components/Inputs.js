@@ -146,7 +146,7 @@ export const DropDown = ({
     setShow();
   };
   return (
-    <View style={{ width: "100%", position: "relative", zIndex: 1000 }}>
+    <View style={{ width: "100%", position: "relative", zIndex: 1000}}>
       <Pressable
         onPress={setShow}
         style={[

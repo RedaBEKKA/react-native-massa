@@ -1,4 +1,4 @@
-import { Defs, G, Mask, Path, Rect, Svg } from "react-native-svg";
+import { ClipPath, Defs, G, Mask, Path, Rect, Svg } from "react-native-svg";
 
 export const TrailsIcon = () => {
   return (
@@ -16,9 +16,9 @@ export const TrailsIcon = () => {
         />
       </G>
       <Defs>
-        <clipPath id="clip0_101_3944">
+        <ClipPath id="clip0_101_3944">
           <Rect width="30" height="26.6667" fill="white" />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );
@@ -40,9 +40,9 @@ export const IconeSeRelaxer = () => {
         />
       </G>
       <Defs>
-        <clipPath id="clip0_101_3951">
+        <ClipPath id="clip0_101_3951">
           <Rect width="33" height="26" fill="white" />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );
@@ -64,7 +64,6 @@ export const IconeSmile = () => {
     </Svg>
   );
 };
-//
 
 export const MaskGroup = () => {
   return (
@@ -77,7 +76,7 @@ export const MaskGroup = () => {
     >
       <Mask
         id="mask0_101_3940"
-        style="mask-type:alpha"
+        style="MaskTypeAlpha"
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
@@ -96,6 +95,23 @@ export const MaskGroup = () => {
           fill="#88C1A3"
         />
       </G>
+    </Svg>
+  );
+};
+
+export const CloseIcon = () => {
+  return (
+    <Svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <Path
+        d="M18.3007 5.70973C17.9107 5.31973 17.2807 5.31973 16.8907 5.70973L12.0007 10.5897L7.1107 5.69973C6.7207 5.30973 6.0907 5.30973 5.7007 5.69973C5.3107 6.08973 5.3107 6.71973 5.7007 7.10973L10.5907 11.9997L5.7007 16.8897C5.3107 17.2797 5.3107 17.9097 5.7007 18.2997C6.0907 18.6897 6.7207 18.6897 7.1107 18.2997L12.0007 13.4097L16.8907 18.2997C17.2807 18.6897 17.9107 18.6897 18.3007 18.2997C18.6907 17.9097 18.6907 17.2797 18.3007 16.8897L13.4107 11.9997L18.3007 7.10973C18.6807 6.72973 18.6807 6.08973 18.3007 5.70973Z"
+        fill="#1B4965"
+      />
     </Svg>
   );
 };

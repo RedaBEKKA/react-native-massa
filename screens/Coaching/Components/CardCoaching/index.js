@@ -9,7 +9,14 @@ import {
 import { PrimaryButton } from "../../../../components/Buttons";
 import { DemiCircl, DemiCirclMob } from "../../../../assets/svg/space";
 
-const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText ,navigation,To}) => {
+const CoachingCards = ({
+  Imge,
+  TitleCard,
+  BodyText,
+  ButtonText,
+  navigation,
+  To,
+}) => {
   const { width } = useWindowDimensions();
 
   const card = {
@@ -36,7 +43,7 @@ const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText ,navigation,To
     height: width <= 800 ? 120 : "",
   };
   const ButtonPrimary = {
-    width: width <= 800 ? '90%' : 249,
+    width: width <= 800 ? "90%" : 305,
     height: 42,
   };
   return (
@@ -62,10 +69,14 @@ const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText ,navigation,To
         </View>
 
         <View style={BoxButton}>
-          <PrimaryButton style={ButtonPrimary}     onPress={() => {
-                    navigation.navigate(To);
-                  }}>
-            <SmallLightTxt>{ButtonText}</SmallLightTxt>
+          <PrimaryButton
+            width={width <= 800 ? "" : 305}
+            style={ButtonPrimary}
+            onPress={() => {
+              navigation.navigate(To);
+            }}
+          >
+            {ButtonText}
           </PrimaryButton>
         </View>
       </View>
@@ -73,7 +84,7 @@ const UseCoachingCards = ({ Imge, TitleCard, BodyText, ButtonText ,navigation,To
   );
 };
 
-export default UseCoachingCards;
+export default CoachingCards;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.beige,
