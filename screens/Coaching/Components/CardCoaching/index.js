@@ -49,7 +49,7 @@ const CoachingCards = ({
     height: 42,
   };
 
-  const custWidth = (isDesktop || isTablet) ? 305 : 303
+  const custWidth = width<= 800 ? '' : 305
    return (
     <View style={card}>
       <View style={topCard}>
@@ -74,7 +74,7 @@ const CoachingCards = ({
 
         <View style={BoxButton}>
           <PrimaryButton
-            // width={305}
+            width={custWidth}
             style={ButtonPrimary}
             onPress={() => {
               navigation.navigate(To);

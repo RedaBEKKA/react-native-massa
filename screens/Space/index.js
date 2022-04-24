@@ -20,6 +20,7 @@ import Swiper from "../../components/swiper/Swiper";
 import { colors } from "../../styles/GlobalStyle";
 import TrailsSwiper from "../../components/swiper/TrailsSwiper";
 import Footer from "../../components/Footer";
+import { PrimaryButton } from "../../components/Buttons";
 const Espace = ({ navigation }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
@@ -73,7 +74,7 @@ const Espace = ({ navigation }) => {
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: width <= 1300 ? "column" : "row",
-    marginTop : width <= 1300 ? 0 : 20,
+    marginTop: width <= 1300 ? 0 : 20,
   };
   const TrailsContainer = {
     backgroundColor: colors.white,
@@ -83,7 +84,7 @@ const Espace = ({ navigation }) => {
     marginLeft: 5,
     paddingLeft: 10,
     paddingTop: 8,
-    marginBottom:20
+    marginBottom: 20,
   };
 
   // display Data trails
@@ -92,7 +93,7 @@ const Espace = ({ navigation }) => {
     let isMounted = true;
     if (isMounted) {
       setTimeout(() => {
-        setReady(true);
+        setReady(false);
       }, 5000);
     }
     return () => {
@@ -115,7 +116,7 @@ const Espace = ({ navigation }) => {
 
   const ContainerRecommandation = {
     backgroundColor: colors.white,
-    width: width <= 1300 ? "100%" : Ready ? '100%' :`${50}%`,
+    width: width <= 1300 ? "100%" : Ready ? "100%" : `${50}%`,
     alignSelf: Ready ? "center" : "flex-start",
     borderRadius: 20,
   };
@@ -157,7 +158,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecorationLine : "underline",
+                        textDecorationLine: "underline",
                       }}
                     >
                       Tout Voir
@@ -180,12 +181,16 @@ const Espace = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <H7>Aucun trail en cours</H7>
-                  <TouchableOpacity
-                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  <H7
+                    style={{
+                      color: width <= 790 ? colors.grayLabel : colors.blue3,
+                    }}
                   >
+                    Aucun trail en cours
+                  </H7>
+                  <PrimaryButton style={{ marginTop: 20 }}>
                     <Text>Sélectionnez un trail </Text>
-                  </TouchableOpacity>
+                  </PrimaryButton>
                 </View>
               )}
             </View>
@@ -203,7 +208,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecorationLine : "underline",
+                        textDecorationLine: "underline",
                       }}
                     >
                       Tout Voir
@@ -226,22 +231,33 @@ const Espace = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <H7>Vous n’avez pas encore ajouté de favoris</H7>
-                  <TouchableOpacity
-                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  <H7
+                    style={{
+                      color: width <= 790 ? colors.grayLabel : colors.blue3,
+                    }}
                   >
+                    Vous n’avez pas encore ajouté de favoris
+                  </H7>
+                  <PrimaryButton style={{ marginTop: 20 }}>
                     <Text>Consulter notre catalogue </Text>
-                  </TouchableOpacity>
+                  </PrimaryButton>
                 </View>
               )}
             </View>
           </View>
-            {/* Recommandation */}
+          {/* Recommandation */}
 
           <View style={swiperContainerStye}>
             <View style={ContainerRecommandation}>
               <View style={styles.row}>
-                <H6 style={{paddingLeft:Ready ?0 :10,paddingTop:isDesktop?5:0}} >Recommandations</H6>
+                <H6
+                  style={{
+                    paddingLeft: Ready ? 0 : 10,
+                    paddingTop: isDesktop ? 5 : 0,
+                  }}
+                >
+                  Recommandations
+                </H6>
 
                 {Ready ? (
                   <TouchableOpacity
@@ -250,7 +266,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecorationLine : "underline",
+                        textDecorationLine: "underline",
                       }}
                     >
                       Tout Voir
@@ -273,16 +289,20 @@ const Espace = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <H7 style={{textAlign:'center', padding:width <= 790 ? 5 :0}}>
-                    Pour avoir des recommandations adaptée à votre profil,
-                    {'\n'} merci
-                    de cliquer sur "Coaching" pour répondre au questionnaire.
-                  </H7>
-                  <TouchableOpacity
-                    style={[styles.Button, { height: width <= 790 ? 42 : 47 }]}
+                  <H7
+                    style={{
+                      color: width <= 790 ? colors.grayLabel : colors.blue3,
+                      textAlign: "center",
+                      padding: width <= 790 ? 5 : 0,
+                    }}
                   >
+                    Pour avoir des recommandations adaptée à votre profil,
+                    {"\n"} merci de cliquer sur "Coaching" pour répondre au
+                    questionnaire.
+                  </H7>
+                  <PrimaryButton style={{ marginTop: 20 }}>
                     <Text>Consulter notre catalogue</Text>
-                  </TouchableOpacity>
+                  </PrimaryButton>
                 </View>
               )}
             </View>
@@ -292,7 +312,14 @@ const Espace = ({ navigation }) => {
           <View style={swiperContainerStye}>
             <View style={ContainerRecommandation}>
               <View style={styles.row}>
-                <H6 style={{paddingLeft:Ready ?0 :10,paddingTop:isDesktop?5:0}} >Activités réalisées</H6>
+                <H6
+                  style={{
+                    paddingLeft: Ready ? 0 : 10,
+                    paddingTop: isDesktop ? 5 : 0,
+                  }}
+                >
+                  Activités réalisées
+                </H6>
 
                 {Ready ? (
                   <TouchableOpacity
@@ -301,7 +328,7 @@ const Espace = ({ navigation }) => {
                     <BoldTxt
                       style={{
                         paddingRight: isMobile ? 10 : 20,
-                        textDecorationLine : "underline",
+                        textDecorationLine: "underline",
                       }}
                     >
                       Tout Voir
@@ -316,12 +343,11 @@ const Espace = ({ navigation }) => {
                   type="Trail"
                   endpoint={ENDPOINT_TRAILS}
                 />
-              ) }
+              )}
             </View>
           </View>
         </>
         {isDesktop && <Footer />}
-
       </ScrollView>
     </View>
   );
