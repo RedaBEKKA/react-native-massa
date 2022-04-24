@@ -8,6 +8,7 @@ import {
 } from "../../../../components/TextsComponents";
 import { PrimaryButton } from "../../../../components/Buttons";
 import { DemiCircl, DemiCirclMob } from "../../../../assets/svg/space";
+import DimensionsHook from "../../../../hooks/DimensionsHook";
 
 const CoachingCards = ({
   Imge,
@@ -18,6 +19,7 @@ const CoachingCards = ({
   To,
 }) => {
   const { width } = useWindowDimensions();
+  const { isDesktop, isTablet } = DimensionsHook();
 
   const card = {
     width: width <= 800 ? "95%" : width <= 1300 ? "45%" : "27%",
@@ -46,7 +48,9 @@ const CoachingCards = ({
     width: width <= 800 ? "90%" : 305,
     height: 42,
   };
-  return (
+
+  const custWidth = (isDesktop || isTablet) ? 305 : 303
+   return (
     <View style={card}>
       <View style={topCard}>
         {width <= 1000 ? <DemiCirclMob /> : <DemiCircl />}
@@ -70,7 +74,7 @@ const CoachingCards = ({
 
         <View style={BoxButton}>
           <PrimaryButton
-            width={width <= 800 ? "" : 305}
+            width={custWidth}
             style={ButtonPrimary}
             onPress={() => {
               navigation.navigate(To);
