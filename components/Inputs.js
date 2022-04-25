@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colors.beige,
     paddingLeft: 10,
+    zIndex:1000
   },
   button: {
     borderWidth: 1,

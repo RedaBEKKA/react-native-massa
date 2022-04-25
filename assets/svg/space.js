@@ -349,8 +349,8 @@ export const BackgroundSource = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <Path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M113.078 5L105.5 0L97.9223 5H3C1.34315 5 0 6.34315 0 8V33C0 34.6569 1.34314 36 2.99999 36H209C210.657 36 212 34.6569 212 33V8C212 6.34315 210.657 5 209 5H113.078Z"
         fill="white"
       />

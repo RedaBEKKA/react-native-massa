@@ -93,7 +93,7 @@ const Espace = ({ navigation }) => {
     let isMounted = true;
     if (isMounted) {
       setTimeout(() => {
-        setReady(true);
+        setReady(false);
       }, 5000);
     }
     return () => {
