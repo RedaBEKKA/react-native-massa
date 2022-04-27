@@ -22,7 +22,7 @@ import {
   TrailsIcon,
 } from "../../assets/svg/Appointment";
 import AppointmentModal from "./Components/Modal";
-import MaskGroup from "../../assets/Appointment/MaskGroup.png";
+import MaskGroup from "../../assets/MaskGroup.png";
 import DropDownMob from "./Components/DropDownMob";
 import DimensionsHook from "../../hooks/DimensionsHook";
 

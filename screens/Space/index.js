@@ -93,7 +93,7 @@ const Espace = ({ navigation }) => {
     let isMounted = true;
     if (isMounted) {
       setTimeout(() => {
-        setReady(false);
+        setReady(true);
       }, 5000);
     }
     return () => {
@@ -122,7 +122,7 @@ const Espace = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <HeaderComponent navigation={navigation} />
+      <HeaderComponent name="Mon Espace" navigation={navigation} />
       <ScrollView>
         <>
           <View style={Title}>
@@ -188,8 +188,12 @@ const Espace = ({ navigation }) => {
                   >
                     Aucun trail en cours
                   </H7>
-                  <PrimaryButton style={{ marginTop: 20 }}>
-                    <Text>Sélectionnez un trail </Text>
+                  <PrimaryButton
+                  onPress={()=>navigation.navigate("Home",{
+                     screen: "SeeAllTrails" 
+                  })} 
+                  style={{ marginTop: 20 }}>
+                    Sélectionnez un trail
                   </PrimaryButton>
                 </View>
               )}
@@ -337,15 +341,37 @@ const Espace = ({ navigation }) => {
                 ) : null}
               </View>
 
-              {Ready && (
+              {Ready ? (
                 <Swiper
                   navigation={navigation}
                   type="Trail"
                   endpoint={ENDPOINT_TRAILS}
                 />
+              ) : (
+                <View
+                  style={{
+                    height: width <= 790 ? 190 : 260,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <H7
+                    style={{
+                      color: width <= 790 ? colors.grayLabel : colors.blue3,
+                      textAlign: "center",
+                      padding: width <= 790 ? 5 : 0,
+                    }}
+                  >
+                    Vous n'avez pas encore réalisé d'activité. Courage!{'\n'}  Vous pouvez le faire!.
+                  </H7>
+                  <PrimaryButton style={{ marginTop: 20 }}>
+                    <Text>Consulter notre catalogue</Text>
+                  </PrimaryButton>
+                </View>
               )}
             </View>
           </View>
+
         </>
         {isDesktop && <Footer />}
       </ScrollView>

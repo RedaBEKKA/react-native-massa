@@ -1,4 +1,8 @@
-import { View, TouchableOpacity, useWindowDimensions } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import React from "react";
 import styles from "./styles";
 import DimensionsHook from "../../../../../hooks/DimensionsHook";
@@ -59,12 +63,12 @@ const UseCard = ({
       }
     >
       <View style={isDesktop ? styles.DeskLeftBox : styles.LeftBox}>
-        <View
-          style={isDesktop ? [styles.DesktopBoxImage,{backgroundColor:!isCoaching?colors.green2:colors.white}] :[ styles.BoxImage,{backgroundColor:!isCoaching?colors.green2:colors.white}]}
-        ></View>
-        <View style={[styles.image, { left: width <= 800 ? "5%" : "10%" }]}>
-          <Img />
+        <View  style={isDesktop ? [styles.DesktopBoxImage,{backgroundColor:!isCoaching?colors.green2:colors.white}] :[ styles.BoxImage,{backgroundColor:!isCoaching?colors.green2:colors.white}]}>
+          
         </View>
+        <View style={[styles.image,{left: width<= 800 ? '5%' : '10%'}]}>
+            <Img />
+          </View>
 
         <View>
           {isDesktop ? (

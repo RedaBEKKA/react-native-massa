@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles";
 import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
+
 import { BackgroundSource } from "../../../../assets/svg/space";
 
 const Score = () => {
@@ -36,6 +37,7 @@ const Score = () => {
           </SmallBoldTxt>
           <View style={{ position: "relative" }}>
             <View
+              
               style={{
                 position: "absolute",
                 top: width <= 790 ? 32 : 45,

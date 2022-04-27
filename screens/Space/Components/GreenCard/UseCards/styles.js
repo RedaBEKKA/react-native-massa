@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     position:'relative'
   },
   BoxImage: {
-    backgroundColor:colors.white,
+    backgroundColor:colors.green2,
     opacity:0.25,
     borderBottomRightRadius: 40,
     borderTopRightRadius: 40,
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     height: 35,
     zIndex: 2,
     position:'absolute',
+    left:"10%"
   },
   DestTxt: {
     width: 60,
