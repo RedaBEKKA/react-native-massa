@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, StatusBar, ImageBackground } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "./styles/GlobalStyle";
@@ -12,7 +12,7 @@ import TabNavigation from "./utils/TabNavigation";
 import Login from "./screens/Login";
 import Workshop from "./screens/Workshop";
 import Trail from "./screens/Trail";
-import Coaching from "./screens/coaching/index";
+import Coaching from "./screens/Coaching/index";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { IS_PROD } from "@env";
 import { NativeBaseProvider } from "native-base";
@@ -69,7 +69,7 @@ export default function App() {
                     component={TabNavigation}
                   />
                   <Stack.Screen name="Coaching" component={Coaching} />
-                  <Stack.Screen name="Quiz" component={Quiz}/>
+                  <Stack.Screen name="Quiz" component={Quiz} />
                   <Stack.Screen name="Loader" component={Loader} />
                   <Stack.Screen name="Trail" component={Trail} />
                   <Stack.Screen name="MyAccount" component={MyAccount} />

@@ -1,4 +1,4 @@
-export const userReducer = (state = {}, action) => {
+export const userReducer = (state = {userInfo:{}}, action) => {
   switch (action.type) {
     case "SET_USER_INFO":
       return action.payload;
