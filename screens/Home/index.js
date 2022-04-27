@@ -12,7 +12,7 @@ const Home = () => {
       <Stack.Screen
         name="HomeMain"
         component={HomeMain}
-        options={{ title: "Acceuil" }}
+        options={{ title: "Accueil" }}
       />
       <Stack.Screen
         name="SeeAllTrails"

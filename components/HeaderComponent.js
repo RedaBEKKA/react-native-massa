@@ -4,19 +4,17 @@ import DimensionsHook from "../hooks/DimensionsHook";
 import { useHover } from "react-native-web-hooks";
 import { Avatar } from "../assets/svg/Icons";
 import { colors } from "../styles/GlobalStyle";
-import { useRoute } from "@react-navigation/native";
 import { MTLogoGreen } from "../assets/svg/Logo";
 import { BoldTxt, Txt } from "./TextsComponents";
 
-const HeaderComponent = ({ navigation, myaccount }) => {
+const HeaderComponent = ({ navigation, myaccount, name }) => {
   const { isDesktop } = DimensionsHook();
 
-  const route = useRoute();
   const hoverRef = useRef(null);
   const isHovered = useHover(hoverRef);
 
   const routing = [
-    { name: "Acceuil", link: "Home" },
+    { name: "Accueil", link: "Home" },
     { name: "Mon Espace", link: "Espace" },
     { name: "Trails", link: "Trails" },
     { name: "Ateliers", link: "Workshops" },
@@ -41,7 +39,7 @@ const HeaderComponent = ({ navigation, myaccount }) => {
           {isDesktop && (
             <View style={styles.linksContainer}>
               {routing.map((r) => {
-                const isActive = route.name === r.link;
+                let isActive = r.name === name;
                 return (
                   <TouchableOpacity
                     key={r.name}

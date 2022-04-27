@@ -118,6 +118,7 @@ const Trail = ({ navigation, route }) => {
             navigation={navigation}
             seasons={seasons}
           />
+
           {/** T3 / T3_1 T3_2 */}
           <ChallengeModal
             navigation={navigation}

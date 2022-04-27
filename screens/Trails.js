@@ -59,7 +59,7 @@ const Trails = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={Platform.OS === "web"}>
-        <HeaderComponent navigation={navigation} />
+        <HeaderComponent name='Trails' navigation={navigation} />
         <View style={{ marginHorizontal: "2.5%" }}>
           <View
             style={{

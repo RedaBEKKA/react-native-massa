@@ -101,7 +101,7 @@ const Quiz = ({ navigation }) => {
               </H6>
             </View>
             {/* reponse */}
-            {/* <View style={[styles.Reponses, { width: CustW2 }]}>
+            <View style={[styles.Reponses, { width: CustW2 }]}>
               <View style={styles.BoxResponse}>
                 <CheckBox
                   onPress={() => {
@@ -138,17 +138,17 @@ const Quiz = ({ navigation }) => {
                   isChecked={checked4}
                 />
               </View>
-            </View> */}
+            </View>
 
             {/* cas 2 reponse */}
-            <View style={[ReponsesS2, { width: CustW2 }]}>
+            {/* <View style={[ReponsesS2, { width: CustW2 }]}>
               <TouchableOpacity style={BoxResponse}>
                 <Txt>Oui</Txt>
               </TouchableOpacity>
               <TouchableOpacity style={BoxResponse}>
                 <Txt>Non</Txt>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
           <View style={ButtonsBox}>
             <SecondaryButton

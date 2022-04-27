@@ -49,7 +49,7 @@ const HomeMain = ({ navigation }) => {
           style={{ flex: 1 }}
           showsVerticalScrollIndicator={Platform.OS === "web"}
         >
-          <HeaderComponent navigation={navigation} />
+          <HeaderComponent name="Accueil" navigation={navigation} />
           {/** search bar */}
           <View
             style={[

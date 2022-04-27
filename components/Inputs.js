@@ -28,25 +28,38 @@ export const Input = ({
   onChangeText,
   secureTextEntry,
   right,
+  smallLabel,
 }) => {
   return (
-    <TextInput
-      right={right || null}
-      placeholder={placeholder}
-      value={value}
-      secureTextEntry={secureTextEntry || false}
-      onChangeText={onChangeText}
-      mode="outlined"
-      outlineColor={outlineColor || colors.grayBorder}
-      activeOutlineColor={activeOutlineColor || colors.green2}
-      placeholderTextColor={placeholderTextColor || colors.grayBorder}
-      style={{
-        backgroundColor: "#fff",
-        justifyContent: "center",
-        color: colors.blue3,
-        ...style,
-      }}
-    />
+    <View>
+      <TextInput
+        right={right || null}
+        placeholder={placeholder}
+        value={value}
+        secureTextEntry={secureTextEntry || false}
+        onChangeText={onChangeText}
+        mode="outlined"
+        outlineColor={outlineColor || colors.grayBorder}
+        activeOutlineColor={activeOutlineColor || colors.green2}
+        placeholderTextColor={placeholderTextColor || colors.grayBorder}
+        theme={{ colors: { text: colors.blue3 } }}
+        style={{
+          backgroundColor: "#fff",
+          justifyContent: "center",
+          color: colors.blue3,
+          paddingTop: smallLabel ? 2 : 0,
+          ...style,
+        }}
+      />
+      {smallLabel ? (
+        <Txt
+          style={{ position: "absolute", top: 12, left: 15, fontSize: 12 }}
+          color={colors.grayLabel}
+        >
+          {smallLabel}
+        </Txt>
+      ) : null}
+    </View>
   );
 };
 
@@ -129,6 +142,7 @@ export const DropDown = ({
   options,
   height,
   placeholder,
+  smallLabel,
 }) => {
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -146,7 +160,7 @@ export const DropDown = ({
     setShow();
   };
   return (
-    <View style={{ width: "100%", position: "relative", zIndex: 1000}}>
+    <View style={{ width: "100%", position: "relative", zIndex: 1000 }}>
       <Pressable
         onPress={setShow}
         style={[
@@ -155,10 +169,20 @@ export const DropDown = ({
             borderColor: show ? colors.green2 : colors.grayBorder,
             borderBottomLeftRadius: show ? 0 : 5,
             borderBottomRightRadius: show ? 0 : 5,
+            alignItems: smallLabel ? "flex-end" : "center",
+            paddingBottom: smallLabel ? 11 : 0,
             height,
           },
         ]}
       >
+        {smallLabel && (
+          <Txt
+            style={{ position: "absolute", top: 10, left: 10, fontSize: 12 }}
+            color={colors.grayLabel}
+          >
+            {smallLabel}
+          </Txt>
+        )}
         <Txt numberOfLines={1} fontSize={14}>
           {value === "" ? placeholder : value.label}
         </Txt>
@@ -233,7 +257,102 @@ export const DropDown = ({
   );
 };
 
+export const QuestionDropDown = ({ question, answer, height }) => {
+  const animation = useRef(new Animated.Value(0)).current;
+  const [show, setShow] = useState(false);
+  const toggleShow = () => setShow(!show);
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: show ? 1 : 0,
+      duration: 200,
+      useNativeDriver: false,
+      easing: Easing.linear,
+    }).start();
+  }, [show]);
+
+  return (
+    <View
+      style={{
+        width: "100%",
+        position: "relative",
+        zIndex: 1000,
+        marginTop: 20,
+      }}
+    >
+      <Pressable
+        onPress={toggleShow}
+        style={[
+          styles.button,
+          {
+            borderColor: show ? colors.green2 : colors.grayBorder,
+            borderBottomLeftRadius: show ? 0 : 5,
+            borderBottomRightRadius: show ? 0 : 5,
+            alignItems: "center",
+
+            height,
+          },
+        ]}
+      >
+        <Txt numberOfLines={1} color={show ? colors.green2 : colors.blue3}>
+          {question}
+        </Txt>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                rotate: animation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ["0deg", "180deg"],
+                }),
+              },
+            ],
+          }}
+        >
+          <FontAwesome5
+            name="chevron-down"
+            size={14}
+            color={show ? colors.green2 : colors.blue3}
+            style={{ marginTop: 3 }}
+          />
+        </Animated.View>
+      </Pressable>
+      {/** options */}
+
+      {show && (
+        <PresenceTransition
+          visible={show}
+          initial={{
+            translateY: -5,
+            opacity: 0,
+          }}
+          animate={{
+            translateY: 0,
+            opacity: 1,
+
+            transition: {
+              type: "timing",
+              duration: 300,
+              useNativeDriver: Platform.OS === "web" ? false : true,
+            },
+          }}
+          style={[styles.answerContainer]}
+        >
+          <Txt>{answer}</Txt>
+        </PresenceTransition>
+      )}
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
+  answerContainer: {
+    backgroundColor: colors.white,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: colors.green2,
+    borderTopWidth: 0,
+    padding: 20,
+  },
   optionsContainer: {
     position: "absolute",
     backgroundColor: colors.white,
@@ -250,7 +369,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colors.beige,
     paddingLeft: 10,
-    zIndex:1000
   },
   button: {
     borderWidth: 1,
@@ -263,7 +381,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     borderRadius: 5,
     flexDirection: "row",
-    alignItems: "center",
+
     justifyContent: "space-between",
   },
 });

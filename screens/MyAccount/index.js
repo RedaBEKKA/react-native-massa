@@ -11,6 +11,7 @@ import AccountSettings from "./AccountSettings";
 import AccountHelp from "./AccountHelp";
 import AccountMentions from "./AccountMentions";
 import AccountContact from "./AccountContact";
+import AccountScore from "./AccountScore";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,11 @@ const MyAccount = () => {
         name="AccountPayment"
         component={AccountPayment}
         options={{ title: "Mes informations de paiement" }}
+      />
+      <Stack.Screen
+        name="AccountScore"
+        component={AccountScore}
+        options={{ title: "Mon Score" }}
       />
       <Stack.Screen
         name="AccountGift"

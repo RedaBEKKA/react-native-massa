@@ -6,6 +6,7 @@ import { colors } from "../../styles/GlobalStyle";
 import HeaderComponent from "../../components/HeaderComponent";
 import NavigationMenu from "../../components/myaccount/NavigationMenu";
 import { H3, Txt } from "../../components/TextsComponents";
+import SettingsScreen from "../../components/myaccount/SettingsScreen";
 
 const AccountSettings = ({ navigation }) => {
   const { isDesktop } = DimensionsHook();
@@ -24,7 +25,14 @@ const AccountSettings = ({ navigation }) => {
         <View style={styles.contentContainer}>
           {isDesktop && <H3 style={{ marginBottom: 20 }}>Mon Compte</H3>}
 
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-start",
+              width: "100%",
+              minHeight: 500,
+            }}
+          >
             {isDesktop ? (
               <View style={{ width: 300 }}>
                 <NavigationMenu
@@ -47,7 +55,7 @@ const AccountSettings = ({ navigation }) => {
                 },
               ]}
             >
-              <Txt>Account Settings Screen</Txt>
+              <SettingsScreen />
             </View>
           </View>
         </View>

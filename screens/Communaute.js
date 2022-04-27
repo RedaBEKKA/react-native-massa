@@ -7,8 +7,7 @@ import { H2 } from "../components/TextsComponents";
 const Communaute = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <HeaderComponent navigation={navigation} />
-      <H2>Communaute</H2>
+      <HeaderComponent name="Communauté" navigation={navigation} />
     </View>
   );
 };

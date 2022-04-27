@@ -35,7 +35,7 @@ const ChallengeModal = ({ isOpen, setIsOpen, navigation }) => {
   return (
     <Modal isOpen={isOpen} onClose={closeHandler}>
       <Modal.Content style={styles.container}>
-        <Modal.CloseButton  style={{ marginRight: isMobile ? 0 : 10 }} />
+        <Modal.CloseButton style={{ marginRight: isMobile ? 0 : 10 }} />
         <Modal.Body
           style={{
             marginTop: 20,
@@ -46,7 +46,6 @@ const ChallengeModal = ({ isOpen, setIsOpen, navigation }) => {
               <H2
                 style={{
                   textAlign: "center",
-                  lineHeight: 30,
                 }}
               >
                 Avez-vous réalisé le défi ?

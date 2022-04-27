@@ -5,9 +5,8 @@ import {
   Pressable,
   Animated,
   Easing,
-  TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BoldTxt, H6, H5, Txt, SmallTxt } from "../TextsComponents";
 import { colors } from "../../styles/GlobalStyle";
 import DimensionsHook from "../../hooks/DimensionsHook";
@@ -17,14 +16,19 @@ import { PresenceTransition, useDisclose } from "native-base";
 import RolloverSmall from "../rollover/RolloverSmall";
 import { useHover } from "react-native-web-hooks";
 import { FavoriteIcon, LikeIcon, PlayIcon } from "../../assets/svg/Icons";
-
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { ENDPOINT_LIKED, ENDPOINT_FAVOURITE, TOKEN } from "@env";
+import { setUserInfo } from "../../redux/Actions";
 const SwiperItem = ({ item, type, navigation, showStateBar }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { isOpen, onOpen, onClose } = useDisclose();
+
   // generate a random progress
   const pourcentage = Math.floor(Math.random() * (90 - 40 + 1) + 40) / 100;
   const progress = pourcentage * 240;
   const barWidth = useRef(new Animated.Value(0)).current;
+  //refs
   const hoverRef = useRef(null);
   const playRef = useRef(null);
   const likeRef = useRef(null);
@@ -33,6 +37,44 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
   const playHover = useHover(playRef);
   const likeHover = useHover(likeRef);
   const favoriteHover = useHover(favoriteRef);
+
+  // liked and favorite user lists
+  const userInfo = useSelector((state) => state.userInfo);
+  // like favorite states
+  const [isLiked, setIsLiked] = useState(
+    userInfo.liked.includes(item.ressourceCode)
+  );
+  const [isFavorite, setIsFavorite] = useState(
+    userInfo.favourite.includes(item.ressourceCode)
+  );
+  // PRESS LIKE & FAVOURITE FUNCTIONS
+  const dispatch = useDispatch();
+  const likePressHandler = () => {
+    setIsLiked(!isLiked);
+    axios
+      .post(ENDPOINT_LIKED, {
+        access_token: TOKEN,
+        ressourceCode: item.ressourceCode,
+      })
+      .then((res) => {
+        console.log(res);
+        dispatch(setUserInfo());
+      })
+      .catch((err) => console.log(err));
+  };
+  const favoritePressHandler = () => {
+    setIsFavorite(!isFavorite);
+    axios
+      .post(ENDPOINT_FAVOURITE, {
+        access_token: TOKEN,
+        ressourceCode: item.ressourceCode,
+      })
+      .then((res) => {
+        console.log(res);
+        dispatch(setUserInfo());
+      })
+      .catch((err) => console.log(err));
+  };
 
   const playHandler = () => {
     if (type === "Trail") {
@@ -144,30 +186,54 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
             </Pressable>
             {/** like button */}
             <Pressable
+              onPress={likePressHandler}
               ref={likeRef}
               style={[
                 styles.likeButton,
                 {
-                  borderWidth: likeHover ? 0 : 1,
-                  backgroundColor: likeHover ? colors.blue0 : "transparent",
+                  borderWidth: isLiked ? 0 : likeHover ? 0 : 1,
+                  backgroundColor: isLiked
+                    ? colors.blue2
+                    : likeHover
+                    ? colors.blue0
+                    : "transparent",
                 },
               ]}
             >
-              <LikeIcon color={likeHover ? colors.white : colors.grayBorder} />
+              <LikeIcon
+                color={
+                  isLiked
+                    ? colors.white
+                    : likeHover
+                    ? colors.white
+                    : colors.grayBorder
+                }
+              />
             </Pressable>
             {/** favorite button */}
             <Pressable
+              onPress={favoritePressHandler}
               ref={favoriteRef}
               style={[
                 styles.favoriteButton,
                 {
-                  borderWidth: favoriteHover ? 0 : 1,
-                  backgroundColor: favoriteHover ? colors.red0 : "transparent",
+                  borderWidth: isFavorite ? 0 : favoriteHover ? 0 : 1,
+                  backgroundColor: isFavorite
+                    ? colors.red1
+                    : favoriteHover
+                    ? colors.red0
+                    : "transparent",
                 },
               ]}
             >
               <FavoriteIcon
-                color={favoriteHover ? colors.white : colors.grayBorder}
+                color={
+                  isFavorite
+                    ? colors.white
+                    : favoriteHover
+                    ? colors.white
+                    : colors.grayBorder
+                }
               />
             </Pressable>
           </View>

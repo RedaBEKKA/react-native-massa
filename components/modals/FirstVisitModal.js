@@ -44,11 +44,13 @@ const FirstVisitModal = ({
         ]}
       >
         {isMobile ? (
-          <Pressable onPress={closeHandler} style={styles.backButton}>
-            <View onPress={closeHandler} style={{ width: 24, height: 24 }}>
-              <ArrowBack />
-            </View>
-          </Pressable>
+          <View style={styles.backContainer}>
+            <Pressable onPress={closeHandler} style={styles.backButton}>
+              <View onPress={closeHandler} style={{ width: 24, height: 24 }}>
+                <ArrowBack />
+              </View>
+            </Pressable>
+          </View>
         ) : (
           <Modal.CloseButton style={{ marginRight: isMobile ? 0 : 10 }} />
         )}
@@ -140,11 +142,19 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignSelf: "center",
   },
+  backContainer: {
+    height: 70,
+    width: "100%",
+    flexDirection: "row",
+    backgroundColor: colors.beige,
+    borderBottomWidth: 1,
+    borderColor: colors.grayBorder,
+  },
   backButton: {
     height: 70,
     width: 70,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.white,
+    backgroundColor: "#1B496515",
   },
 });

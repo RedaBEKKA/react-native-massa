@@ -6,6 +6,7 @@ import { colors } from "../../styles/GlobalStyle";
 import HeaderComponent from "../../components/HeaderComponent";
 import NavigationMenu from "../../components/myaccount/NavigationMenu";
 import { H3, Txt } from "../../components/TextsComponents";
+import HelpScreen from "../../components/myaccount/HelpScreen";
 
 const AccountHelp = ({ navigation }) => {
   const { isDesktop } = DimensionsHook();
@@ -13,7 +14,7 @@ const AccountHelp = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={Platform.OS === "web"}>
         {isDesktop ? (
-          <HeaderComponent myaccount={true}  navigation={navigation} />
+          <HeaderComponent myaccount={true} navigation={navigation} />
         ) : (
           <BackHeader
             navigation={navigation}
@@ -44,7 +45,7 @@ const AccountHelp = ({ navigation }) => {
                 },
               ]}
             >
-              <Txt>Account Help Screen</Txt>
+              <HelpScreen />
             </View>
           </View>
         </View>

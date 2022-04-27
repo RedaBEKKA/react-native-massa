@@ -55,8 +55,8 @@ const MovementVideoModal = ({ isOpen, setIsOpen, item, title }) => {
         ]}
       >
         {isMobile ? (
-          <View style={{ width: "100%", backgroundColor: colors.white }}>
-            <Pressable onPress={closeHandler} style={styles.mobileCloseBar}>
+          <View style={styles.backContainer}>
+            <Pressable onPress={closeHandler} style={styles.backButton}>
               <View onPress={closeHandler} style={{ width: 24, height: 24 }}>
                 <ArrowBack />
               </View>
@@ -260,12 +260,20 @@ const MovementVideoModal = ({ isOpen, setIsOpen, item, title }) => {
 export default MovementVideoModal;
 
 const styles = StyleSheet.create({
-  mobileCloseBar: {
+  backContainer: {
+    height: 70,
+    width: "100%",
+    flexDirection: "row",
+    backgroundColor: colors.beige,
+    borderBottomWidth: 1,
+    borderColor: colors.grayBorder,
+  },
+  backButton: {
     height: 70,
     width: 70,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.white,
+    backgroundColor: "#1B496515",
   },
   bottomBar: {
     height: 50,

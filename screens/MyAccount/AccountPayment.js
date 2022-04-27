@@ -6,6 +6,7 @@ import { colors } from "../../styles/GlobalStyle";
 import HeaderComponent from "../../components/HeaderComponent";
 import NavigationMenu from "../../components/myaccount/NavigationMenu";
 import { H3, Txt } from "../../components/TextsComponents";
+import PaymentScreen from "../../components/myaccount/PaymentScreen";
 
 const AccountPayment = ({ navigation }) => {
   const { isDesktop } = DimensionsHook();
@@ -13,7 +14,7 @@ const AccountPayment = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={Platform.OS === "web"}>
         {isDesktop ? (
-          <HeaderComponent myaccount={true}  navigation={navigation} />
+          <HeaderComponent myaccount={true} navigation={navigation} />
         ) : (
           <BackHeader
             navigation={navigation}
@@ -22,9 +23,9 @@ const AccountPayment = ({ navigation }) => {
           />
         )}
         <View style={styles.contentContainer}>
-        {isDesktop && <H3 style={{ marginBottom: 20 }}>Mon Compte</H3>}
+          {isDesktop && <H3 style={{ marginBottom: 20 }}>Mon Compte</H3>}
 
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
             {isDesktop ? (
               <View style={{ width: 300 }}>
                 <NavigationMenu
@@ -47,7 +48,7 @@ const AccountPayment = ({ navigation }) => {
                 },
               ]}
             >
-              <Txt>Payment Screen</Txt>
+              <PaymentScreen navigation={navigation} />
             </View>
           </View>
         </View>

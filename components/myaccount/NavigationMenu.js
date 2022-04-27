@@ -16,6 +16,7 @@ import {
   MentionsIcon,
   ContactIcon,
   LogoutIcon,
+  ScoreIcon,
 } from "../../assets/svg/MyAccountIcons";
 import { H3, Txt } from "../TextsComponents";
 import { colors } from "../../styles/GlobalStyle";
@@ -34,6 +35,11 @@ const NavigationMenu = ({ navigation, active }) => {
       name: "Mes informations de paiement",
       link: "AccountPayment",
       icon: () => <PaymentIcon />,
+    },
+    {
+      name: "Mon Score",
+      link: "AccountScore",
+      icon: () => <ScoreIcon />,
     },
     {
       name: "Offrir un cadeau / Parrainage",

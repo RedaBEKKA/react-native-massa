@@ -91,9 +91,7 @@ const Coaching = ({ navigation }) => {
                       height: 42,
                       textAlign: "center",
                     }}
-                    onPress={() => {
-                      navigation.navigate("Appointment");
-                    }}
+                    onPress={() => {}}
                   >
                     Prenez rdv avec un de nos experts
                   </PrimaryButton>
@@ -108,9 +106,7 @@ const Coaching = ({ navigation }) => {
                       height: 42,
                       alignSelf: "center",
                     }}
-                    onPress={() => {
-                      navigation.navigate("Appointment");
-                    }}
+                    onPress={() => {}}
                   >
                     Prenez rdv avec un de nos experts
                   </PrimaryButton>
@@ -151,12 +147,12 @@ const Coaching = ({ navigation }) => {
                 </View>
                 {(isDesktop || isTablet) && (
                   <PrimaryButton
-                    width={249}
+                  width={249}
                     style={{
                       position: "absolute",
                       bottom: 20,
                       left: 20,
-
+                      
                       height: 42,
                     }}
                     onPress={() => {

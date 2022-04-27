@@ -6,9 +6,9 @@ import { colors } from "../../styles/GlobalStyle";
 import HeaderComponent from "../../components/HeaderComponent";
 import NavigationMenu from "../../components/myaccount/NavigationMenu";
 import { H3, Txt } from "../../components/TextsComponents";
-import PasswordScreen from "../../components/myaccount/PasswordScreen";
+import ScoreScreen from "../../components/myaccount/ScoreScreen";
 
-const AccountPassword = ({ navigation }) => {
+const AccountScore = ({ navigation }) => {
   const { isDesktop } = DimensionsHook();
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ const AccountPassword = ({ navigation }) => {
           <BackHeader
             navigation={navigation}
             myaccount={true}
-            active="AccountPassword"
+            active="AccountScore"
           />
         )}
         <View style={styles.contentContainer}>
@@ -28,15 +28,12 @@ const AccountPassword = ({ navigation }) => {
           <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
             {isDesktop ? (
               <View style={{ width: 300 }}>
-                <NavigationMenu
-                  navigation={navigation}
-                  active="AccountPassword"
-                />
+                <NavigationMenu navigation={navigation} active="AccountScore" />
               </View>
             ) : (
               <></>
             )}
-            {/** password screen */}
+            {/** score screen */}
             <View
               style={[
                 styles.screenContainer,
@@ -48,7 +45,7 @@ const AccountPassword = ({ navigation }) => {
                 },
               ]}
             >
-              <PasswordScreen navigation={navigation} />
+              <ScoreScreen navigation={navigation} />
             </View>
           </View>
         </View>
@@ -57,7 +54,7 @@ const AccountPassword = ({ navigation }) => {
   );
 };
 
-export default AccountPassword;
+export default AccountScore;
 
 const styles = StyleSheet.create({
   container: {

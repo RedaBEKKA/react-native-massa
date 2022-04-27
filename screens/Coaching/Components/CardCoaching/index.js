@@ -49,7 +49,7 @@ const CoachingCards = ({
     height: 42,
   };
 
-  const custWidth = width<= 800 ? '' : 305
+  const custWidth = (width<=800) ? "" : 305
    return (
     <View style={card}>
       <View style={topCard}>
