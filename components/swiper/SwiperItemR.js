@@ -3,26 +3,57 @@ import { StyleSheet, FlatList, Platform, Text } from "react-native";
 import SwiperItem from "./SwiperItem";
 import axios from "axios";
 import LoaderItem from "./LoaderItem";
-import { TOKEN } from "@env";
+import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP,TOKEN } from "@env";
+
 // import Data from "./Data";
 
-const Swiper = ({ type, endpoint, navigation, showStateBar }) => {
+const SwiperR = ({
+  type,
+  navigation,
+  showStateBar,
+  ids,
+}) => {
   const [Data, setData] = useState([]);
+  const [Data2, setData2] = useState([]);
   const [loader, setLoader] = useState(true);
 
-  const getData = async () => {
+  let Arr = [];
+  
+  const getDataRéalisées = async () => {
     setLoader(true);
-    const Response = await axios.post(endpoint, {
-      access_token: TOKEN,
+    ids.map((id) => {
+      let isTrail = id.includes("T000");
+      if (!isTrail) {
+        axios
+          .post(`${ENDPOINT_TRAILS}/${id}`, {
+            access_token: TOKEN,
+          })
+          .then((res) => {
+            setData(res.data);
+            console.log("Arr", Arr);
+            setLoader(false)
+
+          });
+      } else {
+        axios
+          .post(`${ENDPOINT_WORKSHOP}/${id}`, {
+            access_token: TOKEN,
+          })
+          .then((res) => {
+            setData2(res.data);
+            console.log("Arr", Arr);
+            setLoader(false)
+
+
+          });
+      }
     });
-    setData(Response.data);
-    setLoader(false);
   };
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      getData();
+      getDataRéalisées();
     }
     return (mounted = false);
   }, []);
@@ -47,7 +78,7 @@ const Swiper = ({ type, endpoint, navigation, showStateBar }) => {
       showsHorizontalScrollIndicator={Platform.OS === "web"}
       horizontal
       style={{ marginTop: 15 }}
-      data={Data}
+      data={[...Data,...Data2]}
       keyExtractor={(item) => item.ressourceTitle}
       renderItem={(props) => (
         <SwiperItem
@@ -61,6 +92,5 @@ const Swiper = ({ type, endpoint, navigation, showStateBar }) => {
   );
 };
 
-export default Swiper;
+export default SwiperR;
 
-const styles = StyleSheet.create({});

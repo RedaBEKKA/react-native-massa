@@ -19,13 +19,17 @@ const styles = StyleSheet.create({
   },
   item: {
     marginHorizontal: 10,
+    flexDirection: "row",
+
   },
   itemImage: {
     width: 36,
     height: 38,
+    marginRight:5
+
   },
   Image: {
-    width: 87,
+    width: 136,
     height: 38,
 
   },

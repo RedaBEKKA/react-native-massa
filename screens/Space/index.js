@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
-import { ENDPOINT_TRAILS } from "@env";
+import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP } from "@env";
 import { BoldTxt, H5, H6, H7 } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import styles from "./Hooks/Styles";
@@ -21,9 +21,14 @@ import { colors } from "../../styles/GlobalStyle";
 import TrailsSwiper from "../../components/swiper/TrailsSwiper";
 import Footer from "../../components/Footer";
 import { PrimaryButton } from "../../components/Buttons";
+import { useSelector } from "react-redux";
+import SwiperR from "../../components/swiper/SwiperItemR";
 const Espace = ({ navigation }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
+
+  const userInfo = useSelector((state) => state.userInfo);
+
   // section-Title
   const Title = {
     backgroundColor: colors.beige,
@@ -79,12 +84,11 @@ const Espace = ({ navigation }) => {
   const TrailsContainer = {
     backgroundColor: colors.white,
     width: width <= 1300 ? `100%` : `49.5%`,
-    alignSelf: "center",
     borderRadius: 20,
     marginLeft: 5,
-    paddingLeft: 10,
     paddingTop: 8,
     marginBottom: 20,
+    alignSelf:width <= 1300 ?"center": "flex-start"
   };
 
   // display Data trails
@@ -120,6 +124,9 @@ const Espace = ({ navigation }) => {
     alignSelf: Ready ? "center" : "flex-start",
     borderRadius: 20,
   };
+
+
+
   return (
     <View style={styles.container}>
       <HeaderComponent name="Mon Espace" navigation={navigation} />
@@ -205,7 +212,7 @@ const Espace = ({ navigation }) => {
               <View style={styles.row}>
                 <H6>Favoris</H6>
 
-                {Ready ? (
+                {userInfo.favourite.length ? (
                   <TouchableOpacity
                     onPress={() => navigation.navigate("SeeAllTrails")}
                   >
@@ -221,7 +228,7 @@ const Espace = ({ navigation }) => {
                 ) : null}
               </View>
 
-              {Ready ? (
+              {userInfo.favourite.length? (
                 <TrailsSwiper
                   navigation={navigation}
                   type="Trail"
@@ -342,10 +349,10 @@ const Espace = ({ navigation }) => {
               </View>
 
               {Ready ? (
-                <Swiper
+                <SwiperR
                   navigation={navigation}
                   type="Trail"
-                  endpoint={ENDPOINT_TRAILS}
+                  ids={userInfo.finished_content}
                 />
               ) : (
                 <View

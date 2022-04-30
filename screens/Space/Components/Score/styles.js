@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor:colors.blue2,
     borderRadius:10,
     position:"absolute",
-    left:5
+    left:5,
+    zIndex:100
   },
   LineSmall:{
     backgroundColor:colors.beige,

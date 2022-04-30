@@ -5,11 +5,16 @@ import { H6, SmallBoldTxt } from "../../../../components/TextsComponents";
 import { colors } from "../../../../styles/GlobalStyle";
 
 import { BackgroundSource } from "../../../../assets/svg/space";
+import { useSelector } from "react-redux";
+import ProgressBare from "./ProgressBar";
 
 const Score = () => {
   const { width } = useWindowDimensions();
   const SMWidth = width <= 790 ? "100%" : width <= 1300 ? "49%" : "49%";
+  const userInfo = useSelector((state) => state.userInfo);
 
+
+  const StepFromBac = userInfo.total_points*100/10000
   return (
     <View
       style={[
@@ -24,57 +29,12 @@ const Score = () => {
       <H6 style={{ color: colors.beige, alignSelf: "center", marginTop: 30 }}>
         Score
       </H6>
-      <View style={styles.Line}>
-        <View style={styles.Line2}>
-          <View style={styles.Points}></View>
-          <View style={[styles.Points, { left: 120 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 5 }}>
-            1 000pts
-          </SmallBoldTxt>
-          <View style={[styles.Points, { left: 120 * 2 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 90 }}>
-            2000pts
-          </SmallBoldTxt>
-          <View style={{ position: "relative" }}>
-            <View
-              
-              style={{
-                position: "absolute",
-                top: width <= 790 ? 32 : 45,
-                left: 20,
-               width:190,
-               height:30
-              }}
-            >
-              <BackgroundSource/>
-            </View>
-
-            <SmallBoldTxt
-              style={{
-                position: "absolute",
-                top: width <= 790 ? 45 : 55,
-                left: 30,
-                width: 170,
-              }}
-            >
-              Votre niveau ( 2 006pts )
-            </SmallBoldTxt>
-          </View>
-
-          <View style={[styles.Points, { left: 120 * 3 }]}></View>
-          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 190 }}>
-            3000pts
-          </SmallBoldTxt>
-          <SmallBoldTxt style={{ position: "absolute", top: 25, left: 280 }}>
-            4000pts
-          </SmallBoldTxt>
-        </View>
-      </View>
-      <View style={styles.LineSmall}></View>
-      <View style={[styles.LineSmall, { right: 11 }]}></View>
-      <View style={[styles.LineSmall, { right: 3 }]}></View>
+      <ProgressBare step={StepFromBac}  steps={10} height={20}/>
     </View>
   );
 };
 
 export default Score;
+
+
+   

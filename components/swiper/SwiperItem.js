@@ -23,7 +23,6 @@ import { setUserInfo } from "../../redux/Actions";
 const SwiperItem = ({ item, type, navigation, showStateBar }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { isOpen, onOpen, onClose } = useDisclose();
-
   // generate a random progress
   const pourcentage = Math.floor(Math.random() * (90 - 40 + 1) + 40) / 100;
   const progress = pourcentage * 240;
@@ -42,10 +41,10 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
   const userInfo = useSelector((state) => state.userInfo);
   // like favorite states
   const [isLiked, setIsLiked] = useState(
-    userInfo.liked.includes(item.ressourceCode)
+    // userInfo?.liked.includes(item.ressourceCode)
   );
   const [isFavorite, setIsFavorite] = useState(
-    userInfo.favourite.includes(item.ressourceCode)
+    userInfo?.favourite.includes(item.ressourceCode)
   );
   // PRESS LIKE & FAVOURITE FUNCTIONS
   const dispatch = useDispatch();

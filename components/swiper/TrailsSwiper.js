@@ -41,7 +41,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
         showsHorizontalScrollIndicator={Platform.OS === "web"}
         horizontal={false}
         numColumns={2}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 15 ,paddingLeft:10}}
         data={[0, 1, 2]}
         renderItem={() => <LoaderItem  SwiperItem={true} />}
         keyExtractor={(item) => "_" + item}
@@ -52,7 +52,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
         showsHorizontalScrollIndicator={Platform.OS === "web"}
         horizontal={true}
         numColumns={1}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 15,paddingLeft:10 }}
         data={[0, 1, 2]}
         keyExtractor={(item) => "#" + item}
         key={"#"}
@@ -68,7 +68,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
       showsHorizontalScrollIndicator={Platform.OS === "web"}
       horizontal={false}
       numColumns={2}
-      style={{ height: "100%", width: "100%" }}
+      style={{ height: "100%", width: "100%",paddingLeft:10 }}
       data={Data2}
       keyExtractor={(item) => "_" + item.ressourceTitle}
       key={"_"}
@@ -83,7 +83,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
       showsHorizontalScrollIndicator={Platform.OS === "web"}
       horizontal={true}
       numColumns={1}
-      style={{width: "100%" }}
+      style={{width: "100%" ,paddingLeft:10}}
       data={Data}
       keyExtractor={(item) => "#" + item.ressourceTitle}
       key={"#"}

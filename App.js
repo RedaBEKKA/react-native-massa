@@ -12,7 +12,7 @@ import TabNavigation from "./utils/TabNavigation";
 import Login from "./screens/Login";
 import Workshop from "./screens/Workshop";
 import Trail from "./screens/Trail";
-import Coaching from "./screens/Coaching/index";
+import Coaching from "./screens/coaching/index";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { IS_PROD } from "@env";
 import { NativeBaseProvider } from "native-base";
