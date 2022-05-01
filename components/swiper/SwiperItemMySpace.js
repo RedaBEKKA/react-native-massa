@@ -37,13 +37,17 @@ const SwiperItemMySpace = ({
     } else {
       if (type === "Trail") {
         navigation.navigate("Trail", { id: item.ressourceCode });
-      } else {
+      }else if( type === "Favourite"){
+        navigation.navigate("Trail", { id: item[0].ressourceCode });
+      }
+      else {
         navigation.navigate("Workshop");
       }
     }
   };
 
   useEffect(() => {
+    console.log(item,'  item')
     Animated.timing(barWidth, {
       toValue: progress,
       duration: 1000,
@@ -70,7 +74,9 @@ const SwiperItemMySpace = ({
         onPress={navigationHandler}
         style={[styles.container, { width: "99%" }]}
       >
-        <Image source={{ uri: item.poster_link }} style={styles.image} />
+        {item.type==='Favouris' ?  <Image source={{ uri: item[0].poster_link }} style={styles.image} />:
+             <Image source={{ uri: item.poster_link }} style={styles.image} />}
+       
         <LinearGradient
           colors={["#1B496500", "#1B496566"]}
           style={styles.image}
@@ -90,7 +96,7 @@ const SwiperItemMySpace = ({
         </View>
         <View style={styles.textsContainer}>
           <BoldTxt color={colors.white}>{type}</BoldTxt>
-          <H6 color={colors.white}>{item.ressourceTitle}</H6>
+          {/* <H6 color={colors.white}>{item.ressourceTitle}</H6> */}
           {/** progress bar */}
           {showStateBar && !SwiperItem && (
             <View
