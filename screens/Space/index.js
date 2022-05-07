@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
-import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP } from "@env";
+import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP,ENDPOINT_FAVOURITE } from "@env";
 import { BoldTxt, H5, H6, H7 } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import styles from "./Hooks/Styles";
@@ -23,6 +23,7 @@ import Footer from "../../components/Footer";
 import { PrimaryButton } from "../../components/Buttons";
 import { useSelector } from "react-redux";
 import SwiperR from "../../components/swiper/SwiperItemR";
+import FavouriteSwiper from "../../components/swiper/FavouriteSwiper";
 const Espace = ({ navigation }) => {
   const { isDesktop, isMobile } = DimensionsHook();
   const { width } = useWindowDimensions();
@@ -229,9 +230,9 @@ const Espace = ({ navigation }) => {
               </View>
 
               {userInfo.favourite.length? (
-                <TrailsSwiper
+                <FavouriteSwiper
                   navigation={navigation}
-                  type="Trail"
+                  type="Favouris"
                   endpoint={ENDPOINT_TRAILS}
                 />
               ) : (
