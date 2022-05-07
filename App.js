@@ -16,10 +16,10 @@ import Coaching from "./screens/coaching/index";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { IS_PROD } from "@env";
 import { NativeBaseProvider } from "native-base";
-import Quiz from "./screens/Quiz";
 import Message from "./screens/Message";
 import MyAccount from "./screens/MyAccount";
 import Appointment from "./screens/Appointment";
+import Quiz from "./screens/Quiz/Quiz";
 
 const theme = {
   ...DefaultTheme,

@@ -30,7 +30,7 @@ const SwiperR = ({
           })
           .then((res) => {
             setData(res.data);
-            console.log("Arr", Arr);
+            // console.log("Arr", Arr);
             setLoader(false)
 
           });
@@ -41,7 +41,7 @@ const SwiperR = ({
           })
           .then((res) => {
             setData2(res.data);
-            console.log("Arr", Arr);
+            // console.log("Arr", Arr);
             setLoader(false)
 
 
