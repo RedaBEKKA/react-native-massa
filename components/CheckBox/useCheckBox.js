@@ -3,19 +3,30 @@ import React from "react";
 import { Txt } from "../TextsComponents";
 import { Check, UnCheck } from "../../assets/svg/Coaching";
 const CheckBox = (props) => {
+  console.log("props", props.isChecked);
   return (
     <View style={styles.container}>
       <Pressable onPress={props.onPress}>
-        {!props.isChecked ? (
-          <View style={{ width: 20, height: 20 }}>
-            <UnCheck />
-          </View>
-        ) : (
-          <View style={{ width: 20, height: 20 }}>
-            <Check />
-          </View>
-        )}
+        <View style={{ width: 20, height: 20 }}>
+          <UnCheck />
+        </View>
+        {props.isChecked&&
+           (
+            <View style={{ width: 20, height: 20 }}>
+              <Check />
+            </View>
+          )
+        }
+          {
+            /* !i && (
+              <View style={{ width: 20, height: 20 }}>
+                <UnCheck />
+              </View>
+            ); */
+          }
+        
       </Pressable>
+
       <Txt style={{ marginLeft: 10 }}>{props.title}</Txt>
     </View>
   );

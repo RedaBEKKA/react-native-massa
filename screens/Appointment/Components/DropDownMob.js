@@ -17,7 +17,7 @@ const DropDownMob = () => {
   const { isDesktop } = DimensionsHook();
 
   const onValueChangeCat = async (value) => {
-    console.log(value);
+    // console.log(value);
     setSelectedcat({ value });
   };
   const selectedItem = {

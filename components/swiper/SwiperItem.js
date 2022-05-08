@@ -56,7 +56,7 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
         ressourceCode: item.ressourceCode,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(setUserInfo());
       })
       .catch((err) => console.log(err));
@@ -69,7 +69,7 @@ const SwiperItem = ({ item, type, navigation, showStateBar }) => {
         ressourceCode: item.ressourceCode,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(setUserInfo());
       })
       .catch((err) => console.log(err));

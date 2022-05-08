@@ -49,7 +49,7 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar }) => {
     let mounted = true;
     if (mounted) {
       getData();
-      console.log(Data, "data");
+      // console.log(Data, "data");
     }
     return (mounted = false);
   }, []);

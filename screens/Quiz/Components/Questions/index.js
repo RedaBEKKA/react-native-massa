@@ -7,11 +7,12 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ProgressBar } from "react-native-paper";
 import { colors } from "../../../../styles/GlobalStyle";
 import data from "./data/QuizData";
 import { H6, Txt } from "../../../../components/TextsComponents";
+// import { CheckBox } from "react-native-elements";
 import CheckBox from "../../../../components/CheckBox/useCheckBox";
 
 const Questions = () => {
@@ -67,35 +68,57 @@ const Questions = () => {
     );
   };
   const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "100%";
-const [IsCheck, setIsCheck] = useState(false)
 
+  const [state, setState] = useState([]);
 
+  const onchecked = (ItemSelected, index) => {
+    let newIdata = allQuestions[currentQuestionIndex]?.possible_answers.map(
+      (item, ind) => {
+        if (ind == index) {
+          return {
+            ...item,
+            // selected: !item.selected,
+            // ItemSelected,
+          };
+        }
+        // return {
+        //   ...item,
+        //   selected: false,
+        //   ItemSelected: false,
+        // };
+      }
+    );
+    setState(newIdata);
+  };
+  console.log("state", state);
 
-const techResponse = (index) =>{
-  setIsCheck(true)
-  setTimeout(() => {
-    setCurrentQuestionIndex(currentQuestionIndex+1)
-  }, 3000);
-}
   const renderOptions = () => {
     return (
-      <View style={{alignSelf:"center"}}>
-        {allQuestions[currentQuestionIndex]?.possible_answers.map((option,index) => (
-          <View
-            style={{
-              width: 350,
-              marginRight: 15,
-            }}
-            key={option}
-          >
-            {/* reponse */}
-            <View style={[styles.Reponses, { width: CustW2 }]}>
-              <View style={styles.BoxResponse}>
-                <CheckBox onPress={() => {techResponse(index)}} title={option} isChecked={IsCheck} />
+      <View style={{ alignSelf: "center" }}>
+        {allQuestions[currentQuestionIndex]?.possible_answers.map(
+          (option, index) => (
+            <View
+              style={{
+                width: 350,
+                marginRight: 15,
+              }}
+              key={index}
+            >
+              {/* reponse */}
+              <View style={[styles.Reponses, { width: CustW2 }]}>
+                <View style={styles.BoxResponse}>
+                  <CheckBox
+                    onPress={() => {
+                      onchecked(option, index);
+                    }}
+                    title={option}
+                    isChecked={state.length>0 ? true : false}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        ))}
+          )
+        )}
       </View>
     );
   };
@@ -149,6 +172,13 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
 });
+
+// const techResponse = (index) => {
+//   setIsCheck(true);
+//   setTimeout(() => {
+//     setCurrentQuestionIndex(currentQuestionIndex + 1);
+//   }, 3000);
+// };
 
 // const scrollHandeler = () => {
 //   if (dataSourceCords.length) {

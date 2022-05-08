@@ -47,7 +47,7 @@ const SwiperItemMySpace = ({
   };
 
   useEffect(() => {
-    console.log(item,'  item')
+    // console.log(item,'  item')
     Animated.timing(barWidth, {
       toValue: progress,
       duration: 1000,
