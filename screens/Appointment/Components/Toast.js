@@ -11,7 +11,7 @@ const Toast = ({ children, severity }) => {
 
   return (
     <View style={[styles.container,{ width:WidthCust2,right:left}]}>
-      <Txt style={{color:colors.white}} >{children}</Txt>
+      <Txt style={{color:colors.white,paddingLeft:5}} >{children}</Txt>
       <FontAwesome5 name="info-circle" size={24} color={colors.white}/>
     </View>
   );

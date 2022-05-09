@@ -26,8 +26,7 @@ import {
   IconeSmile,
   TrailsIcon,
 } from "../../assets/svg/Appointment";
-
-
+import Head from "./Components/head";
 
 const Appointment = ({ navigation }) => {
   const data = [
@@ -154,33 +153,9 @@ const Appointment = ({ navigation }) => {
     <View style={styles.container}>
       <BackHeader navigation={navigation} />
       <ScrollView>
-        <View>
-          <View style={styles.TitleWrapper}>
-            <H5
-              style={{
-                paddingHorizontal: width <= 800 ? 5 : 0,
-                textAlign: "center",
-              }}
-            >
-              Prendre rendez-vous avec un expert
-            </H5>
-          </View>
-          <View
-            style={[
-              styles.TextWrapper,
-              { paddingHorizontal: width <= 800 ? 10 : 0 },
-            ]}
-          >
-            <Txt
-              style={{
-                paddingHorizontal: width <= 800 ? 5 : 0,
-                textAlign: "center",
-              }}
-            >
-              Donnez-nous quelques informations pour que nous puissions vous
-              diriger vers les bons interlocuteurs
-            </Txt>
-          </View>
+        <>
+          {/* Form Rendez-Vous */}
+          <Head />
 
           {/* squares */}
           <View style={[styles.Square, { width: WidthCust }]}>
@@ -192,9 +167,7 @@ const Appointment = ({ navigation }) => {
             />
           </View>
 
-          {/* Form Rendez-Vous */}
-
-          {/* Select Trails */}
+          {/* Select : Trails - Atelier - autre */}
 
           <View style={[styles.SelectTrail, { width: WidthCust }]}>
             {Data && userOption == "Trail" ? (
@@ -265,7 +238,6 @@ const Appointment = ({ navigation }) => {
               trail ou l’atelier en question, et dans la langue de votre choix.
             </Txt>
           </View>
-
           {/* time zone + language */}
           <View style={[styles.TextAppointment, { width: WidthCust2 }]}>
             <Txt>
@@ -349,7 +321,7 @@ const Appointment = ({ navigation }) => {
               )}
             </PrimaryButton>
           </View>
-        </View>
+        </>
         {/*End  Form Rendez-Vous */}
       </ScrollView>
       <AppointmentModal
@@ -370,14 +342,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.beige,
     flex: 1,
-  },
-  TitleWrapper: {
-    marginTop: 40,
-    alignSelf: "center",
-  },
-  TextWrapper: {
-    marginTop: 20,
-    alignSelf: "center",
   },
   Image: {
     height: 304,

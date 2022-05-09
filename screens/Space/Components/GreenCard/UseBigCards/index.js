@@ -8,8 +8,9 @@ const UseBigCards = ({ Img, ToCoaching }) => {
     backgroundColor: colors.yellow,
     borderRadius: 20,
     position: "relative",
-    height: 238,
+    height: 230,
     overflow: "hidden",
+    marginLeft:7
   };
   const [isHovered, setHovered] = React.useState(false);
   const BacCustBtn = isHovered ? colors.beige : colors.white;
