@@ -13,31 +13,39 @@ import Footer from "../../components/Footer";
 import Mascotte from "../../assets/mascotte_1.png";
 import { H5, Txt } from "../../components/TextsComponents";
 import { DropDown } from "../../components/Inputs";
-import { Checkbox } from "react-native-paper";
+import { ActivityIndicator, Checkbox } from "react-native-paper";
 import { PrimaryButton } from "../../components/Buttons";
-import {
-  IconeSeRelaxer,
-  IconeSmile,
-  TrailsIcon,
-} from "../../assets/svg/Appointment";
 import AppointmentModal from "./Components/Modal";
-import DropDownMob from "./Components/DropDownMob";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import RadioButton from "./Components/RadioButton";
 import { TOKEN, ENDPOINT_TRAILS, ENPOINT_EXPERT_APPOINTMENT } from "@env";
 import axios from "axios";
 import Toast from "./Components/Toast";
+import {
+  IconeSeRelaxer,
+  IconeSmile,
+  TrailsIcon,
+} from "../../assets/svg/Appointment";
+
+
 
 const Appointment = ({ navigation }) => {
+  const data = [
+    { value: "Trail", icon: <TrailsIcon /> },
+    { value: "Atelier", icon: <IconeSeRelaxer /> },
+    { value: "Autre", icon: <IconeSmile /> },
+  ];
   const { width } = useWindowDimensions();
   const { isMobile } = DimensionsHook();
-
   const [userOption, setUserOption] = React.useState("Trail");
-
+  // Text Message
+  const [text, setText] = useState("");
+  const [text2, setText2] = useState("");
+  //  politique && conditions
+  const [checked, setChecked] = useState(false);
   // Select Trails
   const [showCategories, setShowCategories] = useState(false);
   const [selectedCategorie, setSelectedCategorie] = useState("");
-
   // Select Langue
   const [showLangue, setShowLangue] = useState(false);
   const [selectedLangue, setSelectedLangue] = useState("");
@@ -56,34 +64,26 @@ const Appointment = ({ navigation }) => {
   const WidthCust2 = width <= 800 ? "95%" : width <= 1200 ? "45%" : "30%";
   const WidthCust3 = width <= 800 ? "100%" : width <= 1200 ? "48%" : "48%";
   const FlexD = width <= 800 ? "column" : "row";
-  const data = [
-    { value: "Trail", icon: <TrailsIcon /> },
-    { value: "Atelier", icon: <IconeSeRelaxer /> },
-    { value: "Autre", icon: <IconeSmile /> },
-  ];
+
   const Col = {
     width: WidthCust3,
     marginBottom: width <= 800 ? 20 : 0,
     zIndex: 10,
   };
-  //  politique && conditions
-  const [checked, setChecked] = useState(false);
-  // Text Message
-  const [text, setText] = useState("");
-  const [text2, setText2] = useState("");
+
   //  Function Close all select Opned
   const CloseAll = () => {
     setShowCategories(false);
     setShowLangue(false);
     setShowTimeZone(false);
   };
-  // send data function
+  // Show modal
   const [visible, setVisible] = useState(false);
 
   const CloseModal = () => {
     setVisible(false);
   };
-  const handleSend = () => {
+  const showModal = () => {
     setVisible(true);
   };
   const ToHome = () => {
@@ -91,10 +91,7 @@ const Appointment = ({ navigation }) => {
   };
 
   const [Data, setData] = useState([]);
-  const [Loader, setLoader] = useState([]);
-
   const getData = async () => {
-    setLoader(true);
     const Response = await axios.post(ENDPOINT_TRAILS, {
       access_token: TOKEN,
     });
@@ -103,9 +100,7 @@ const Appointment = ({ navigation }) => {
         return { label: i.ressourceTitle, value: i.ressourceTitle };
       })
     );
-    setLoader(false);
   };
-
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -115,7 +110,6 @@ const Appointment = ({ navigation }) => {
   }, []);
 
   const [LoaderForm, setLoaderForm] = useState(false);
-  const [AlertInfo, setAlertInfo] = useState(null);
   const [alert, setAlert] = useState("");
   const SubmitForm = async () => {
     if (
@@ -136,7 +130,7 @@ const Appointment = ({ navigation }) => {
         time_zone: selectedTimeZone,
         resourceCode: userOption == "Trail" ? selectedCategorie : null,
       });
-      console.log("Response - Form Apointment", Response.data);
+      // clean after succes result
       if (Response.data.acknowledged) {
         setLoaderForm(false);
         setSelectedCategorie("");
@@ -145,10 +139,10 @@ const Appointment = ({ navigation }) => {
         setText("");
         setText2("");
         setChecked(false);
-        handleSend();
+        showModal();
       }
     } else {
-      // alert
+      //  activate alert
       setAlert("Veuillez remplir tous les champs");
       setTimeout(() => {
         setAlert("");
@@ -348,7 +342,11 @@ const Appointment = ({ navigation }) => {
                 SubmitForm();
               }}
             >
-              Envoyer
+              {LoaderForm ? (
+                <ActivityIndicator color={colors.white}></ActivityIndicator>
+              ) : (
+                "Envoyer"
+              )}
             </PrimaryButton>
           </View>
         </View>
@@ -449,99 +447,3 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
-
-{
-  /* <View
-                        style={
-                          !CustomShadow ? styles.StyleBox : styles.StyleBoxes
-                        }
-                      > */
-}
-{
-  /* </View> */
-}
-
-{
-  /* <TouchableOpacity
-                        style={
-                          !CustomShadow2 ? styles.StyleBox : styles.StyleBoxes
-                        }
-                        onPress={() => {
-                          selectAtelier();
-                          CloseAll();
-                        }}
-                        name="topic"
-                        id="topic"
-                      >
-                        <View style={styles.ImageBac}>
-                          <Image
-                            source={MaskGroup}
-                            style={{ height: "100%", width: "100%" }}
-                          />
-                          <View style={styles.Icon}>
-                            <IconeSeRelaxer />
-                          </View>
-                        </View>
-                        <Txt style={{ alignSelf: "center", marginTop: 10 }}>
-                          Atelier
-                        </Txt>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={
-                          !CustomShadow3 ? styles.StyleBox : styles.StyleBoxes
-                        }
-                        onPress={() => {
-                          selectOthers();
-                          CloseAll();
-                        }}
-                        name="topic"
-                        id="topic"
-                      >
-                        <View style={styles.ImageBac}>
-                          <Image
-                            source={MaskGroup}
-                            style={{ height: "100%", width: "100%" }}
-                          />
-                          <View style={styles.Icon}>
-                            <IconeSmile />
-                          </View>
-                        </View>
-                        <Txt style={{ alignSelf: "center", marginTop: 10 }}>
-                          Autre
-                        </Txt>
-                      </TouchableOpacity> */
-}
-{
-  /* <View style={styles.Image}>
-          <SpaceCoachingMascotte />
-         </View> */
-}
-
-// <TouchableOpacity
-// style={
-//   !CustomShadow ? styles.StyleBox : styles.StyleBoxes
-// }
-// onPress={() => {
-//   selectTrails();
-//   CloseAll();
-// }}
-// name="topic"
-// id="topic"
-// >
-// <View style={styles.ImageBac}>
-//   <Image
-//     source={MaskGroup}
-//     style={{ height: "100%", width: "100%" }}
-//   />
-
-// <View  style={{ height: 58, width: "100%" }}>
-// <MaskGroup />
-// </View>
-//   <View style={styles.Icon}>
-//     <TrailsIcon />
-//   </View>
-// </View>
-// <Txt style={{ alignSelf: "center", marginTop: 10 }}>
-//   Trail
-// </Txt>
-// </TouchableOpacity>
