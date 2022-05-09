@@ -169,7 +169,12 @@ const Appointment = ({ navigation }) => {
 
           {/* Select : Trails - Atelier - autre */}
 
-          <View style={[styles.SelectTrail, { width: WidthCust }]}>
+          <View
+            style={[
+              styles.SelectTrail,
+              { width: WidthCust, padding: width <= 800 ? 0 : 10 },
+            ]}
+          >
             {Data && userOption == "Trail" ? (
               Data ? (
                 <DropDown
@@ -356,7 +361,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     zIndex: 5,
     elevation: 5,
-    padding: 10,
   },
   Square: {
     marginTop: 40,
