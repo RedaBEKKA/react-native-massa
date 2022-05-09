@@ -159,7 +159,7 @@ export const DropDown = ({
     setValue(option);
     setShow();
   };
-  return (
+  return  (
     <View style={{ width: "100%", position: "relative", zIndex: 1000 }}>
       <Pressable
         onPress={setShow}
@@ -231,7 +231,7 @@ export const DropDown = ({
         ]}
       >
         <ScrollView nestedScrollEnabled={true}>
-          {options.map((option) => {
+          {options?.map((option) => {
             return (
               <TouchableRipple
                 rippleColor={colors.green3}
@@ -254,7 +254,7 @@ export const DropDown = ({
         </ScrollView>
       </PresenceTransition>
     </View>
-  );
+  ) 
 };
 
 export const QuestionDropDown = ({ question, answer, height }) => {

@@ -4,10 +4,9 @@ import {
   ScrollView,
   useWindowDimensions,
   Image,
-  TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackHeader from "../../components/BackHeader";
 import { colors } from "../../styles/GlobalStyle";
 import Footer from "../../components/Footer";
@@ -22,35 +21,23 @@ import {
   TrailsIcon,
 } from "../../assets/svg/Appointment";
 import AppointmentModal from "./Components/Modal";
-import MaskGroup from "../../assets/MaskGroup.png";
 import DropDownMob from "./Components/DropDownMob";
 import DimensionsHook from "../../hooks/DimensionsHook";
+import RadioButton from "./Components/RadioButton";
+import { TOKEN, ENDPOINT_TRAILS, ENPOINT_EXPERT_APPOINTMENT } from "@env";
+import axios from "axios";
+import Toast from "./Components/Toast";
 
 const Appointment = ({ navigation }) => {
   const { width } = useWindowDimensions();
+  const { isMobile } = DimensionsHook();
 
-  const [index, setIndex] = useState("1");
-  const CustomShadow = index == "1" ? true : false;
-  const CustomShadow2 = index == "2" ? true : false;
-  const CustomShadow3 = index == "3" ? true : false;
-
-  const selectTrails = () => {
-    setIndex("1");
-  };
-  const selectAtelier = () => {
-    setIndex("2");
-  };
-  const selectOthers = () => {
-    setIndex("3");
-  };
+  const [userOption, setUserOption] = React.useState("Trail");
 
   // Select Trails
   const [showCategories, setShowCategories] = useState(false);
   const [selectedCategorie, setSelectedCategorie] = useState("");
-  const categories = [
-    { label: "Trail 1", value: "Trail 1 " },
-    { label: "Trail 2", value: "Trail 2 " },
-  ];
+
   // Select Langue
   const [showLangue, setShowLangue] = useState(false);
   const [selectedLangue, setSelectedLangue] = useState("");
@@ -65,18 +52,20 @@ const Appointment = ({ navigation }) => {
     { label: "zone 1", value: "zone 1 " },
     { label: "zone 2", value: "zone 2 " },
   ];
-
   const WidthCust = width <= 800 ? "92%" : width <= 1200 ? "45%" : "30%";
   const WidthCust2 = width <= 800 ? "95%" : width <= 1200 ? "45%" : "30%";
   const WidthCust3 = width <= 800 ? "100%" : width <= 1200 ? "48%" : "48%";
   const FlexD = width <= 800 ? "column" : "row";
-
+  const data = [
+    { value: "Trail", icon: <TrailsIcon /> },
+    { value: "Atelier", icon: <IconeSeRelaxer /> },
+    { value: "Autre", icon: <IconeSmile /> },
+  ];
   const Col = {
     width: WidthCust3,
     marginBottom: width <= 800 ? 20 : 0,
     zIndex: 10,
   };
-
   //  politique && conditions
   const [checked, setChecked] = useState(false);
   // Text Message
@@ -90,18 +79,82 @@ const Appointment = ({ navigation }) => {
   };
   // send data function
   const [visible, setVisible] = useState(false);
+
   const CloseModal = () => {
     setVisible(false);
   };
   const handleSend = () => {
-    if (index == "3") {
-      setVisible(true);
-    }
+    setVisible(true);
   };
   const ToHome = () => {
     navigation.navigate("HomeMain");
   };
-  const { isMobile, isTablet, isDesktop } = DimensionsHook();
+
+  const [Data, setData] = useState([]);
+  const [Loader, setLoader] = useState([]);
+
+  const getData = async () => {
+    setLoader(true);
+    const Response = await axios.post(ENDPOINT_TRAILS, {
+      access_token: TOKEN,
+    });
+    setData(
+      Response.data.map((i) => {
+        return { label: i.ressourceTitle, value: i.ressourceTitle };
+      })
+    );
+    setLoader(false);
+  };
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getData();
+    }
+    return (mounted = false);
+  }, []);
+
+  const [LoaderForm, setLoaderForm] = useState(false);
+  const [AlertInfo, setAlertInfo] = useState(null);
+  const [alert, setAlert] = useState("");
+  const SubmitForm = async () => {
+    if (
+      userOption &&
+      (selectedCategorie || text || text2) &&
+      selectedTimeZone &&
+      selectedLangue &&
+      checked
+    ) {
+      // send form
+      setLoaderForm(true);
+      const Response = await axios.post(ENPOINT_EXPERT_APPOINTMENT, {
+        access_token: TOKEN,
+        topic: userOption,
+        message:
+          userOption == "Atelier" ? text : userOption == "Autre" ? text2 : null,
+        language: selectedLangue,
+        time_zone: selectedTimeZone,
+        resourceCode: userOption == "Trail" ? selectedCategorie : null,
+      });
+      console.log("Response - Form Apointment", Response.data);
+      if (Response.data.acknowledged) {
+        setLoaderForm(false);
+        setSelectedCategorie("");
+        setSelectedTimeZone("");
+        setSelectedLangue("");
+        setText("");
+        setText2("");
+        setChecked(false);
+        handleSend();
+      }
+    } else {
+      // alert
+      setAlert("Veuillez remplir tous les champs");
+      setTimeout(() => {
+        setAlert("");
+      }, 5000);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -137,71 +190,21 @@ const Appointment = ({ navigation }) => {
 
           {/* squares */}
           <View style={[styles.Square, { width: WidthCust }]}>
-            <TouchableOpacity
-              style={!CustomShadow ? styles.StyleBox : styles.StyleBoxes}
-              onPress={() => {
-                selectTrails();
-                CloseAll();
-              }}
-            >
-              <View style={styles.ImageBac}>
-                <Image
-                  source={MaskGroup}
-                  style={{ height: "100%", width: "100%" }}
-                />
-
-                {/* 
-                  <View  style={{ height: 58, width: "100%" }}>
-                    <MaskGroup />
-                  </View> */}
-                <View style={styles.Icon}>
-                  <TrailsIcon />
-                </View>
-              </View>
-              <Txt style={{ alignSelf: "center", marginTop: 10 }}>Trail</Txt>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={!CustomShadow2 ? styles.StyleBox : styles.StyleBoxes}
-              onPress={() => {
-                selectAtelier();
-                CloseAll();
-              }}
-            >
-              <View style={styles.ImageBac}>
-                <Image
-                  source={MaskGroup}
-                  style={{ height: "100%", width: "100%" }}
-                />
-                <View style={styles.Icon}>
-                  <IconeSeRelaxer />
-                </View>
-              </View>
-              <Txt style={{ alignSelf: "center", marginTop: 10 }}>Atelier</Txt>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={!CustomShadow3 ? styles.StyleBox : styles.StyleBoxes}
-              onPress={() => {
-                selectOthers();
-                CloseAll();
-              }}
-            >
-              <View style={styles.ImageBac}>
-                <Image
-                  source={MaskGroup}
-                  style={{ height: "100%", width: "100%" }}
-                />
-                <View style={styles.Icon}>
-                  <IconeSmile />
-                </View>
-              </View>
-              <Txt style={{ alignSelf: "center", marginTop: 10 }}>Autre</Txt>
-            </TouchableOpacity>
+            <RadioButton
+              data={data}
+              userOption={userOption}
+              setUserOption={setUserOption}
+              CloseAll={CloseAll}
+            />
           </View>
 
+          {/* Form Rendez-Vous */}
+
           {/* Select Trails */}
+
           <View style={[styles.SelectTrail, { width: WidthCust }]}>
-            {index == 1 ? (
-              true ? (
+            {Data && userOption == "Trail" ? (
+              Data ? (
                 <DropDown
                   height={64}
                   placeholder="Sélectionnez le trail"
@@ -209,14 +212,14 @@ const Appointment = ({ navigation }) => {
                   setShow={() => setShowCategories(!showCategories)}
                   value={selectedCategorie}
                   setValue={setSelectedCategorie}
-                  options={categories}
+                  options={Data}
                 />
               ) : (
                 <View style={[styles.Square, { width: WidthCust3 }]}>
-                  <DropDownMob />
+                  <Txt>chargement ...</Txt>
                 </View>
               )
-            ) : index == 2 ? (
+            ) : userOption == "Atelier" ? (
               <View style={styles.textAreaContainer}>
                 <TextInput
                   multiline={true}
@@ -228,8 +231,7 @@ const Appointment = ({ navigation }) => {
                     {
                       paddingTop: width <= 800 ? 15 : 20,
                       fontSize: isMobile ? 16 : 18,
-                      outlineColor: isMobile ? null : colors.green2
-
+                      outlineColor: isMobile ? null : colors.green2,
                     },
                   ]}
                   placeholder="Votre message ..."
@@ -249,10 +251,10 @@ const Appointment = ({ navigation }) => {
                     {
                       fontSize: isMobile ? 16 : 18,
                       paddingTop: width <= 800 ? 15 : 20,
-                      outlineColor: isMobile ? null : colors.green2
+                      outlineColor: isMobile ? null : colors.green2,
                     },
                   ]}
-                  placeholder="Votre message ..."
+                  placeholder="Votre message ... "
                   underlineColorAndroid="transparent"
                   placeholderTextColor="grey"
                 />
@@ -280,7 +282,7 @@ const Appointment = ({ navigation }) => {
           <View
             style={[
               styles.SelectTrailRow,
-              { width: WidthCust, flexDirection: FlexD },
+              { flexDirection: FlexD, width: WidthCust },
             ]}
           >
             <View style={[Col, { zIndex: 15 }]}>
@@ -308,7 +310,7 @@ const Appointment = ({ navigation }) => {
             </View>
           </View>
           {/* politique && conditions */}
-          <View style={[styles.conditions, { width: WidthCust }]}>
+          <View style={[styles.conditions, { width: WidthCust2 }]}>
             <Checkbox
               uncheckedColor={colors.grayBorder}
               color={colors.green2}
@@ -318,7 +320,10 @@ const Appointment = ({ navigation }) => {
               }}
             />
             <Txt
-              style={{ paddingTop: 5, width: width <= 800 ? "90%" : "100%" }}
+              style={{
+                paddingTop: 5,
+                width: width <= 800 ? "90%" : "100%",
+              }}
             >
               En cliquant sur "Envoyer" vous acceptez d'être contacté par Massa
               Trails et vous acceptez notre politique de confidentialité.
@@ -329,8 +334,8 @@ const Appointment = ({ navigation }) => {
             style={[
               styles.ButtonWrapper,
               {
-                width: WidthCust,
                 alignItems: width <= 800 ? "flex-start" : "center",
+                marginLeft: width <= 800 ? 30 : 0,
               },
             ]}
           >
@@ -340,19 +345,21 @@ const Appointment = ({ navigation }) => {
                 textAlign: "center",
               }}
               onPress={() => {
-                handleSend();
+                SubmitForm();
               }}
             >
               Envoyer
             </PrimaryButton>
           </View>
         </View>
+        {/*End  Form Rendez-Vous */}
       </ScrollView>
       <AppointmentModal
         visible={visible}
         CloseModal={CloseModal}
         ToHome={ToHome}
       />
+      {alert ? <Toast severity="error">{alert} </Toast> : <></>}
       {width >= 1000 && <Image source={Mascotte} style={styles.Image} />}
       {width >= 800 && <Footer />}
     </View>
@@ -387,6 +394,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     zIndex: 5,
     elevation: 5,
+    padding: 10,
   },
   Square: {
     marginTop: 40,
@@ -416,58 +424,22 @@ const styles = StyleSheet.create({
     fontFamily: "OxygenRegular",
     color: colors.blue3,
     textAlignVertical: "top",
-    borderWidth:0.5,
-    paddingHorizontal:10,
-    paddingVertical:5,
-    borderColor:colors.grayBorder
+    borderWidth: 0.5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderColor: colors.grayBorder,
   },
   textAreaContainer: {
     borderColor: colors.grayBorder,
     padding: 5,
     borderRadius: 5,
   },
-  Icon: {
-    height: 27,
-    width: 30,
-    top: -35,
-  },
-  ImageBac: {
-    width: "100%",
-    height: 58,
-    // backgroundColor:'#ccc',
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  StyleBoxes: {
-    shadowColor: colors.green2,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-    width: "30%",
-    height: "100%",
-    backgroundColor: colors.white,
-    borderColor: colors.green2,
-    borderWidth: 1,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  StyleBox: {
-    width: "30%",
-    height: "100%",
-    backgroundColor: colors.white,
-    borderColor: colors.white,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
+
   ButtonWrapper: {
     alignSelf: "center",
     marginTop: 20,
     height: 57,
-    zIndex: -1,
+    width: "100%",
   },
   conditions: {
     alignSelf: "center",
@@ -479,7 +451,97 @@ const styles = StyleSheet.create({
 });
 
 {
+  /* <View
+                        style={
+                          !CustomShadow ? styles.StyleBox : styles.StyleBoxes
+                        }
+                      > */
+}
+{
+  /* </View> */
+}
+
+{
+  /* <TouchableOpacity
+                        style={
+                          !CustomShadow2 ? styles.StyleBox : styles.StyleBoxes
+                        }
+                        onPress={() => {
+                          selectAtelier();
+                          CloseAll();
+                        }}
+                        name="topic"
+                        id="topic"
+                      >
+                        <View style={styles.ImageBac}>
+                          <Image
+                            source={MaskGroup}
+                            style={{ height: "100%", width: "100%" }}
+                          />
+                          <View style={styles.Icon}>
+                            <IconeSeRelaxer />
+                          </View>
+                        </View>
+                        <Txt style={{ alignSelf: "center", marginTop: 10 }}>
+                          Atelier
+                        </Txt>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={
+                          !CustomShadow3 ? styles.StyleBox : styles.StyleBoxes
+                        }
+                        onPress={() => {
+                          selectOthers();
+                          CloseAll();
+                        }}
+                        name="topic"
+                        id="topic"
+                      >
+                        <View style={styles.ImageBac}>
+                          <Image
+                            source={MaskGroup}
+                            style={{ height: "100%", width: "100%" }}
+                          />
+                          <View style={styles.Icon}>
+                            <IconeSmile />
+                          </View>
+                        </View>
+                        <Txt style={{ alignSelf: "center", marginTop: 10 }}>
+                          Autre
+                        </Txt>
+                      </TouchableOpacity> */
+}
+{
   /* <View style={styles.Image}>
           <SpaceCoachingMascotte />
          </View> */
 }
+
+// <TouchableOpacity
+// style={
+//   !CustomShadow ? styles.StyleBox : styles.StyleBoxes
+// }
+// onPress={() => {
+//   selectTrails();
+//   CloseAll();
+// }}
+// name="topic"
+// id="topic"
+// >
+// <View style={styles.ImageBac}>
+//   <Image
+//     source={MaskGroup}
+//     style={{ height: "100%", width: "100%" }}
+//   />
+
+// <View  style={{ height: 58, width: "100%" }}>
+// <MaskGroup />
+// </View>
+//   <View style={styles.Icon}>
+//     <TrailsIcon />
+//   </View>
+// </View>
+// <Txt style={{ alignSelf: "center", marginTop: 10 }}>
+//   Trail
+// </Txt>
+// </TouchableOpacity>

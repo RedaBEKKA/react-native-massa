@@ -44,8 +44,8 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
         style={{ marginTop: 15 ,paddingLeft:10}}
         data={[0, 1, 2]}
         renderItem={() => <LoaderItem  SwiperItem={true} />}
-        keyExtractor={(item) => "_" + item}
-        key={"_"}
+        keyExtractor={(item) => "_" + item.ressourceTitle}
+      
       />
     ) : (
       <FlatList
@@ -54,8 +54,7 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
         numColumns={1}
         style={{ marginTop: 15,paddingLeft:10 }}
         data={[0, 1, 2]}
-        keyExtractor={(item) => "#" + item}
-        key={"#"}
+        keyExtractor={(item) => "#" + item.ressourceTitle}
         renderItem={() => <LoaderItem   />}
       />
     );

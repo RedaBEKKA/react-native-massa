@@ -25,7 +25,6 @@ const Trails = ({ navigation }) => {
       access_token: TOKEN,
     });
     setData(Response.data);
-
     setLoader(false);
   };
 
@@ -36,6 +35,8 @@ const Trails = ({ navigation }) => {
     }
     return (mounted = false);
   }, []);
+
+
 
   const itemContainer = {
     backgroundColor: colors.grayBackground,
