@@ -6,40 +6,55 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Animated,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-native-paper";
 import { colors } from "../../../../styles/GlobalStyle";
-import data from "./data/QuizData";
 import { H6, Txt } from "../../../../components/TextsComponents";
 // import { CheckBox } from "react-native-elements";
 import CheckBox from "../../../../components/CheckBox/useCheckBox";
+import GetQuestions from "../../Hooks/getQuestions";
+import { SecondaryButton } from "../../../../components/Buttons";
+import data from "./data/QuizData";
 
-const Questions = () => {
+const Questions = ({ navigateTo }) => {
   const { width } = useWindowDimensions();
+  const { Data, loader, getData } = GetQuestions();
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getData();
+    }
+    return (mounted = false);
+  }, []);
   const allQuestions = data;
-  const ReponsesS2 = {
-    flexDirection: width <= 800 ? "row" : "column",
-    justifyContent: "space-between",
-    alignSelf: "center",
-    marginTop: 20,
-  };
-  const BoxResponse = {
-    flexDirection: "row",
-    alignItems: "center",
-    height: 67,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    marginBottom: 5,
-    paddingLeft: 15,
-    justifyContent: "center",
-    width: width <= 800 ? "48%" : "100%",
-  };
+  // const ReponsesS2 = {
+  //   flexDirection: width <= 800 ? "row" : "column",
+  //   justifyContent: "space-between",
+  //   alignSelf: "center",
+  //   marginTop: 20,
+  // };
+  // const BoxResponse = {
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   height: 67,
+  //   backgroundColor: colors.white,
+  //   borderRadius: 10,
+  //   marginBottom: 5,
+  //   paddingLeft: 15,
+  //   justifyContent: "center",
+  //   width: width <= 800 ? "48%" : "100%",
+  // };
   const CustW = width <= 800 ? "90%" : width <= 1500 ? "60%" : "44%";
+  const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "100%";
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
+  const [currentOptionSelected, setCurrentOptionSelected] = useState([]);
+  const [CurrentID, setCurrentID] = useState([]);
+  const [Arr, setArr] = useState([]);
 
+  const [Response, setReponses] = useState([]);
   const renderQuestion = () => {
     return (
       <View
@@ -56,85 +71,170 @@ const Questions = () => {
           }}
         >
           <Txt>
-            Question {currentQuestionIndex + 1}/{allQuestions.length}{" "}
+            Question {currentQuestionIndex + 1}/{allQuestions.length}
           </Txt>
         </View>
 
         {/* Question */}
-        <H6 style={{ textAlign: "center" }}>
-          {allQuestions[currentQuestionIndex]?.question}
-        </H6>
-      </View>
-    );
-  };
-  const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "100%";
 
-  const [state, setState] = useState([]);
-
-  const onchecked = (ItemSelected, index) => {
-    let newIdata = allQuestions[currentQuestionIndex]?.possible_answers.map(
-      (item, ind) => {
-        if (ind == index) {
-          return {
-            ...item,
-            // selected: !item.selected,
-            // ItemSelected,
-          };
-        }
-        // return {
-        //   ...item,
-        //   selected: false,
-        //   ItemSelected: false,
-        // };
-      }
-    );
-    setState(newIdata);
-  };
-  console.log("state", state);
-
-  const renderOptions = () => {
-    return (
-      <View style={{ alignSelf: "center" }}>
-        {allQuestions[currentQuestionIndex]?.possible_answers.map(
-          (option, index) => (
-            <View
-              style={{
-                width: 350,
-                marginRight: 15,
-              }}
-              key={index}
-            >
-              {/* reponse */}
-              <View style={[styles.Reponses, { width: CustW2 }]}>
-                <View style={styles.BoxResponse}>
-                  <CheckBox
-                    onPress={() => {
-                      onchecked(option, index);
-                    }}
-                    title={option}
-                    isChecked={state.length>0 ? true : false}
-                  />
-                </View>
-              </View>
-            </View>
-          )
+        {allQuestions[currentQuestionIndex]?.question ? (
+          <H6 style={{ textAlign: "center" }}>
+            {allQuestions[currentQuestionIndex]?.question}
+          </H6>
+        ) : (
+          <View>
+            <Txt>no question passer</Txt>
+          </View>
         )}
       </View>
     );
   };
+
+  const [checkedState, setCheckedState] = useState(
+    new Array(allQuestions[currentQuestionIndex]?.possible_answers.length).fill(
+      false
+    )
+  );
+
+  useEffect(() => {
+    if (currentQuestionIndex !== 0) {
+      setCheckedState(
+        new Array(
+          allQuestions[currentQuestionIndex]?.possible_answers.length
+        ).fill(false)
+      );
+      setArr([...Arr, { answers: currentOptionSelected }]);
+      setCurrentOptionSelected([]);
+    }
+  }, [currentQuestionIndex]);
+
+  const handleOnChange = (position, option) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    setCheckedState(updatedCheckedState);
+    let filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id);
+    if (filterId) {
+      let itemsCopy = [...CurrentID];
+      setCurrentID(itemsCopy);
+    } else {
+      setCurrentID([...CurrentID, allQuestions[currentQuestionIndex]?._id]);
+    }
+    let filter = currentOptionSelected.includes(option);
+    if (filter) {
+      let itemsCopy = [...currentOptionSelected];
+      var index = currentOptionSelected.indexOf(option);
+      itemsCopy.splice(index, 1); // to delete one item from the new array
+      setCurrentOptionSelected(itemsCopy);
+      setReponses([...itemsCopy, itemsCopy]);
+      // Arr.push(itemsCopy)
+      // setArr([...Arr,{ answers: itemsCopy }]);
+    } else {
+      setCurrentOptionSelected([...currentOptionSelected, option]);
+      setReponses([...Response, option]);
+    }
+  };
+  // console.log(
+  //   "currentOptionSelected",
+  //   currentOptionSelected,
+  //   "index",
+  //   currentQuestionIndex
+  // );
+
+
+  // console.log("Arr", Arr);
+  const renderOptions = () => {
+    return (
+      <View style={{ alignSelf: "center" }}>
+        {allQuestions[currentQuestionIndex]?.question ? ( //  if there is no answers
+          allQuestions[currentQuestionIndex]?.possible_answers.map(
+            (option, index) => (
+              <View
+                style={{
+                  width: 350,
+                  marginRight: 15,
+                }}
+                key={index}
+              >
+                {/* reponse */}
+                <View style={styles.BoxResponse}>
+                  <CheckBox
+                    onPress={() => {
+                      handleOnChange(index, option);
+                    }}
+                    title={option}
+                    checked={checkedState[index]}
+                    index={index}
+                  />
+                </View>
+              </View>
+            )
+          )
+        ) : (
+          <></>
+        )}
+      </View>
+    );
+  };
+
+  const StepFromBac = (currentQuestionIndex * 100) / allQuestions.length;
+
+  const NextQuestion = () => {
+    if (currentQuestionIndex == allQuestions.length - 1) {
+      // laseQuest
+      return;
+    } else if (currentQuestionIndex < allQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      return;
+    }
+  };
+
   return (
-    <View style={[styles.QuizContainer, { width: CustW }]}>
-      {/* ProgressBar */}
-      <ProgressBar
-        style={[styles.ProgressBar, { width: "90%" }]}
-        progress={0.21}
-        color={colors.green2}
-      />
-      {/* renderQuestion */}
-      {renderQuestion()}
-      {/* renderOptions */}
-      {renderOptions()}
-    </View>
+    <>
+      <View style={[styles.QuizContainer, { width: CustW }]}>
+        {/* ProgressBar */}
+        <ProgressBar
+          style={[styles.ProgressBar, { width: "95%" }]}
+          progress={StepFromBac / 100}
+          color={colors.green2}
+        />
+        {/* renderQuestion */}
+        {renderQuestion()}
+        {/* renderOptions */}
+        {renderOptions()}
+      </View>
+
+      <View
+        style={[
+          styles.ButtonsBox,
+          {
+            width: width <= 800 ? "95%" : width <= 1500 ? "55%" : "22%",
+            marginTop: width <= 800 ? 0 : 20,
+          },
+        ]}
+      >
+        <SecondaryButton style={{ width: "48%" }} onPress={navigateTo}>
+          Quitter
+        </SecondaryButton>
+
+
+        {currentQuestionIndex == allQuestions.length - 1 ? (
+          <SecondaryButton
+            style={{ width: "48%" }}
+            onPress={() => {
+              setCurrentQuestionIndex(currentQuestionIndex + 1);
+            }}
+          >
+            Envoyer
+          </SecondaryButton>
+        ) : (
+          <SecondaryButton style={{ width: "48%" }} onPress={NextQuestion}>
+            Suivant
+          </SecondaryButton>
+        )}
+      </View>
+    </>
   );
 };
 
@@ -145,7 +245,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
-    paddingLeft: 0,
     marginTop: 10,
     marginTop: 30,
     flexDirection: "column",
@@ -161,6 +260,7 @@ const styles = StyleSheet.create({
   Reponses: {
     marginTop: 20,
     alignSelf: "center",
+    backgroundColor: "#ccc",
   },
   BoxResponse: {
     flexDirection: "row",
@@ -170,128 +270,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 5,
     paddingLeft: 15,
+    marginLeft: 10,
+  },
+  ButtonsBox: {
+    marginBottom: 20,
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
-
-// const techResponse = (index) => {
-//   setIsCheck(true);
-//   setTimeout(() => {
-//     setCurrentQuestionIndex(currentQuestionIndex + 1);
-//   }, 3000);
-// };
-
-// const scrollHandeler = () => {
-//   if (dataSourceCords.length) {
-//     // Ref.scrollTo({
-//     //   x: dataSourceCords[val],
-//     //   y: 0,
-//     //   animated: true,
-//     //   behavior: "smooth",
-//     //   block: "start",
-//     // });
-//     Ref.current.scrollToIndex({ animated: true, index: val });
-//   } else {
-//     alert("error");
-//   }
-// };
-
-{
-  /* <FlatList
-style={{}}
-data={data}
-ref={Ref}
-keyExtractor={(item) => item.key}
-contentContainerStyle={{ paddingLeft: _spacing }}
-showsHorizontalScrollIndicator={false}
-horizontal
-getItemLayout={getItemLayout}
-renderItem={({ item, index}) => {
-  return <RenderQustions item={item} index={index} />;
-}}
-/> */
-}
-
-// const ItemView = (item, key) => {
-//   return (
-//     <View
-//       key={key}
-//       onLayout={(event) => {
-//         const layout = event.nativeEvent.layout;
-//         dataSourceCords[key] = layout.x;
-//         setdataSourceCords(dataSourceCords);
-//       }}
-//     >
-//       <Text style={{ marginLeft: 10 }}>{item.question}</Text>
-//     </View>
-//   );
-// };
-
-// <ScrollView
-// style={{ width: 400 }}
-// horizontal
-// showsHorizontalScrollIndicator={false}
-// ref={Ref}
-// >
-// {data.map(ItemView)}
-
-// <RenderQustions
-//   data={data}
-//   dataSourceCords={dataSourceCords}
-//   setdataSourceCords={setdataSourceCords}
-// />
-// </ScrollView>
-// <FlatList
-// style={{}}
-// data={data}
-// ref={ref}
-// keyExtractor={(item) => item.key}
-// contentContainerStyle={{ paddingLeft: _spacing }}
-// showsHorizontalScrollIndicator={false}
-// horizontal
-// renderItem={({ item, index: fIndex }) => {
-//   return <RenderQustions item={item} />;
-// }}
-// />
-{
-  /* cas 2 reponse */
-}
-{
-  /* <View style={[ReponsesS2, { width: CustW2 }]}>
-      <TouchableOpacity style={BoxResponse}>
-        <Txt>Oui</Txt>
-      </TouchableOpacity>
-      <TouchableOpacity style={BoxResponse}>
-        <Txt>Non</Txt>
-      </TouchableOpacity>
-    </View> */
-}
-
-{
-  /* <View style={styles.BoxResponse}>
-          <CheckBox
-            onPress={() => {
-              setChecked2(!checked2);
-            }}
-            title="Réponse 2"
-            isChecked={checked2}
-          />
-        </View>
-        <View style={styles.BoxResponse}>
-          <CheckBox
-            onPress={() => {
-              setChecked3(!checked3);
-            }}
-            title="Réponse 3"
-            isChecked={checked3}
-          />
-        </View>
-        <View style={styles.BoxResponse}>
-          <CheckBox
-            onPress={() => {
-              setChecked4(!checked4);
-            }}
-            title="Réponse 4"
-            isChecked={checked4}
-          />
-        </View> */
-}
