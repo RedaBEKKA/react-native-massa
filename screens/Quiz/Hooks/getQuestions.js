@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TOKEN ,ENDPOINT_QUESTIONS} from "@env";
+import { TOKEN ,ENDPOINT_QUESTIONS,ENDPOINT_ANSWERS} from "@env";
 import axios from "axios";
 
 export default function GetQuestions() {
@@ -16,6 +16,29 @@ export default function GetQuestions() {
   };
 
 
+  const sendData = async (Arr) => {
+    let body = JSON.stringify({
+      access_token: TOKEN,
+      "result":Arr
+    });
+ console.log('body', body)
+    try {
+      if (TOKEN) {
+        await axios
+          .post(ENDPOINT_ANSWERS, body)
+          .then((res) => {
+            let Data = res.data;
 
-  return {  Data, loader,getData };
+            console.log("dataStatus--------------------", Data);
+          })
+          .catch((err) => {
+            console.log("--- error", err);
+          });
+      }
+    } catch (error) {
+      console.log("---  failed post ", error);
+    }
+  };
+
+  return {  Data, loader,getData ,sendData};
 }

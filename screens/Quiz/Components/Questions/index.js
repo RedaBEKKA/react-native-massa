@@ -20,7 +20,7 @@ import data from "./data/QuizData";
 
 const Questions = ({ navigateTo }) => {
   const { width } = useWindowDimensions();
-  const { Data, loader, getData } = GetQuestions();
+  const { sendData, getData } = GetQuestions();
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -103,7 +103,8 @@ const Questions = ({ navigateTo }) => {
           allQuestions[currentQuestionIndex]?.possible_answers.length
         ).fill(false)
       );
-      setArr([...Arr, { answers: currentOptionSelected }]);
+// const filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id)
+      setArr([...Arr,{question_id:CurrentID,answers:currentOptionSelected }]);
       setCurrentOptionSelected([]);
     }
   }, [currentQuestionIndex]);
@@ -116,9 +117,16 @@ const Questions = ({ navigateTo }) => {
     let filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id);
     if (filterId) {
       let itemsCopy = [...CurrentID];
+      var index = CurrentID.indexOf(allQuestions[currentQuestionIndex]?._id);
+
+      // console.log(CurrentID.findIndex(currentQuestionIndex));
+
+      itemsCopy.splice(index, 1);
       setCurrentID(itemsCopy);
     } else {
-      setCurrentID([...CurrentID, allQuestions[currentQuestionIndex]?._id]);
+      setCurrentID([ allQuestions[currentQuestionIndex]?._id]);
+      // console.log("find",CurrentID?.findIndex(currentQuestionIndex));
+
     }
     let filter = currentOptionSelected.includes(option);
     if (filter) {
@@ -127,22 +135,15 @@ const Questions = ({ navigateTo }) => {
       itemsCopy.splice(index, 1); // to delete one item from the new array
       setCurrentOptionSelected(itemsCopy);
       setReponses([...itemsCopy, itemsCopy]);
-      // Arr.push(itemsCopy)
-      // setArr([...Arr,{ answers: itemsCopy }]);
     } else {
       setCurrentOptionSelected([...currentOptionSelected, option]);
       setReponses([...Response, option]);
     }
   };
-  // console.log(
-  //   "currentOptionSelected",
-  //   currentOptionSelected,
-  //   "index",
-  //   currentQuestionIndex
-  // );
 
 
-  // console.log("Arr", Arr);
+
+  console.log("Arr", Arr);
   const renderOptions = () => {
     return (
       <View style={{ alignSelf: "center" }}>
@@ -223,6 +224,7 @@ const Questions = ({ navigateTo }) => {
           <SecondaryButton
             style={{ width: "48%" }}
             onPress={() => {
+              sendData(Arr)
               setCurrentQuestionIndex(currentQuestionIndex + 1);
             }}
           >
