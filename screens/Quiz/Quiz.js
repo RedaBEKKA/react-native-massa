@@ -57,7 +57,7 @@ const Quiz = ({ navigation }) => {
           </View>
         ) : ( */}
         <View style={ContainerMd}>
-          <Questions navigateTo={navigateTo} />
+          <Questions navigateTo={navigateTo}  navigation={navigation}  />
         </View>
         {/* )} */}
       </ScrollView>

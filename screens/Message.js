@@ -24,7 +24,7 @@ import Footer from "../components/Footer";
 import DimensionsHook from "../hooks/DimensionsHook";
 import { PrimaryButton, SecondaryButton } from "../components/Buttons";
 import { CheckCircle } from "../assets/svg/space";
-import {MascotteComplete} from "../assets/svg/Coaching"
+import { MascotteComplete } from "../assets/svg/Coaching";
 
 const Message = ({ navigation }) => {
   const width = useWindowDimensions().width;
@@ -73,29 +73,32 @@ const Message = ({ navigation }) => {
             </View>
             {width > 800 ? (
               <SecondaryButton
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                  //  navigation.goBack()
+                  navigation.navigate("Coaching");
+                }}
                 style={{ width: "22%", marginTop: 40 }}
               >
                 Retour
               </SecondaryButton>
-            ):
-            (
-                <SecondaryButton
-                onPress={() => navigation.goBack()}
+            ) : (
+              <SecondaryButton
+                onPress={() => {
+                  //  navigation.goBack()
+                  navigation.navigate("Coaching");
+                }}
                 style={{ width: "48%", marginTop: 40 }}
               >
                 Retour
-              </SecondaryButton> 
+              </SecondaryButton>
             )}
-            
           </View>
         </ScrollView>
         {width >= 1000 && (
-        <View style={styles.Image}>
-          <MascotteComplete />
-        </View>
-       
-      )}
+          <View style={styles.Image}>
+            <MascotteComplete />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
   Image: {
     height: 304,
     width: 184,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     position: "absolute",
     right: 10,
     bottom: 61,

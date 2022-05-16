@@ -17,10 +17,11 @@ import CheckBox from "../../../../components/CheckBox/useCheckBox";
 import GetQuestions from "../../Hooks/getQuestions";
 import { SecondaryButton } from "../../../../components/Buttons";
 import data from "./data/QuizData";
+import Spinner from "../../../../components/Spinner";
 
-const Questions = ({ navigateTo }) => {
+const Questions = ({ navigateTo, navigation }) => {
   const { width } = useWindowDimensions();
-  const { sendData, getData } = GetQuestions();
+  const { sendData, getData,loading,setloading } = GetQuestions();
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -53,7 +54,6 @@ const Questions = ({ navigateTo }) => {
   const [currentOptionSelected, setCurrentOptionSelected] = useState([]);
   const [CurrentID, setCurrentID] = useState([]);
   const [Arr, setArr] = useState([]);
-
   const [Response, setReponses] = useState([]);
   const renderQuestion = () => {
     return (
@@ -103,8 +103,10 @@ const Questions = ({ navigateTo }) => {
           allQuestions[currentQuestionIndex]?.possible_answers.length
         ).fill(false)
       );
-// const filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id)
-      setArr([...Arr,{question_id:CurrentID,answers:currentOptionSelected }]);
+      setArr([
+        ...Arr,
+        { question_id: CurrentID, answers: currentOptionSelected },
+      ]);
       setCurrentOptionSelected([]);
     }
   }, [currentQuestionIndex]);
@@ -118,15 +120,10 @@ const Questions = ({ navigateTo }) => {
     if (filterId) {
       let itemsCopy = [...CurrentID];
       var index = CurrentID.indexOf(allQuestions[currentQuestionIndex]?._id);
-
-      // console.log(CurrentID.findIndex(currentQuestionIndex));
-
       itemsCopy.splice(index, 1);
       setCurrentID(itemsCopy);
     } else {
-      setCurrentID([ allQuestions[currentQuestionIndex]?._id]);
-      // console.log("find",CurrentID?.findIndex(currentQuestionIndex));
-
+      setCurrentID([allQuestions[currentQuestionIndex]?._id]);
     }
     let filter = currentOptionSelected.includes(option);
     if (filter) {
@@ -140,9 +137,6 @@ const Questions = ({ navigateTo }) => {
       setReponses([...Response, option]);
     }
   };
-
-
-
   console.log("Arr", Arr);
   const renderOptions = () => {
     return (
@@ -190,52 +184,79 @@ const Questions = ({ navigateTo }) => {
       return;
     }
   };
+  useEffect(() => {
+    if (currentQuestionIndex > allQuestions.length - 1) {
+      setloading(true);
+    }
+  }, [currentQuestionIndex]);
+
+
+  useEffect(() => {
+    if (
+      currentQuestionIndex > allQuestions.length - 1 
+    ) {
+      sendData(Arr, navigation);
+    }
+  }, [loading]);
 
   return (
     <>
-      <View style={[styles.QuizContainer, { width: CustW }]}>
-        {/* ProgressBar */}
-        <ProgressBar
-          style={[styles.ProgressBar, { width: "95%" }]}
-          progress={StepFromBac / 100}
-          color={colors.green2}
-        />
-        {/* renderQuestion */}
-        {renderQuestion()}
-        {/* renderOptions */}
-        {renderOptions()}
-      </View>
+      {loading ? (
+        <View
+          style={{
+            position: "absolute",
+            top: 300,
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <Spinner size={25}></Spinner>
+        </View>
+      ) : (
+        <>
+          <View style={[styles.QuizContainer, { width: CustW }]}>
+            {/* ProgressBar */}
+            <ProgressBar
+              style={[styles.ProgressBar, { width: "95%" }]}
+              progress={StepFromBac / 100}
+              color={colors.green2}
+            />
+            {/* renderQuestion */}
+            {renderQuestion()}
+            {/* renderOptions */}
+            {renderOptions()}
+          </View>
 
-      <View
-        style={[
-          styles.ButtonsBox,
-          {
-            width: width <= 800 ? "95%" : width <= 1500 ? "55%" : "22%",
-            marginTop: width <= 800 ? 0 : 20,
-          },
-        ]}
-      >
-        <SecondaryButton style={{ width: "48%" }} onPress={navigateTo}>
-          Quitter
-        </SecondaryButton>
-
-
-        {currentQuestionIndex == allQuestions.length - 1 ? (
-          <SecondaryButton
-            style={{ width: "48%" }}
-            onPress={() => {
-              sendData(Arr)
-              setCurrentQuestionIndex(currentQuestionIndex + 1);
-            }}
+          <View
+            style={[
+              styles.ButtonsBox,
+              {
+                width: width <= 800 ? "95%" : width <= 1500 ? "55%" : "22%",
+                marginTop: width <= 800 ? 0 : 20,
+              },
+            ]}
           >
-            Envoyer
-          </SecondaryButton>
-        ) : (
-          <SecondaryButton style={{ width: "48%" }} onPress={NextQuestion}>
-            Suivant
-          </SecondaryButton>
-        )}
-      </View>
+            <SecondaryButton style={{ width: "48%" }} onPress={navigateTo}>
+              Quitter
+            </SecondaryButton>
+
+            {currentQuestionIndex == allQuestions.length - 1 ? (
+              <SecondaryButton
+                style={{ width: "48%" }}
+                onPress={() => {
+                  setCurrentQuestionIndex(currentQuestionIndex + 1);
+                }}
+              >
+                Envoyer
+              </SecondaryButton>
+            ) : (
+              <SecondaryButton style={{ width: "48%" }} onPress={NextQuestion}>
+                Suivant
+              </SecondaryButton>
+            )}
+          </View>
+        </>
+      )}
     </>
   );
 };
