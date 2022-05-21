@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
-import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP,ENDPOINT_FAVOURITE } from "@env";
+import { ENDPOINT_TRAILS, ENDPOINT_WORKSHOP, ENDPOINT_FAVOURITE } from "@env";
 import { BoldTxt, H5, H6, H7 } from "../../components/TextsComponents";
 import DimensionsHook from "../../hooks/DimensionsHook";
 import styles from "./Hooks/Styles";
@@ -89,7 +89,7 @@ const Espace = ({ navigation }) => {
     marginLeft: 5,
     paddingTop: 8,
     marginBottom: 20,
-    alignSelf:width <= 1300 ?"center": "flex-start"
+    alignSelf: width <= 1300 ? "center" : "flex-start",
   };
 
   // display Data trails
@@ -125,8 +125,6 @@ const Espace = ({ navigation }) => {
     alignSelf: Ready ? "center" : "flex-start",
     borderRadius: 20,
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -197,10 +195,13 @@ const Espace = ({ navigation }) => {
                     Aucun trail en cours
                   </H7>
                   <PrimaryButton
-                  onPress={()=>navigation.navigate("Home",{
-                     screen: "SeeAllTrails" 
-                  })} 
-                  style={{ marginTop: 20 }}>
+                    onPress={() =>
+                      navigation.navigate("Home", {
+                        screen: "SeeAllTrails",
+                      })
+                    }
+                    style={{ marginTop: 20 }}
+                  >
                     Sélectionnez un trail
                   </PrimaryButton>
                 </View>
@@ -229,7 +230,7 @@ const Espace = ({ navigation }) => {
                 ) : null}
               </View>
 
-              {userInfo.favourite.length? (
+              {userInfo.favourite.length ? (
                 <FavouriteSwiper
                   navigation={navigation}
                   type="Favouris"
@@ -370,7 +371,8 @@ const Espace = ({ navigation }) => {
                       padding: width <= 790 ? 5 : 0,
                     }}
                   >
-                    Vous n'avez pas encore réalisé d'activité. Courage!{'\n'}  Vous pouvez le faire!.
+                    Vous n'avez pas encore réalisé d'activité. Courage!{"\n"}{" "}
+                    Vous pouvez le faire!.
                   </H7>
                   <PrimaryButton style={{ marginTop: 20 }}>
                     <Text>Consulter notre catalogue</Text>
@@ -379,7 +381,6 @@ const Espace = ({ navigation }) => {
               )}
             </View>
           </View>
-
         </>
         {isDesktop && <Footer />}
       </ScrollView>

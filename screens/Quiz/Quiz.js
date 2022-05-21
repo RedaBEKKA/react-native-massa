@@ -4,16 +4,13 @@ import {
   ScrollView,
   useWindowDimensions,
   Image,
-  Animated,
 } from "react-native";
 import React from "react";
 import BackHeader from "../../components/BackHeader";
 import { colors } from "../../styles/GlobalStyle";
 import Footer from "../../components/Footer";
 import Mascotte from "../../assets/mascotte_1.png";
-import { SecondaryButton } from "../../components/Buttons";
 import Questions from "./Components/Questions";
-import Spinner from "../../components/Spinner";
 
 const Quiz = ({ navigation }) => {
   const { height, width } = useWindowDimensions();
@@ -28,20 +25,7 @@ const Quiz = ({ navigation }) => {
         ? height - 70 * 2
         : height - 70 * 2,
   };
-  const handleNext = () => {
-    if (currentQuestionIndex == allQuestions.length - 1) {
-      // Last Question
-      // Show Score Modal
-      // setShowScoreModal(true)
-    } else {
-      // setCurrentQuestionIndex(currentQuestionIndex+1);
-    }
-    Animated.timing(progress, {
-      toValue: currentQuestionIndex + 1,
-      duration: 1000,
-      useNativeDriver: false,
-    }).start();
-  };
+
   const navigateTo = () => {
     navigation.navigate("Message");
   };
@@ -49,17 +33,10 @@ const Quiz = ({ navigation }) => {
     <View style={styles.container}>
       <BackHeader navigation={navigation} />
       <ScrollView>
-        {/* {true ? (
-             
-          <View  style={{ position: "absolute", top: 350, alignSelf: "center" }} >
-            <Spinner
-            />
-          </View>
-        ) : ( */}
+
         <View style={ContainerMd}>
           <Questions navigateTo={navigateTo}  navigation={navigation}  />
         </View>
-        {/* )} */}
       </ScrollView>
 
       {width >= 1000 && (

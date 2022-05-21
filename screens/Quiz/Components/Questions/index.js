@@ -21,7 +21,7 @@ import Spinner from "../../../../components/Spinner";
 
 const Questions = ({ navigateTo, navigation }) => {
   const { width } = useWindowDimensions();
-  const { sendData, getData,loading,setloading } = GetQuestions();
+  const { sendData, getData, loading, setloading } = GetQuestions();
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -30,31 +30,54 @@ const Questions = ({ navigateTo, navigation }) => {
     return (mounted = false);
   }, []);
   const allQuestions = data;
-  // const ReponsesS2 = {
-  //   flexDirection: width <= 800 ? "row" : "column",
-  //   justifyContent: "space-between",
-  //   alignSelf: "center",
-  //   marginTop: 20,
-  // };
-  // const BoxResponse = {
-  //   flexDirection: "row",
-  //   alignItems: "center",
-  //   height: 67,
-  //   backgroundColor: colors.white,
-  //   borderRadius: 10,
-  //   marginBottom: 5,
-  //   paddingLeft: 15,
-  //   justifyContent: "center",
-  //   width: width <= 800 ? "48%" : "100%",
-  // };
   const CustW = width <= 800 ? "90%" : width <= 1500 ? "60%" : "44%";
-  const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "100%";
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState([]);
   const [CurrentID, setCurrentID] = useState([]);
   const [Arr, setArr] = useState([]);
   const [Response, setReponses] = useState([]);
+  const [checkedState, setCheckedState] = useState(
+    new Array(allQuestions[currentQuestionIndex]?.possible_answers.length).fill(
+      false
+    )
+  );
+  const StyleRow = {
+    alignSelf: "center",
+    flexDirection: width <= 800 ? "row" : "row",
+    // backgroundColor:"#ccc"
+  };
+  const StyleColumn = {
+    alignSelf: "center",
+    width: 350,
+  };
+  const handleOnChange = (position, option) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    setCheckedState(updatedCheckedState);
+    let filter = currentOptionSelected.includes(option);
+    if (filter) {
+      let itemsCopy = [...currentOptionSelected];
+      var index = currentOptionSelected.indexOf(option);
+      itemsCopy.splice(index, 1); // to delete one item from the new array
+      setCurrentOptionSelected(itemsCopy);
+      setReponses([...itemsCopy, itemsCopy]);
+    } else {
+      setCurrentOptionSelected([...currentOptionSelected, option]);
+      setReponses([...Response, option]);
+    }
+  };
+  const NextQuestion = () => {
+    if (currentQuestionIndex == allQuestions.length - 1) {
+      // laseQuest
+      return;
+    } else if (currentQuestionIndex < allQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      return;
+    }
+  };
   const renderQuestion = () => {
     return (
       <View
@@ -89,65 +112,22 @@ const Questions = ({ navigateTo, navigation }) => {
       </View>
     );
   };
-
-  const [checkedState, setCheckedState] = useState(
-    new Array(allQuestions[currentQuestionIndex]?.possible_answers.length).fill(
-      false
-    )
-  );
-
-  useEffect(() => {
-    if (currentQuestionIndex !== 0) {
-      setCheckedState(
-        new Array(
-          allQuestions[currentQuestionIndex]?.possible_answers.length
-        ).fill(false)
-      );
-      setArr([
-        ...Arr,
-        { question_id: CurrentID, answers: currentOptionSelected },
-      ]);
-      setCurrentOptionSelected([]);
-    }
-  }, [currentQuestionIndex]);
-
-  const handleOnChange = (position, option) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-    let filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id);
-    if (filterId) {
-      let itemsCopy = [...CurrentID];
-      var index = CurrentID.indexOf(allQuestions[currentQuestionIndex]?._id);
-      itemsCopy.splice(index, 1);
-      setCurrentID(itemsCopy);
-    } else {
-      setCurrentID([allQuestions[currentQuestionIndex]?._id]);
-    }
-    let filter = currentOptionSelected.includes(option);
-    if (filter) {
-      let itemsCopy = [...currentOptionSelected];
-      var index = currentOptionSelected.indexOf(option);
-      itemsCopy.splice(index, 1); // to delete one item from the new array
-      setCurrentOptionSelected(itemsCopy);
-      setReponses([...itemsCopy, itemsCopy]);
-    } else {
-      setCurrentOptionSelected([...currentOptionSelected, option]);
-      setReponses([...Response, option]);
-    }
-  };
-  console.log("Arr", Arr);
   const renderOptions = () => {
     return (
-      <View style={{ alignSelf: "center" }}>
+      <View
+        style={
+          allQuestions[currentQuestionIndex]?.possible_answers.length == 2
+            ? StyleRow
+            : StyleColumn
+        }
+      >
         {allQuestions[currentQuestionIndex]?.question ? ( //  if there is no answers
           allQuestions[currentQuestionIndex]?.possible_answers.map(
             (option, index) => (
               <View
                 style={{
-                  width: 350,
                   marginRight: 15,
+                  flexDirection: "row",
                 }}
                 key={index}
               >
@@ -172,32 +152,47 @@ const Questions = ({ navigateTo, navigation }) => {
     );
   };
 
-  const StepFromBac = (currentQuestionIndex * 100) / allQuestions.length;
 
-  const NextQuestion = () => {
-    if (currentQuestionIndex == allQuestions.length - 1) {
-      // laseQuest
-      return;
-    } else if (currentQuestionIndex < allQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+  useEffect(() => {
+
+    let filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id);
+    if (filterId) {
+      let itemsCopy = [...CurrentID];
+      var index = CurrentID.indexOf(allQuestions[currentQuestionIndex]?._id);
+      itemsCopy.splice(index, 1);
+      setCurrentID(itemsCopy);
     } else {
-      return;
+      setCurrentID([allQuestions[currentQuestionIndex]?._id]);
     }
-  };
+    if (currentQuestionIndex !== 0) {
+      setCheckedState(
+        new Array(
+          allQuestions[currentQuestionIndex]?.possible_answers.length
+        ).fill(false)
+      );
+      setArr([
+        ...Arr,
+        { question_id: CurrentID, answers: currentOptionSelected },
+      ]);
+      setCurrentOptionSelected([]);
+    }
+
+
+
+  }, [currentQuestionIndex]);
+
   useEffect(() => {
     if (currentQuestionIndex > allQuestions.length - 1) {
       setloading(true);
     }
   }, [currentQuestionIndex]);
 
-
   useEffect(() => {
-    if (
-      currentQuestionIndex > allQuestions.length - 1 
-    ) {
+    if (currentQuestionIndex > allQuestions.length - 1) {
       sendData(Arr, navigation);
     }
   }, [loading]);
+  const StepFromBac = (currentQuestionIndex * 100) / allQuestions.length;
 
   return (
     <>
@@ -294,6 +289,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingLeft: 15,
     marginLeft: 10,
+    width: "100%",
   },
   ButtonsBox: {
     marginBottom: 20,

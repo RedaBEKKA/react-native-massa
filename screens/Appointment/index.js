@@ -12,7 +12,7 @@ import { colors } from "../../styles/GlobalStyle";
 import Footer from "../../components/Footer";
 import Mascotte from "../../assets/mascotte_1.png";
 import { H5, Txt } from "../../components/TextsComponents";
-import { DropDown } from "../../components/Inputs";
+import { DropDownAppointment } from "../../components/Inputs";
 import { ActivityIndicator, Checkbox } from "react-native-paper";
 import { PrimaryButton } from "../../components/Buttons";
 import AppointmentModal from "./Components/Modal";
@@ -27,6 +27,8 @@ import {
   TrailsIcon,
 } from "../../assets/svg/Appointment";
 import Head from "./Components/head";
+import styles from "./Hooks/Styles";
+import Spinner from "../../components/Spinner";
 
 const Appointment = ({ navigation }) => {
   const data = [
@@ -49,15 +51,18 @@ const Appointment = ({ navigation }) => {
   const [showLangue, setShowLangue] = useState(false);
   const [selectedLangue, setSelectedLangue] = useState("");
   const Langue = [
-    { label: "Français", value: "Français " },
-    { label: "English", value: "English " },
+    { label: "Français", value: "Fr" },
+    { label: "English", value: "En" },
   ];
   // Select TimeZone
   const [showTimeZone, setShowTimeZone] = useState(false);
   const [selectedTimeZone, setSelectedTimeZone] = useState("");
   const TimeZone = [
-    { label: "zone 1", value: "zone 1 " },
-    { label: "zone 2", value: "zone 2 " },
+    { label: "GMT +1", value: "GMT +1" },
+    { label: "GMT +2", value: "GMT +2" },
+    { label: "GMT +3", value: "GMT +3" },
+    { label: "GMT +4", value: "GMT +4" },
+    { label: "GMT +5", value: "GMT +5" },
   ];
   const WidthCust = width <= 800 ? "92%" : width <= 1200 ? "45%" : "30%";
   const WidthCust2 = width <= 800 ? "95%" : width <= 1200 ? "45%" : "30%";
@@ -75,6 +80,9 @@ const Appointment = ({ navigation }) => {
     setShowCategories(false);
     setShowLangue(false);
     setShowTimeZone(false);
+    setSelectedTimeZone("");
+    setSelectedLangue("");
+    setSelectedCategorie("");
   };
   // Show modal
   const [visible, setVisible] = useState(false);
@@ -96,7 +104,7 @@ const Appointment = ({ navigation }) => {
     });
     setData(
       Response.data.map((i) => {
-        return { label: i.ressourceTitle, value: i.ressourceTitle };
+        return { label: i.ressourceTitle, value: i.ressourceCode };
       })
     );
   };
@@ -110,6 +118,9 @@ const Appointment = ({ navigation }) => {
 
   const [LoaderForm, setLoaderForm] = useState(false);
   const [alert, setAlert] = useState("");
+  const [LabelDropdown, setLabelDropdown] = useState("");
+  const [LabelDropdownLanguage, setLabelDropdownLanguage] = useState("");
+  const [LabelDropdownZone, setLabelDropdownZonou] = useState("");
   const SubmitForm = async () => {
     if (
       userOption &&
@@ -139,6 +150,9 @@ const Appointment = ({ navigation }) => {
         setText2("");
         setChecked(false);
         showModal();
+        setLabelDropdown("");
+        setLabelDropdownLanguage("");
+        setLabelDropdownZonou("");
       }
     } else {
       //  activate alert
@@ -156,7 +170,6 @@ const Appointment = ({ navigation }) => {
         <>
           {/* Form Rendez-Vous */}
           <Head />
-
           {/* squares */}
           <View style={[styles.Square, { width: WidthCust }]}>
             <RadioButton
@@ -177,7 +190,7 @@ const Appointment = ({ navigation }) => {
           >
             {Data && userOption == "Trail" ? (
               Data ? (
-                <DropDown
+                <DropDownAppointment
                   height={64}
                   placeholder="Sélectionnez le trail"
                   show={showCategories}
@@ -185,10 +198,13 @@ const Appointment = ({ navigation }) => {
                   value={selectedCategorie}
                   setValue={setSelectedCategorie}
                   options={Data}
+                  isDiffVal={true}
+                  setLabel={setLabelDropdown}
+                  label={LabelDropdown}
                 />
               ) : (
                 <View style={[styles.Square, { width: WidthCust3 }]}>
-                  <Txt>chargement ...</Txt>
+                  <Spinner />
                 </View>
               )
             ) : userOption == "Atelier" ? (
@@ -257,7 +273,7 @@ const Appointment = ({ navigation }) => {
             ]}
           >
             <View style={[Col, { zIndex: 15 }]}>
-              <DropDown
+              <DropDownAppointment
                 height={64}
                 placeholder="Langue"
                 show={showLangue}
@@ -265,11 +281,14 @@ const Appointment = ({ navigation }) => {
                 value={selectedLangue}
                 setValue={setSelectedLangue}
                 options={Langue}
+                isDiffVal={true}
+                setLabel={setLabelDropdownLanguage}
+                label={LabelDropdownLanguage}
               />
             </View>
 
             <View style={[Col, { zIndex: 5 }]}>
-              <DropDown
+              <DropDownAppointment
                 height={64}
                 placeholder="Time zone"
                 show={showTimeZone}
@@ -277,6 +296,9 @@ const Appointment = ({ navigation }) => {
                 value={selectedTimeZone}
                 setValue={setSelectedTimeZone}
                 options={TimeZone}
+                isDiffVal={true}
+                setLabel={setLabelDropdownZonou}
+                label={LabelDropdownZone}
               />
             </View>
           </View>
@@ -297,7 +319,12 @@ const Appointment = ({ navigation }) => {
               }}
             >
               En cliquant sur "Envoyer" vous acceptez d'être contacté par Massa
-              Trails et vous acceptez notre politique de confidentialité.
+              Trails et vous acceptez
+              <Txt
+                style={{ textDecorationLine: "underline", cursor: "pointer" }}
+              >
+                notre politique de confidentialité.
+              </Txt>
             </Txt>
           </View>
           {/* Button */}
@@ -342,76 +369,3 @@ const Appointment = ({ navigation }) => {
 };
 
 export default Appointment;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.beige,
-    flex: 1,
-  },
-  Image: {
-    height: 304,
-    width: 184,
-    resizeMode: "contain",
-    position: "absolute",
-    right: 30,
-    bottom: 61,
-  },
-  SelectTrail: {
-    alignSelf: "center",
-    marginTop: 20,
-    zIndex: 5,
-    elevation: 5,
-  },
-  Square: {
-    marginTop: 40,
-    height: 101,
-    alignSelf: "center",
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  TextAppointment: {
-    alignSelf: "center",
-    overflow: "hidden",
-    marginTop: 20,
-    zIndex: -1,
-  },
-  SelectTrailRow: {
-    alignSelf: "center",
-    marginTop: 20,
-    justifyContent: "space-between",
-  },
-
-  Col: {
-    width: "48%",
-  },
-  TextArea: {
-    borderRadius: 5,
-    backgroundColor: colors.white,
-    fontFamily: "OxygenRegular",
-    color: colors.blue3,
-    textAlignVertical: "top",
-    borderWidth: 0.5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderColor: colors.grayBorder,
-  },
-  textAreaContainer: {
-    borderColor: colors.grayBorder,
-    padding: 5,
-    borderRadius: 5,
-  },
-
-  ButtonWrapper: {
-    alignSelf: "center",
-    marginTop: 20,
-    height: 57,
-    width: "100%",
-  },
-  conditions: {
-    alignSelf: "center",
-    marginTop: 15,
-    flexDirection: "row",
-    zIndex: -1,
-    overflow: "hidden",
-  },
-});

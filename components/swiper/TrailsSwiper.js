@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, FlatList, Platform, Text, useWindowDimensions } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  Platform,
+  Text,
+  useWindowDimensions,
+} from "react-native";
 import SwiperItemMySpace from "./SwiperItemMySpace";
 import axios from "axios";
 import LoaderItem from "./LoaderItem";
@@ -41,57 +47,64 @@ const TrailsSwiper = ({ type, endpoint, navigation, showStateBar }) => {
         showsHorizontalScrollIndicator={Platform.OS === "web"}
         horizontal={false}
         numColumns={2}
-        style={{ marginTop: 15 ,paddingLeft:10}}
+        style={{ marginTop: 15, paddingLeft: 10 }}
         data={[0, 1, 2]}
-        renderItem={() => <LoaderItem  SwiperItem={true} />}
-        keyExtractor={(item) => "_" + item.ressourceTitle}
-      
+        renderItem={() => <LoaderItem SwiperItem={true} />}
+        keyExtractor={(item) => item.ressourceTitle}
       />
     ) : (
       <FlatList
         showsHorizontalScrollIndicator={Platform.OS === "web"}
         horizontal={true}
         numColumns={1}
-        style={{ marginTop: 15,paddingLeft:10 }}
+        style={{ marginTop: 15, paddingLeft: 10 }}
         data={[0, 1, 2]}
-        keyExtractor={(item) => "#" + item.ressourceTitle}
-        renderItem={() => <LoaderItem   />}
+        keyExtractor={(item) => item.ressourceTitle}
+        renderItem={() => <LoaderItem />}
       />
     );
   }
 
   // FLATLIST WITH DATA
   // add CONDITION FOR FLAT LIST WITH 2 COL
-  return width >= 1300 ? (
-    <FlatList
-      showsHorizontalScrollIndicator={Platform.OS === "web"}
-      horizontal={false}
-      numColumns={2}
-      style={{ height: "100%", width: "100%",paddingLeft:10 }}
-      data={Data2}
-      keyExtractor={(item) => "_" + item.ressourceTitle}
-      key={"_"}
-      renderItem={(props) => (
-         
-        <SwiperItemMySpace {...props} type={type} navigation={navigation} SwiperItem={true}  
-        showStateBar={showStateBar === true ? true : false}  />
-      )}
-    />
-  ) : (
-    <FlatList
-      showsHorizontalScrollIndicator={Platform.OS === "web"}
-      horizontal={true}
-      numColumns={1}
-      style={{width: "100%" ,paddingLeft:10}}
-      data={Data}
-      keyExtractor={(item) => "#" + item.ressourceTitle}
-      key={"#"}
-      renderItem={(props) => (
-        <SwiperItemMySpace {...props} type={type} navigation={navigation} />
-      )}
-    />
-  );
+
+  if (width >= 1300 && Data2 && Data) {
+    return (
+      <FlatList
+        key={"#"}
+        keyExtractor={(item) => "#" + item.ressourceTitle}
+        showsHorizontalScrollIndicator={Platform.OS === "web"}
+        horizontal={false}
+        numColumns={2}
+        style={{ height: "100%", width: "100%", paddingLeft: 10 }}
+        data={Data2}
+        renderItem={(props) => (
+          <SwiperItemMySpace
+            {...props}
+            type={type}
+            navigation={navigation}
+            SwiperItem={true}
+            showStateBar={showStateBar === true ? true : false}
+          />
+        )}
+      />
+    );
+  } else {
+    return (
+      <FlatList
+        key={"_"}
+        keyExtractor={(item) => "_" + item.ressourceTitle}
+        showsHorizontalScrollIndicator={Platform.OS === "web"}
+        horizontal={true}
+        numColumns={1}
+        style={{ width: "100%", paddingLeft: 10 }}
+        data={Data}
+        renderItem={(props) => (
+          <SwiperItemMySpace {...props} type={type} navigation={navigation} />
+        )}
+      />
+    );
+  }
 };
 
 export default TrailsSwiper;
-

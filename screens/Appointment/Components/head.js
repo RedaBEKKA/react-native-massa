@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import React from "react";
 import { H5, Txt } from "../../../components/TextsComponents";
-import { colors } from "../../../styles/GlobalStyle";
 
 const Head = () => {
   const { width } = useWindowDimensions();
@@ -40,14 +39,12 @@ const Head = () => {
 
 export default Head;
 const styles = StyleSheet.create({
-
-    TitleWrapper: {
-        marginTop: 40,
-        alignSelf: "center",
-      },
-      TextWrapper: {
-        marginTop: 20,
-        alignSelf: "center",
-      },
- 
-  });
+  TitleWrapper: {
+    marginTop: 40,
+    alignSelf: "center",
+  },
+  TextWrapper: {
+    marginTop: 20,
+    alignSelf: "center",
+  },
+});

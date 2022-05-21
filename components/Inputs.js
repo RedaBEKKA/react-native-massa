@@ -143,6 +143,7 @@ export const DropDown = ({
   height,
   placeholder,
   smallLabel,
+
 }) => {
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -158,6 +159,7 @@ export const DropDown = ({
   const onSelectOption = (option) => {
     setValue(option);
     setShow();
+   
   };
   return  (
     <View style={{ width: "100%", position: "relative", zIndex: 1000 }}>
@@ -184,7 +186,8 @@ export const DropDown = ({
           </Txt>
         )}
         <Txt numberOfLines={1} fontSize={14}>
-          {value === "" ? placeholder : value.label}
+              
+          {value === "" ? placeholder :  value.label}
         </Txt>
         <Animated.View
           style={{
@@ -342,6 +345,135 @@ export const QuestionDropDown = ({ question, answer, height }) => {
       )}
     </View>
   );
+};
+
+
+export const DropDownAppointment = ({
+  show,
+  setShow,
+  value,
+  setValue,
+  options,
+  height,
+  placeholder,
+  smallLabel,
+  isDiffVal,
+  setLabel,
+  label
+}) => {
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: show ? 1 : 0,
+      duration: 200,
+      useNativeDriver: false,
+      easing: Easing.linear,
+    }).start();
+  }, [show]);
+
+  const onSelectOption = (option,lab) => {
+    setValue(option);
+    setShow();
+    setLabel(lab)
+  };
+  return  (
+    <View style={{ width: "100%", position: "relative", zIndex: 1000 }}>
+      <Pressable
+        onPress={setShow}
+        style={[
+          styles.button,
+          {
+            borderColor: show ? colors.green2 : colors.grayBorder,
+            borderBottomLeftRadius: show ? 0 : 5,
+            borderBottomRightRadius: show ? 0 : 5,
+            alignItems: smallLabel ? "flex-end" : "center",
+            paddingBottom: smallLabel ? 11 : 0,
+            height,
+          },
+        ]}
+      >
+        {smallLabel && (
+          <Txt
+            style={{ position: "absolute", top: 10, left: 10, fontSize: 12 }}
+            color={colors.grayLabel}
+          >
+            {smallLabel}
+          </Txt>
+        )}
+        <Txt numberOfLines={1} fontSize={14}>
+              
+          {value === "" ? placeholder : isDiffVal? label === "" ? placeholder : label  : value.label}
+        </Txt>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                rotate: animation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ["0deg", "180deg"],
+                }),
+              },
+            ],
+          }}
+        >
+          <FontAwesome5
+            name="chevron-down"
+            size={14}
+            color={colors.blue3}
+            style={{ marginTop: 3 }}
+          />
+        </Animated.View>
+      </Pressable>
+      {/** options */}
+
+      <PresenceTransition
+        visible={show}
+        initial={{
+          translateY: -5,
+          opacity: 0,
+        }}
+        animate={{
+          translateY: 0,
+          opacity: 1,
+          transition: {
+            type: "timing",
+            duration: 300,
+            useNativeDriver: Platform.OS === "web" ? false : true,
+          },
+        }}
+        style={[
+          styles.optionsContainer,
+          {
+            top: height,
+          },
+        ]}
+      >
+        <ScrollView nestedScrollEnabled={true}>
+          {options?.map((option) => {
+            return (
+              <TouchableRipple
+                rippleColor={colors.green3}
+                onPress={() => onSelectOption(isDiffVal ? option.value : option,option.label)}
+                key={option.value}
+                style={[
+                  styles.optionButton,
+                  {
+                    backgroundColor:
+                      option.value == value.value ? colors.beige : colors.white,
+                  },
+                ]}
+              >
+                <Txt fontSize={14} numberOfLines={1}>
+                  {option.label}
+                </Txt>
+              </TouchableRipple>
+            );
+          })}
+        </ScrollView>
+      </PresenceTransition>
+    </View>
+  ) 
 };
 
 const styles = StyleSheet.create({

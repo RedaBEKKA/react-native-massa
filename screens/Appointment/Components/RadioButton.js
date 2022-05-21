@@ -1,20 +1,26 @@
 import React from "react";
-import { View, Text, Pressable, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Pressable, Image, StyleSheet } from "react-native";
 import { Txt } from "../../../components/TextsComponents";
 import { colors } from "../../../styles/GlobalStyle";
 import MaskGroup from "../../../assets/MaskGroup.png";
 
-export default function RadioButton({ data, CloseAll,userOption,setUserOption }) {
+export default function RadioButton({
+  data,
+  CloseAll,
+  userOption,
+  setUserOption,
+}) {
   return (
     <>
       {data.map((item) => {
         return (
           <Pressable
-            style={ userOption == item.value ?styles.StyleBoxes: styles.StyleBox  }
+            style={
+              userOption == item.value ? styles.StyleBoxes : styles.StyleBox
+            }
             onPress={() => {
               setUserOption(item.value);
-              //   selectAtelier();
-                CloseAll();
+              CloseAll();
             }}
             key={item.value}
           >
@@ -23,9 +29,7 @@ export default function RadioButton({ data, CloseAll,userOption,setUserOption })
                 source={MaskGroup}
                 style={{ height: "100%", width: "100%" }}
               />
-              <View style={styles.Icon}>
-                {item.icon}
-              </View>
+              <View style={styles.Icon}>{item.icon}</View>
             </View>
             <Txt style={{ alignSelf: "center", marginTop: 10 }}>
               {item.value}
@@ -33,13 +37,11 @@ export default function RadioButton({ data, CloseAll,userOption,setUserOption })
           </Pressable>
         );
       })}
-      {/* <Text> User option: {userOption}</Text> */}
     </>
   );
 }
 
 const styles = StyleSheet.create({
-
   StyleBox: {
     width: "30%",
     height: "100%",

@@ -6,23 +6,6 @@ import { colors } from "../../../../styles/GlobalStyle";
 
 const RenderQustions = ({ item }) => {
   const { width } = useWindowDimensions();
-  const ReponsesS2 = {
-    flexDirection: width <= 800 ? "row" : "column",
-    justifyContent: "space-between",
-    alignSelf: "center",
-    marginTop: 20,
-  };
-  const BoxResponse = {
-    flexDirection: "row",
-    alignItems: "center",
-    height: 67,
-    backgroundColor: colors.white,
-    borderRadius: 10,
-    marginBottom: 5,
-    paddingLeft: 15,
-    justifyContent: "center",
-    width: width <= 800 ? "48%" : "100%",
-  };
   const CustW2 = width <= 800 ? "90%" : width <= 1500 ? "50%" : "100%";
 
   return (
@@ -48,8 +31,6 @@ const RenderQustions = ({ item }) => {
   );
 };
 
-// );
-// };
 
 export default RenderQustions;
 

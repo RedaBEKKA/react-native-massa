@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, FlatList, Platform, Text } from "react-native";
+import { FlatList, Platform } from "react-native";
 import SwiperItem from "./SwiperItem";
 import axios from "axios";
 import LoaderItem from "./LoaderItem";
@@ -17,8 +17,6 @@ const SwiperR = ({
   const [Data2, setData2] = useState([]);
   const [loader, setLoader] = useState(true);
 
-  let Arr = [];
-  
   const getDataRéalisées = async () => {
     setLoader(true);
     ids.map((id) => {

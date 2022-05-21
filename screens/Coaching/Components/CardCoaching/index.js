@@ -1,14 +1,9 @@
 import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
 import React from "react";
 import { colors } from "../../../../styles/GlobalStyle";
-import {
-  H7,
-  LightTxt,
-  SmallLightTxt,
-} from "../../../../components/TextsComponents";
+import { H7, LightTxt } from "../../../../components/TextsComponents";
 import { PrimaryButton } from "../../../../components/Buttons";
 import { DemiCircl, DemiCirclMob } from "../../../../assets/svg/space";
-import DimensionsHook from "../../../../hooks/DimensionsHook";
 
 const CoachingCards = ({
   Imge,
@@ -19,7 +14,6 @@ const CoachingCards = ({
   To,
 }) => {
   const { width } = useWindowDimensions();
-  const { isDesktop, isTablet } = DimensionsHook();
 
   const card = {
     width: width <= 800 ? "95%" : width <= 1300 ? "45%" : "27%",
@@ -49,8 +43,8 @@ const CoachingCards = ({
     height: 42,
   };
 
-  const custWidth = (width<=800) ? "" : 305
-   return (
+  const custWidth = width <= 800 ? "" : 305;
+  return (
     <View style={card}>
       <View style={topCard}>
         {width <= 1000 ? <DemiCirclMob /> : <DemiCircl />}

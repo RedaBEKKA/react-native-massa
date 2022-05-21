@@ -3,7 +3,6 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Text,
   Platform,
   TouchableWithoutFeedback,
 } from "react-native";
