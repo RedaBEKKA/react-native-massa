@@ -45,11 +45,9 @@ const Questions = ({ navigateTo, navigation }) => {
   const StyleRow = {
     alignSelf: "center",
     flexDirection: width <= 800 ? "row" : "row",
-    // backgroundColor:"#ccc"
   };
   const StyleColumn = {
     alignSelf: "center",
-    width: 350,
   };
   const handleOnChange = (position, option) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -132,7 +130,14 @@ const Questions = ({ navigateTo, navigation }) => {
                 key={index}
               >
                 {/* reponse */}
-                <View style={styles.BoxResponse}>
+                <View
+                  style={
+                    allQuestions[currentQuestionIndex]?.possible_answers
+                      .length == 2
+                      ? styles.BoxResponse
+                      : styles.BoxResponseWidht
+                  }
+                >
                   <CheckBox
                     onPress={() => {
                       handleOnChange(index, option);
@@ -152,9 +157,7 @@ const Questions = ({ navigateTo, navigation }) => {
     );
   };
 
-
   useEffect(() => {
-
     let filterId = CurrentID.includes(allQuestions[currentQuestionIndex]?._id);
     if (filterId) {
       let itemsCopy = [...CurrentID];
@@ -176,9 +179,6 @@ const Questions = ({ navigateTo, navigation }) => {
       ]);
       setCurrentOptionSelected([]);
     }
-
-
-
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -289,7 +289,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingLeft: 15,
     marginLeft: 10,
-    width: "100%",
+  },
+  BoxResponseWidht:{
+    flexDirection: "row",
+    alignItems: "center",
+    height: 67,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginBottom: 5,
+    paddingLeft: 15,
+    marginLeft: 10,
+    width:350
   },
   ButtonsBox: {
     marginBottom: 20,

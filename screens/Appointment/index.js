@@ -284,6 +284,8 @@ const Appointment = ({ navigation }) => {
                 isDiffVal={true}
                 setLabel={setLabelDropdownLanguage}
                 label={LabelDropdownLanguage}
+                // smallLabel={selectedLangue ?"Langue " :''}
+
               />
             </View>
 
@@ -299,6 +301,8 @@ const Appointment = ({ navigation }) => {
                 isDiffVal={true}
                 setLabel={setLabelDropdownZonou}
                 label={LabelDropdownZone}
+                // smallLabel={!selectedTimeZone ? "" : "Time Zone "}
+
               />
             </View>
           </View>
