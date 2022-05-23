@@ -94,6 +94,19 @@ const Espace = ({ navigation }) => {
 
   // display Data trails
   const [Ready, setReady] = useState(false);
+  const [ActivitésRealiser, setActivitésRealiser] = useState(true);
+
+  useEffect(() => {
+    setActivitésRealiser(false);
+    setTimeout(() => {
+      if (userInfo.finished_content.length) {
+        setActivitésRealiser(false);
+      } else {
+        setActivitésRealiser(true);
+      }
+    }, 5000);
+  }, []);
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -117,6 +130,19 @@ const Espace = ({ navigation }) => {
     marginBottom: 15,
     paddingLeft: Ready ? 10 : 0,
     marginTop: Ready ? 10 : 0,
+  };
+
+  const swiperContainerStyeActivityRealiser = {
+    backgroundColor: Ready ? colors.white : "",
+    width: Ready ? "49.5%" : "95%",
+    paddingTop: 15,
+    paddingBottom: 5,
+    borderRadius: 20,
+    overflow: "hidden",
+    marginBottom: 15,
+    paddingLeft: Ready ? 10 : 0,
+    marginTop: Ready ? 10 : 0,
+    marginLeft:42
   };
 
   const ContainerRecommandation = {
@@ -322,7 +348,7 @@ const Espace = ({ navigation }) => {
           </View>
 
           {/*Activités réalisées */}
-          <View style={swiperContainerStye}>
+          <View style={swiperContainerStyeActivityRealiser}>
             <View style={ContainerRecommandation}>
               <View style={styles.row}>
                 <H6
@@ -350,7 +376,7 @@ const Espace = ({ navigation }) => {
                 ) : null}
               </View>
 
-              {Ready ? (
+              {!ActivitésRealiser ? (
                 <SwiperR
                   navigation={navigation}
                   type="Trail"
