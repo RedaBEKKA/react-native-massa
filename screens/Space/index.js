@@ -94,15 +94,15 @@ const Espace = ({ navigation }) => {
 
   // display Data trails
   const [Ready, setReady] = useState(false);
-  const [ActivitésRealiser, setActivitésRealiser] = useState(true);
+  const [ActivitésRealiser, setActivitésRealiser] = useState(false);
 
   useEffect(() => {
     setActivitésRealiser(false);
     setTimeout(() => {
       if (userInfo.finished_content.length) {
-        setActivitésRealiser(false);
-      } else {
         setActivitésRealiser(true);
+      } else {
+        setActivitésRealiser(false);
       }
     }, 5000);
   }, []);
@@ -132,24 +132,33 @@ const Espace = ({ navigation }) => {
     marginTop: Ready ? 10 : 0,
   };
 
-  const swiperContainerStyeActivityRealiser = {
-    backgroundColor: Ready ? colors.white : "",
-    width: Ready ? "49.5%" : "95%",
-    paddingTop: 15,
-    paddingBottom: 5,
-    borderRadius: 20,
-    overflow: "hidden",
-    marginBottom: 15,
-    paddingLeft: Ready ? 10 : 0,
-    marginTop: Ready ? 10 : 0,
-    marginLeft:42
-  };
+
 
   const ContainerRecommandation = {
     backgroundColor: colors.white,
     width: width <= 1300 ? "100%" : Ready ? "100%" : `${50}%`,
     alignSelf: Ready ? "center" : "flex-start",
     borderRadius: 20,
+  };
+
+  const ContainerRecommandationVV = {
+    backgroundColor: colors.white,
+    width: width <= 1300 ? "100%" : userInfo.finished_content.length  ? "100%" : `${50}%`,
+    alignSelf: userInfo.finished_content.length  ? "center" : "flex-start",
+    borderRadius: 20,
+  };
+
+  const ContainerRecommandationV = {
+    backgroundColor: userInfo.finished_content.length ? colors.white : "",
+    width: "95%",
+    alignSelf: "center",
+    paddingTop: 15,
+    paddingBottom: 5,
+    borderRadius: 20,
+    overflow: "hidden",
+    marginBottom: 15,
+    paddingLeft: userInfo.finished_content.length ? 10 : 0,
+    marginTop: userInfo.finished_content.length ? 10 : 0,
   };
 
   return (
@@ -348,8 +357,8 @@ const Espace = ({ navigation }) => {
           </View>
 
           {/*Activités réalisées */}
-          <View style={swiperContainerStyeActivityRealiser}>
-            <View style={ContainerRecommandation}>
+          <View style={ContainerRecommandationV}>
+            <View style={ContainerRecommandationVV}>
               <View style={styles.row}>
                 <H6
                   style={{
@@ -376,7 +385,7 @@ const Espace = ({ navigation }) => {
                 ) : null}
               </View>
 
-              {!ActivitésRealiser ? (
+              {userInfo.finished_content.length ? (
                 <SwiperR
                   navigation={navigation}
                   type="Trail"
