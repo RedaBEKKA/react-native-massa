@@ -83,6 +83,8 @@ const Appointment = ({ navigation }) => {
     setSelectedTimeZone("");
     setSelectedLangue("");
     setSelectedCategorie("");
+    setText("");
+    setText2("");
   };
   // Show modal
   const [visible, setVisible] = useState(false);
@@ -323,11 +325,11 @@ const Appointment = ({ navigation }) => {
               }}
             >
               En cliquant sur "Envoyer" vous acceptez d'être contacté par Massa
-              Trails et vous acceptez
+              Trails et vous acceptez 
               <Txt
-                style={{ textDecorationLine: "underline", cursor: "pointer" }}
+                style={{ textDecorationLine: "underline", cursor: "pointer" , paddingLeft:5 }}
               >
-                notre politique de confidentialité.
+                 notre politique de confidentialité.
               </Txt>
             </Txt>
           </View>

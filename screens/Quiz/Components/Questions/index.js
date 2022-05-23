@@ -124,7 +124,7 @@ const Questions = ({ navigateTo, navigation }) => {
             (option, index) => (
               <View
                 style={{
-                  marginRight: 15,
+                  marginRight: 20,
                   flexDirection: "row",
                 }}
                 key={index}
@@ -184,6 +184,12 @@ const Questions = ({ navigateTo, navigation }) => {
   useEffect(() => {
     if (currentQuestionIndex > allQuestions.length - 1) {
       setloading(true);
+
+      // just for test screen
+      setTimeout(() => {
+        setloading(false)
+        navigation.navigate("Message");
+      }, 5000);
     }
   }, [currentQuestionIndex]);
 
@@ -296,10 +302,10 @@ const styles = StyleSheet.create({
     height: 67,
     backgroundColor: colors.white,
     borderRadius: 10,
-    marginBottom: 5,
     paddingLeft: 15,
     marginLeft: 10,
-    width:350
+    width:350,
+    marginTop:10
   },
   ButtonsBox: {
     marginBottom: 20,
