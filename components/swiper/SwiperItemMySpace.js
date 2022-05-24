@@ -96,7 +96,7 @@ const SwiperItemMySpace = ({
         </View>
         <View style={styles.textsContainer}>
           <BoldTxt color={colors.white}>{type}</BoldTxt>
-          {/* <H6 color={colors.white}>{item.ressourceTitle}</H6> */}
+          <H6 color={colors.white}>{item.ressourceTitle}</H6>
           {/** progress bar */}
           {showStateBar && !SwiperItem && (
             <View

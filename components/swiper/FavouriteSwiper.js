@@ -31,15 +31,15 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
             setLoader(false);
           });
       } else {
-        axios
-          .post(`${ENDPOINT_WORKSHOP}/${id}`, {
-            access_token: TOKEN,
-          })
-          .then((res) => {
-            setData2(res.data);
-            // console.log("res.data", res.data);
-            setLoader(false);
-          });
+        // axios
+        //   .post(`${ENDPOINT_WORKSHOP}/${id}`, {
+        //     access_token: TOKEN,
+        //   })
+        //   .then((res) => {
+        //     setData2(res.data);
+        //     // console.log("res.data", res.data);
+        //     setLoader(false);
+        //   });
       }
 
     });
