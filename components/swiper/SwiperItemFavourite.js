@@ -47,7 +47,6 @@ import {
     };
   
     useEffect(() => {
-      // console.log(item,'  item')
       Animated.timing(barWidth, {
         toValue: progress,
         duration: 1000,
@@ -74,7 +73,7 @@ import {
           onPress={navigationHandler}
           style={[styles.container, { width: "99%" }]}
         >
-          <Image source={{ uri: item[0].poster_link }} style={styles.image} />
+          <Image source={{ uri: item.poster_link }} style={styles.image} />
          
           <LinearGradient
             colors={["#1B496500", "#1B496566"]}
@@ -85,7 +84,7 @@ import {
             <View style={styles.logoContainer}>
               <MTLogoWhite />
             </View>
-            {item[0].new ? (
+            {item.new ? (
               <View style={styles.newButton}>
                 <Txt fontSize={13}>Nouveau</Txt>
               </View>
@@ -95,8 +94,12 @@ import {
           </View>
           <View style={styles.textsContainer}>
             <BoldTxt color={colors.white}>{type}</BoldTxt>
-            {/* <H6 color={colors.white}>{item.ressourceTitle}</H6> */}
+            <H6 color={colors.white}>{item.ressourceTitle}</H6>
+
+
+
             {/** progress bar */}
+
             {showStateBar && !SwiperItem && (
               <View
                 style={{

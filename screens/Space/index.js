@@ -269,7 +269,9 @@ const Espace = ({ navigation }) => {
                 <FavouriteSwiper
                   navigation={navigation}
                   type="Favouris"
-                  endpoint={ENDPOINT_TRAILS}
+                  // endpoint={ENDPOINT_TRAILS}
+                  ids={userInfo.favourite}
+
                 />
               ) : (
                 <View

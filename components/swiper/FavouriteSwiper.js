@@ -2,44 +2,53 @@ import React, { useState, useEffect } from "react";
 import { FlatList, Platform, useWindowDimensions } from "react-native";
 import axios from "axios";
 import LoaderItem from "./LoaderItem";
-import { TOKEN } from "@env";
 import { useSelector } from "react-redux";
 import SwiperItemFavourite from "./SwiperItemFavourite";
+import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP,TOKEN } from "@env";
 
-const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar }) => {
-  const [Data, setData] = useState([]);
-  const [loader, setLoader] = useState(true);
+const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
   const userInfo = useSelector((state) => state.userInfo);
+
+  const [Data, setData] = useState([]);
+  const [Data2, setData2] = useState([]);
+
+  const [loader, setLoader] = useState(true);
+
   const getData = async () => {
     setLoader(true);
-    userInfo?.favourite.map((id) => {
-      axios
-        .post(`${endpoint}/${id}`, {
-          access_token: TOKEN,
-        })
-        .then((res) => {
-          //   setData(...Data, res.data);
-          //   setData(prev => ({...prev, Data: res.data}));
-          // console.log('res.data', res.data)
+    ids.map((id) => {
+      let isTrail = id.includes("T000");
+      if (isTrail) {
+        axios
+          .post(`${ENDPOINT_TRAILS}/${id}`, {
+            access_token: TOKEN,
+          })
+          .then((res) => {
+            setData(res.data);
+            // console.log("Arr", Arr);
+            // console.log("res.data", res.data);
 
-          setData((prevState) => [...prevState, res.data]);
-        });
+            setLoader(false);
+          });
+      } else {
+        axios
+          .post(`${ENDPOINT_WORKSHOP}/${id}`, {
+            access_token: TOKEN,
+          })
+          .then((res) => {
+            setData2(res.data);
+            // console.log("res.data", res.data);
+            setLoader(false);
+          });
+      }
+
     });
-
-    // const Response = await axios.post(endpoint, { access_token: TOKEN });
-    // let Response2 = Response.data.slice(0, 3);
-    //setData(userInfo.favourite);
-    // setData2(Response2);
-    setTimeout(() => {
-      setLoader(false);
-    }, 2000);
   };
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       getData();
-      // console.log(Data, "data");
     }
     return (mounted = false);
   }, []);
@@ -107,7 +116,7 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar }) => {
           horizontal={true}
           numColumns={1}
           style={{ width: "100%", paddingLeft: 10 }}
-          data={Data}
+          data={[...Data,...Data2]}
           renderItem={(props) => (
             <SwiperItemFavourite
               {...props}
@@ -122,3 +131,15 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar }) => {
 };
 
 export default FavouriteSwiper;
+
+
+
+
+      // axios
+      //   .post(`${endpoint}/${id}`, {
+      //     access_token: TOKEN,
+      //   })
+      //   .then((res) => {
+      //     console.log("res", res.data);
+      //     setData((prevState) => [...prevState, res.data]);
+      //   });

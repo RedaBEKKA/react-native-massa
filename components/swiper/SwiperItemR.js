@@ -21,7 +21,7 @@ const SwiperR = ({
     setLoader(true);
     ids.map((id) => {
       let isTrail = id.includes("T000");
-      if (!isTrail) {
+      if (isTrail) {
         axios
           .post(`${ENDPOINT_TRAILS}/${id}`, {
             access_token: TOKEN,
