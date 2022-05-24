@@ -112,7 +112,7 @@ const Espace = ({ navigation }) => {
     if (isMounted) {
       setTimeout(() => {
         setReady(true);
-      }, 5000);
+      }, 2000);
     }
     return () => {
       isMounted = false;
@@ -132,8 +132,6 @@ const Espace = ({ navigation }) => {
     marginTop: Ready ? 10 : 0,
   };
 
-
-
   const ContainerRecommandation = {
     backgroundColor: colors.white,
     width: width <= 1300 ? "100%" : Ready ? "100%" : `${50}%`,
@@ -143,8 +141,13 @@ const Espace = ({ navigation }) => {
 
   const ContainerRecommandationVV = {
     backgroundColor: colors.white,
-    width: width <= 1300 ? "100%" : userInfo.finished_content.length  ? "100%" : `${50}%`,
-    alignSelf: userInfo.finished_content.length  ? "center" : "flex-start",
+    width:
+      width <= 1300
+        ? "100%"
+        : userInfo.finished_content.length
+        ? "100%"
+        : `${50}%`,
+    alignSelf: userInfo.finished_content.length ? "center" : "flex-start",
     borderRadius: 20,
   };
 
@@ -268,10 +271,9 @@ const Espace = ({ navigation }) => {
               {userInfo.favourite.length ? (
                 <FavouriteSwiper
                   navigation={navigation}
-                  type="Favouris"
+                  type="Trail"
                   // endpoint={ENDPOINT_TRAILS}
                   ids={userInfo.favourite}
-
                 />
               ) : (
                 <View

@@ -4,7 +4,7 @@ import axios from "axios";
 import LoaderItem from "./LoaderItem";
 import { useSelector } from "react-redux";
 import SwiperItemFavourite from "./SwiperItemFavourite";
-import { ENDPOINT_TRAILS,ENDPOINT_WORKSHOP,TOKEN } from "@env";
+import { ENDPOINT_TRAILS, ENDPOINT_WORKSHOP, TOKEN } from "@env";
 
 const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
   const userInfo = useSelector((state) => state.userInfo);
@@ -18,7 +18,7 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
     setLoader(true);
     ids.map((id) => {
       let isTrail = id.includes("T000");
-      if (isTrail) {
+      if (true) {
         axios
           .post(`${ENDPOINT_TRAILS}/${id}`, {
             access_token: TOKEN,
@@ -41,7 +41,6 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
         //     setLoader(false);
         //   });
       }
-
     });
   };
 
@@ -116,7 +115,7 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
           horizontal={true}
           numColumns={1}
           style={{ width: "100%", paddingLeft: 10 }}
-          data={[...Data,...Data2]}
+          data={[...Data, ...Data2]}
           renderItem={(props) => (
             <SwiperItemFavourite
               {...props}
@@ -132,14 +131,11 @@ const FavouriteSwiper = ({ type, endpoint, navigation, showStateBar, ids }) => {
 
 export default FavouriteSwiper;
 
-
-
-
-      // axios
-      //   .post(`${endpoint}/${id}`, {
-      //     access_token: TOKEN,
-      //   })
-      //   .then((res) => {
-      //     console.log("res", res.data);
-      //     setData((prevState) => [...prevState, res.data]);
-      //   });
+// axios
+//   .post(`${endpoint}/${id}`, {
+//     access_token: TOKEN,
+//   })
+//   .then((res) => {
+//     console.log("res", res.data);
+//     setData((prevState) => [...prevState, res.data]);
+//   });
